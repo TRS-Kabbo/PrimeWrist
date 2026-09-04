@@ -1,0 +1,2268 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<template id="__bundler_thumbnail" data-bg-color="#02160f">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#02160f"/>
+    <circle cx="600" cy="400" r="190" fill="none" stroke="#eeba2b" stroke-width="10"/>
+    <circle cx="600" cy="400" r="150" fill="none" stroke="#eeba2b" stroke-width="3" opacity="0.5"/>
+    <rect x="566" y="150" width="68" height="52" rx="8" fill="#eeba2b"/>
+    <rect x="566" y="598" width="68" height="52" rx="8" fill="#eeba2b"/>
+    <circle cx="600" cy="400" r="12" fill="#eeba2b"/>
+    <path d="M600 400 L600 290" stroke="#eeba2b" stroke-width="12" stroke-linecap="round"/>
+    <path d="M600 400 L678 452" stroke="#eeba2b" stroke-width="12" stroke-linecap="round"/>
+  </svg>
+</template>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/prime-wrist-bd-design-system-fd66a4a5-15c7-4b9a-8f42-3ba70bb339a1/tokens/colors.css">
+<link rel="stylesheet" href="_ds/prime-wrist-bd-design-system-fd66a4a5-15c7-4b9a-8f42-3ba70bb339a1/tokens/typography.css">
+<link rel="stylesheet" href="_ds/prime-wrist-bd-design-system-fd66a4a5-15c7-4b9a-8f42-3ba70bb339a1/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/prime-wrist-bd-design-system-fd66a4a5-15c7-4b9a-8f42-3ba70bb339a1/tokens/effects.css">
+<link rel="stylesheet" href="_ds/prime-wrist-bd-design-system-fd66a4a5-15c7-4b9a-8f42-3ba70bb339a1/styles.css">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script src="_ds/prime-wrist-bd-design-system-fd66a4a5-15c7-4b9a-8f42-3ba70bb339a1/_ds_bundle.js"></script>
+<style>
+  body{margin:0;background:var(--surface-base)}
+  a{color:var(--gold-500);text-decoration:none}
+  a:hover{color:var(--gold-300)}
+  input::placeholder{color:rgba(251,248,241,.3)}
+  *:focus-visible{outline:1px solid var(--gold-500);outline-offset:3px}
+  [data-rail]{scrollbar-width:thin;scrollbar-color:rgba(238,186,43,.5) transparent}
+  [data-rail]::-webkit-scrollbar{height:6px}
+  [data-rail]::-webkit-scrollbar-track{background:transparent}
+  [data-rail]::-webkit-scrollbar-thumb{background:rgba(238,186,43,.45);border-radius:999px}
+  [data-rail]:hover::-webkit-scrollbar-thumb{background:rgba(238,186,43,.7)}
+</style>
+</helmet>
+
+<div style="position:absolute;width:0;height:0;overflow:hidden;opacity:0;pointer-events:none" aria-hidden="true">
+  <img data-asset="assets/hero-collection.jpg" src="assets/hero-collection.jpg" alt="">
+  <img data-asset="assets/collection-case.jpg" src="assets/collection-case.jpg" alt="">
+  <img data-asset="assets/patek-green.jpg" src="assets/patek-green.jpg" alt="">
+  <img data-asset="assets/patek-chrono.jpg" src="assets/patek-chrono.jpg" alt="">
+  <img data-asset="assets/patek-complication.jpg" src="assets/patek-complication.jpg" alt="">
+  <img data-asset="assets/patek-twotone.jpg" src="assets/patek-twotone.jpg" alt="">
+  <img data-asset="assets/ap-skeleton.jpg" src="assets/ap-skeleton.jpg" alt="">
+  <img data-asset="assets/tissot-skeleton.jpg" src="assets/tissot-skeleton.jpg" alt="">
+</div>
+
+<div style="background:var(--surface-base);color:var(--text-on-dark);font-family:var(--font-sans);min-height:100vh;overflow-x:clip;--text-body-sm:15px;--text-body-md:17px;--text-body-lg:19px;--text-body-xl:23px;--text-label-sm:12px;--text-label-md:13px;--text-label-lg:14px">
+
+<sc-if value="{{ isAdmin }}">
+  <dc-import name="Prime Wrist BD Admin" hint-size="100%,100vh" orders="{{ orders }}" products="{{ products }}" content="{{ content }}" is-mobile="{{ isMobile }}" cod-advance-threshold="{{ codThreshold }}" on-order-patch="{{ patchOrder }}" on-product-patch="{{ patchProduct }}" on-content-patch="{{ patchContent }}" on-exit="{{ goHome }}"></dc-import>
+</sc-if>
+
+<sc-if value="{{ isStore }}" hint-placeholder-val="{{ true }}">
+<div>
+
+<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:9px var(--container-pad);border-bottom:1px solid var(--border-on-dark);background:var(--surface-base-deep)">
+  <sc-if value="{{ bannerOn }}" hint-placeholder-val="{{ true }}"><span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">{{ bannerText }}</span></sc-if>
+  <sc-if value="{{ bannerOff }}"><span></span></sc-if>
+  <div style="display:flex;align-items:center;gap:18px">
+    <div style="display:flex;align-items:center;gap:6px">
+      <sc-for list="{{ currencies }}" as="c" hint-placeholder-count="2">
+        <button onClick="{{ c.onClick }}" style="{{ c.style }}">{{ c.label }}</button>
+      </sc-for>
+    </div>
+    <button onClick="{{ goTrack }}" style="background:none;border:none;cursor:pointer;padding:0;font-family:var(--font-sans);font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">Track Order</button>
+    <button onClick="{{ goAdmin }}" style="background:none;border:none;cursor:pointer;padding:0;font-family:var(--font-sans);font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">Admin</button>
+  </div>
+</div>
+
+<sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+<nav style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:var(--space-6);padding:22px var(--container-pad);border-bottom:1px solid var(--border-on-dark);position:sticky;top:0;z-index:20;background:var(--surface-base)">
+  <div style="display:flex;gap:26px">
+    <sc-for list="{{ navLeft }}" as="l" hint-placeholder-count="2">
+      <button onClick="{{ l.onClick }}" style="{{ l.style }}">{{ l.label }}</button>
+    </sc-for>
+  </div>
+  <button onClick="{{ goHome }}" style="background:none;border:none;cursor:pointer;padding:0;display:inline-flex;align-items:center"><img src="assets/logo-lockup.png" alt="Prime Wrist BD" style="height:58px;width:auto;display:block"></button>
+  <div style="display:flex;align-items:center;justify-content:flex-end;gap:18px">
+    <div style="display:flex;gap:26px">
+      <sc-for list="{{ navRight }}" as="l" hint-placeholder-count="2">
+        <button onClick="{{ l.onClick }}" style="{{ l.style }}">{{ l.label }}</button>
+      </sc-for>
+    </div>
+    <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.IconButton" hint-size="32px,32px" icon="search" label="Search" onClick="{{ openSearch }}"></x-import>
+    <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.IconButton" hint-size="32px,32px" icon="heart" label="Wishlist" onClick="{{ goWishlist }}"></x-import>
+    <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.IconButton" hint-size="32px,32px" icon="user" label="Account" onClick="{{ goAccount }}"></x-import>
+    <button onClick="{{ goCart }}" style="position:relative;background:none;border:none;cursor:pointer;padding:6px;display:inline-flex;color:var(--text-on-dark)">
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Icon" hint-size="20px,20px" name="shopping-bag" size="{{ n20 }}"></x-import>
+      <sc-if value="{{ hasCart }}"><span style="position:absolute;top:-1px;right:-1px;background:var(--accent-primary);color:var(--accent-on-primary);font-size:10px;font-family:var(--font-sans);border-radius:50%;width:16px;height:16px;display:flex;align-items:center;justify-content:center">{{ cartCount }}</span></sc-if>
+    </button>
+  </div>
+</nav>
+</sc-if>
+
+<sc-if value="{{ isMobile }}">
+<nav style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px var(--space-5);border-bottom:1px solid var(--border-on-dark);position:sticky;top:0;z-index:20;background:var(--surface-base)">
+  <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.IconButton" hint-size="32px,32px" icon="menu" label="Menu" onClick="{{ openDrawer }}"></x-import>
+  <button onClick="{{ goHome }}" style="background:none;border:none;cursor:pointer;padding:0;display:inline-flex;align-items:center"><img src="assets/logo-lockup.png" alt="Prime Wrist BD" style="height:36px;width:auto;display:block"></button>
+  <div style="display:flex;align-items:center;gap:2px">
+    <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.IconButton" hint-size="32px,32px" icon="search" label="Search" onClick="{{ openSearch }}"></x-import>
+    <button onClick="{{ goCart }}" style="position:relative;background:none;border:none;cursor:pointer;padding:6px;display:inline-flex;color:var(--text-on-dark)">
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Icon" hint-size="20px,20px" name="shopping-bag" size="{{ n20 }}"></x-import>
+      <sc-if value="{{ hasCart }}"><span style="position:absolute;top:-1px;right:-1px;background:var(--accent-primary);color:var(--accent-on-primary);font-size:10px;font-family:var(--font-sans);border-radius:50%;width:16px;height:16px;display:flex;align-items:center;justify-content:center">{{ cartCount }}</span></sc-if>
+    </button>
+  </div>
+</nav>
+</sc-if>
+
+<sc-if value="{{ drawerOpen }}">
+<div style="position:fixed;inset:0;z-index:60;background:var(--surface-base);display:flex;flex-direction:column">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:14px var(--space-5);border-bottom:1px solid var(--border-on-dark)">
+    <img src="assets/logo-lockup.png" alt="Prime Wrist BD" style="height:34px;width:auto;display:block">
+    <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.IconButton" hint-size="32px,32px" icon="x" label="Close" onClick="{{ closeDrawer }}"></x-import>
+  </div>
+  <div style="display:flex;flex-direction:column;padding:var(--space-6) var(--space-5);gap:2px;overflow-y:auto">
+    <sc-for list="{{ drawerLinks }}" as="d" hint-placeholder-count="8">
+      <button onClick="{{ d.onClick }}" style="{{ d.style }}">{{ d.label }}</button>
+    </sc-for>
+  </div>
+  <div style="margin-top:auto;padding:var(--space-6) var(--space-5);border-top:1px solid var(--border-on-dark);display:flex;flex-direction:column;gap:var(--space-5)">
+    <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">Currency</span>
+    <div style="display:flex;gap:8px">
+      <sc-for list="{{ currencyTags }}" as="c" hint-placeholder-count="2">
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Tag" hint-size="88px,38px" active="{{ c.active }}" onClick="{{ c.onClick }}">{{ c.label }}</x-import>
+      </sc-for>
+    </div>
+    <span style="font-family:var(--font-serif);font-size:var(--text-body-sm);color:var(--text-on-dark-faint);line-height:var(--leading-body)">Level 4, Bashundhara City, Panthapath, Dhaka — Open 11:00 to 20:00, Saturday through Thursday.</span>
+  </div>
+</div>
+</sc-if>
+
+<main>
+
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<section data-screen-label="Home">
+  <div style="{{ heroStyle }}">
+    <div style="display:flex;flex-direction:column;gap:var(--space-6);max-width:640px">
+      <span style="font-weight:300;font-size:var(--text-label-lg);letter-spacing:var(--tracking-tagline);text-transform:uppercase;color:var(--gold-500)">{{ heroEyebrow }}</span>
+      <h1 style="margin:0;font-family:var(--font-display);font-size:clamp(2rem,6vw,var(--text-display-lg));font-weight:500;line-height:var(--leading-display);letter-spacing:0.02em;color:var(--text-on-dark)">{{ heroHeadline }}</h1>
+      <p style="margin:0;font-family:var(--font-serif);font-size:var(--text-body-lg);line-height:var(--leading-body);color:var(--text-on-dark-muted);max-width:52ch;text-wrap:pretty">{{ heroSubhead }}</p>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:var(--space-2)">
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="220px,52px" size="lg" onClick="{{ goCollection }}">{{ heroPrimary }}</x-import>
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="220px,52px" size="lg" variant="secondary" onClick="{{ goAuthenticity }}">{{ heroSecondary }}</x-import>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1px;background:var(--border-on-dark);border-bottom:1px solid var(--border-on-dark)">
+    <sc-for list="{{ trustPoints }}" as="t" hint-placeholder-count="4">
+      <div style="background:var(--surface-base);padding:var(--space-7) var(--space-6);display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--gold-500)">{{ t.label }}</span>
+        <span style="font-family:var(--font-serif);font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">{{ t.note }}</span>
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="max-width:var(--container-max);margin:0 auto;padding:var(--space-10) var(--container-pad);display:flex;flex-direction:column;gap:var(--space-8)">
+    <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.SectionHeading" hint-size="100%,110px" eyebrow="The Collection" title="Recently Acquired" align="center"></x-import>
+    <div data-rail style="display:flex;gap:var(--space-7);overflow-x:auto;scroll-snap-type:x mandatory;padding:2px 2px var(--space-5);margin:0 calc(var(--container-pad) * -1);padding-left:var(--container-pad);padding-right:var(--container-pad)">
+      <sc-for list="{{ featured }}" as="p" hint-placeholder-count="6">
+        <div style="flex:0 0 clamp(240px,24vw,300px);scroll-snap-align:start">
+          <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.ProductCard" hint-size="100%,380px" image="{{ p.image }}" brand="{{ p.brand }}" name="{{ p.name }}" price="{{ p.price }}" original-price="{{ p.originalPrice }}" movement="{{ p.movement }}" currency="{{ currency }}" onClick="{{ p.onClick }}"></x-import>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:flex;justify-content:center">
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="200px,48px" variant="secondary" onClick="{{ goCollection }}">View The Full Collection</x-import>
+    </div>
+  </div>
+
+  <div style="border-top:1px solid var(--border-on-dark);display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))">
+    <div style="min-height:420px;background-image:url('assets/collection-case.jpg');background-size:cover;background-position:center"></div>
+    <div style="padding:var(--space-10) var(--container-pad);display:flex;flex-direction:column;gap:var(--space-6);justify-content:center">
+      <span style="font-weight:300;font-size:var(--text-label-lg);letter-spacing:var(--tracking-tagline);text-transform:uppercase;color:var(--gold-500)">The House</span>
+      <p style="margin:0;font-family:var(--font-serif);font-style:italic;font-size:clamp(1.25rem,2.4vw,1.75rem);line-height:1.5;color:var(--text-on-dark);text-wrap:pretty">{{ quoteText }}</p>
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Divider" hint-size="100%,16px" ornament="{{ yes }}"></x-import>
+      <p style="margin:0;font-family:var(--font-serif);font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted);max-width:54ch;text-wrap:pretty">{{ houseBlurb }}</p>
+      <div><x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="150px,20px" variant="ghost" onClick="{{ goAbout }}">Read Our Heritage →</x-import></div>
+    </div>
+  </div>
+
+  <div style="border-top:1px solid var(--border-on-dark);padding:var(--space-8) var(--container-pad);display:flex;flex-wrap:wrap;gap:var(--space-8);align-items:center;justify-content:center">
+    <sc-for list="{{ houses }}" as="h" hint-placeholder-count="6">
+      <button onClick="{{ h.onClick }}" style="{{ h.style }}">{{ h.label }}</button>
+    </sc-for>
+  </div>
+
+  <div style="background:linear-gradient(180deg,var(--surface-base) 0%,#ded2ac 220px)">
+  <div style="background:#ded2ac;color:var(--text-on-light);padding:var(--space-10) var(--container-pad)">
+    <div style="max-width:var(--container-max);margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--space-8);align-items:center">
+      <div style="display:flex;flex-direction:column;gap:var(--space-5)">
+        <span style="font-weight:300;font-size:var(--text-label-lg);letter-spacing:var(--tracking-tagline);text-transform:uppercase;color:var(--green-800)">Visit The Salon</span>
+        <h2 style="margin:0;font-family:var(--font-display);font-size:var(--text-display-md);font-weight:500;line-height:var(--leading-display);letter-spacing:0.02em;color:var(--text-on-light)">{{ salonHeading }}</h2>
+        <p style="margin:0;font-family:var(--font-serif);font-size:var(--text-body-lg);line-height:var(--leading-body);color:var(--text-on-light-muted);max-width:48ch;text-wrap:pretty">{{ salonBody }}</p>
+        <div style="display:flex;flex-wrap:wrap;gap:14px">
+          <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="170px,48px" variant="on-light" onClick="{{ goContact }}">Book A Viewing</x-import>
+          <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="150px,48px" variant="ghost" onClick="{{ openWa }}" dc-props="{{ inkGhostProps }}">Message Us</x-import>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;border-left:1px solid var(--border-on-light);padding-left:var(--space-7)">
+        <sc-for list="{{ salonRows }}" as="s" hint-placeholder-count="4">
+          <div style="display:flex;flex-direction:column;gap:3px">
+            <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-light-faint)">{{ s.label }}</span>
+            <span style="font-family:var(--font-serif);font-size:var(--text-body-lg);color:var(--text-on-light)">{{ s.value }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+</sc-if>
+
+<sc-if value="{{ isCollection }}">
+<section data-screen-label="Collection — Listing" style="max-width:var(--container-max);margin:0 auto;padding:var(--space-8) var(--container-pad) var(--space-10)">
+  <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:var(--space-7)">
+    <span style="font-weight:300;font-size:var(--text-label-lg);letter-spacing:var(--tracking-tagline);text-transform:uppercase;color:var(--gold-500)">{{ listEyebrow }}</span>
+    <h1 style="margin:0;font-family:var(--font-display);font-size:var(--text-display-md);font-weight:500;letter-spacing:0.02em;line-height:var(--leading-display);color:var(--text-on-dark)">{{ listTitle }}</h1>
+    <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark-muted)">{{ listCount }}</span>
+  </div>
+
+  <div style="display:flex;flex-wrap:wrap;gap:var(--space-6);align-items:flex-end;justify-content:space-between;border-top:1px solid var(--border-on-dark);border-bottom:1px solid var(--border-on-dark);padding:var(--space-5) 0;margin-bottom:var(--space-7)">
+    <div style="flex:1 1 240px;max-width:340px">
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Input" hint-size="100%,44px" placeholder="Search brand, model or reference" value="{{ q }}" onChange="{{ setQ }}"></x-import>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:var(--space-6);align-items:flex-end">
+      <div style="min-width:210px">
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Select" hint-size="210px,44px" label="Sort" value="{{ sort }}" onChange="{{ setSort }}" options="{{ sortOptions }}"></x-import>
+      </div>
+      <sc-if value="{{ isMobile }}">
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="130px,44px" variant="secondary" size="sm" onClick="{{ toggleFilters }}">{{ filterBtnLabel }}</x-import>
+      </sc-if>
+    </div>
+  </div>
+
+  <sc-if value="{{ hasActiveFilters }}">
+  <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:var(--space-6)">
+    <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint);margin-right:6px">Applied</span>
+    <sc-for list="{{ activeChips }}" as="c" hint-placeholder-count="2">
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Tag" hint-size="130px,38px" active="{{ yes }}" onClick="{{ c.onClick }}">{{ c.label }} ✕</x-import>
+    </sc-for>
+    <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="110px,20px" variant="ghost" onClick="{{ clearFilters }}">Clear All</x-import>
+  </div>
+  </sc-if>
+
+  <div style="display:grid;grid-template-columns:{{ listCols }};gap:var(--space-8);align-items:start">
+    <sc-if value="{{ filtersVisible }}" hint-placeholder-val="{{ true }}">
+    <aside style="display:flex;flex-direction:column;gap:var(--space-7);border:1px solid var(--border-on-dark);padding:var(--space-6)">
+      <sc-for list="{{ filterGroups }}" as="g" hint-placeholder-count="4">
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">{{ g.title }}</span>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <sc-for list="{{ g.options }}" as="o" hint-placeholder-count="4">
+              <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Tag" hint-size="104px,38px" active="{{ o.active }}" onClick="{{ o.onClick }}">{{ o.label }}</x-import>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+      <div style="border-top:1px solid var(--border-on-dark);padding-top:var(--space-5);font-family:var(--font-serif);font-size:var(--text-body-sm);line-height:var(--leading-body);color:var(--text-on-dark-faint)">Filters are written to the address bar, so a filtered view can be shared or bookmarked.</div>
+    </aside>
+    </sc-if>
+
+    <div style="display:flex;flex-direction:column;gap:var(--space-8);min-width:0">
+      <sc-if value="{{ hasResults }}" hint-placeholder-val="{{ true }}">
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:var(--space-7)">
+        <sc-for list="{{ pageItems }}" as="p" hint-placeholder-count="4">
+          <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.ProductCard" hint-size="100%,380px" image="{{ p.image }}" brand="{{ p.brand }}" name="{{ p.name }}" price="{{ p.price }}" original-price="{{ p.originalPrice }}" movement="{{ p.movement }}" currency="{{ currency }}" onClick="{{ p.onClick }}"></x-import>
+        </sc-for>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--space-5);border-top:1px solid var(--border-on-dark);padding-top:var(--space-6)">
+        <span style="font-family:var(--font-serif);font-size:var(--text-body-sm);color:var(--text-on-dark-faint)">{{ pageNote }}</span>
+        <sc-if value="{{ showPager }}">
+        <div style="display:flex;align-items:center;gap:10px">
+          <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="90px,40px" variant="secondary" size="sm" disabled="{{ prevDisabled }}" onClick="{{ prevPage }}">Previous</x-import>
+          <sc-for list="{{ pageNumbers }}" as="n" hint-placeholder-count="2">
+            <button onClick="{{ n.onClick }}" style="{{ n.style }}">{{ n.label }}</button>
+          </sc-for>
+          <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="70px,40px" variant="secondary" size="sm" disabled="{{ nextDisabled }}" onClick="{{ nextPage }}">Next</x-import>
+        </div>
+        </sc-if>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ noResults }}">
+      <div style="border:1px solid var(--border-on-dark);padding:var(--space-9) var(--space-6);display:flex;flex-direction:column;gap:var(--space-6);align-items:center;text-align:center">
+        <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-tagline);text-transform:uppercase;color:var(--gold-500)">Nothing Matches</span>
+        <h2 style="margin:0;font-family:var(--font-display);font-size:var(--text-display-sm);font-weight:500;letter-spacing:0.02em;color:var(--text-on-dark)">{{ zeroTitle }}</h2>
+        <p style="margin:0;font-family:var(--font-serif);font-size:var(--text-body-lg);line-height:var(--leading-body);color:var(--text-on-dark-muted);max-width:46ch;text-wrap:pretty">The collection is small and deliberately so. Widen the search, or tell us what you are looking for and we will source it.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center">
+          <sc-for list="{{ zeroSuggestions }}" as="s" hint-placeholder-count="4">
+            <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Tag" hint-size="130px,38px" onClick="{{ s.onClick }}">{{ s.label }}</x-import>
+          </sc-for>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center">
+          <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="160px,44px" size="sm" onClick="{{ clearFilters }}">Clear Everything</x-import>
+          <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="180px,44px" variant="secondary" size="sm" onClick="{{ goContact }}">Request A Sourcing</x-import>
+        </div>
+      </div>
+      </sc-if>
+    </div>
+  </div>
+</section>
+</sc-if>
+
+<sc-if value="{{ isProduct }}">
+<section data-screen-label="Product Detail" style="max-width:var(--container-max);margin:0 auto;padding:var(--space-6) var(--container-pad) var(--space-10)">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:var(--space-6)">
+    <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="150px,20px" variant="ghost" onClick="{{ goCollection }}">← The Collection</x-import>
+    <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">{{ pd.crumb }}</span>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:var(--space-8)">
+    <div style="display:flex;flex-direction:column;gap:14px;min-width:0">
+      <div onClick="{{ openZoom }}" style="position:relative;aspect-ratio:1/1;overflow:hidden;background:var(--surface-elevated);cursor:zoom-in">
+        <div role="img" aria-label="{{ pd.name }}" style="{{ pd.mainStyle }}"></div>
+        <div style="position:absolute;top:16px;left:16px;display:flex;flex-direction:column;gap:8px;align-items:flex-start">
+          <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Badge" hint-size="96px,26px" tone="solid">{{ pd.movement }}</x-import>
+          <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Badge" hint-size="96px,26px" tone="outline">{{ pd.condition }}</x-import>
+        </div>
+        <span style="position:absolute;bottom:14px;right:14px;font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted);background:rgba(2,22,15,.7);padding:7px 12px">Tap To Enlarge</span>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <sc-for list="{{ pd.thumbs }}" as="t" hint-placeholder-count="4">
+          <button onClick="{{ t.onClick }}" style="{{ t.style }}">
+            <span role="img" aria-label="{{ t.label }}" style="{{ t.imgStyle }}"></span>
+            <span style="position:absolute;bottom:0;left:0;right:0;text-align:center;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;background:rgba(2,22,15,.74);color:var(--text-on-dark-muted);padding:3px 0">{{ t.label }}</span>
+          </button>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:var(--space-6);min-width:0">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <span style="font-size:var(--text-label-md);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--gold-500)">{{ pd.brand }}</span>
+        <h1 style="margin:0;font-family:var(--font-display);font-size:clamp(1.6rem,3.4vw,var(--text-display-md));font-weight:500;letter-spacing:0.02em;line-height:var(--leading-display);color:var(--text-on-dark)">{{ pd.name }}</h1>
+        <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark-faint)">{{ pd.ref }} — {{ pd.sku }}</span>
+      </div>
+
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.PriceTag" hint-size="240px,40px" price="{{ pd.price }}" original-price="{{ pd.originalPrice }}" currency="{{ currency }}" size="lg"></x-import>
+      <span style="font-family:var(--font-serif);font-size:var(--text-body-sm);color:var(--text-on-dark-faint)">{{ pd.vatNote }}</span>
+
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="width:7px;height:7px;border-radius:50%;background:{{ pd.stockDot }}"></span>
+        <span style="font-size:var(--text-label-md);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">{{ pd.stockLabel }}</span>
+      </div>
+
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Divider" hint-size="100%,1px"></x-import>
+
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px">
+          <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">Strap Or Bracelet</span>
+          <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="130px,20px" variant="ghost" onClick="{{ openSizeGuide }}">Wrist &amp; Strap Guide</x-import>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <sc-for list="{{ pd.straps }}" as="s" hint-placeholder-count="3">
+            <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Tag" hint-size="150px,38px" active="{{ s.active }}" onClick="{{ s.onClick }}">{{ s.label }}</x-import>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:var(--space-5);align-items:flex-end">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">Quantity</span>
+          <div style="display:flex;align-items:center;gap:16px">
+            <button onClick="{{ pd.dec }}" style="{{ pd.decStyle }}">−</button>
+            <span style="font-family:var(--font-serif);font-size:var(--text-body-xl);min-width:26px;text-align:center;color:var(--text-on-dark)">{{ pd.qty }}</span>
+            <button onClick="{{ pd.inc }}" style="{{ pd.incStyle }}">+</button>
+          </div>
+          <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">{{ pd.qtyNote }}</span>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:12px">
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="200px,52px" size="lg" disabled="{{ pd.soldOut }}" onClick="{{ pd.addToCart }}">{{ pd.ctaLabel }}</x-import>
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="180px,52px" size="lg" variant="secondary" onClick="{{ pd.toggleWish }}">{{ pd.wishLabel }}</x-import>
+      </div>
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="220px,20px" variant="ghost" onClick="{{ openWa }}">Ask About This Piece →</x-import>
+
+      <div style="border:1px solid var(--border-on-dark);padding:var(--space-6);display:flex;flex-direction:column;gap:16px">
+        <sc-for list="{{ pd.assurances }}" as="a" hint-placeholder-count="4">
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <span style="width:5px;height:5px;background:var(--gold-500);transform:rotate(45deg);margin-top:8px;flex:0 0 5px"></span>
+            <div style="display:flex;flex-direction:column;gap:3px">
+              <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark)">{{ a.label }}</span>
+              <span style="font-family:var(--font-serif);font-size:var(--text-body-sm);line-height:var(--leading-body);color:var(--text-on-dark-muted)">{{ a.note }}</span>
+            </div>
+          </div>
+        </sc-for>
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="200px,20px" variant="ghost" onClick="{{ goAuthenticity }}">Contact Us →</x-import>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:var(--space-10);display:flex;flex-direction:column;gap:var(--space-6)">
+    <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Tabs" hint-size="100%,44px" tabs="{{ pdTabs }}" active="{{ tab }}" onChange="{{ setTab }}"></x-import>
+    <sc-if value="{{ tabIsDescription }}" hint-placeholder-val="{{ true }}">
+      <div style="max-width:70ch;display:flex;flex-direction:column;gap:var(--space-5)">
+        <sc-for list="{{ pd.story }}" as="s" hint-placeholder-count="2">
+          <p style="margin:0;font-family:var(--font-serif);font-size:var(--text-body-lg);line-height:var(--leading-body);color:var(--text-on-dark-muted);text-wrap:pretty">{{ s.text }}</p>
+        </sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{ tabIsSpec }}">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0 var(--space-8);max-width:900px">
+        <sc-for list="{{ pd.specRows }}" as="r" hint-placeholder-count="8">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px solid var(--border-on-dark)">
+            <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">{{ r.label }}</span>
+            <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark);text-align:right">{{ r.value }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{ tabIsCare }}">
+      <div style="max-width:70ch;display:flex;flex-direction:column;gap:var(--space-5)">
+        <sc-for list="{{ pd.care }}" as="c" hint-placeholder-count="3">
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--gold-500)">{{ c.label }}</span>
+            <p style="margin:0;font-family:var(--font-serif);font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted);text-wrap:pretty">{{ c.text }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+  </div>
+
+  <div style="margin-top:var(--space-10);display:flex;flex-direction:column;gap:var(--space-7)">
+    <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.SectionHeading" hint-size="100%,90px" eyebrow="Also Held" title="Others In The Salon" align="left"></x-import>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:var(--space-7)">
+      <sc-for list="{{ pd.related }}" as="p" hint-placeholder-count="3">
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.ProductCard" hint-size="100%,380px" image="{{ p.image }}" brand="{{ p.brand }}" name="{{ p.name }}" price="{{ p.price }}" original-price="{{ p.originalPrice }}" movement="{{ p.movement }}" currency="{{ currency }}" onClick="{{ p.onClick }}"></x-import>
+      </sc-for>
+    </div>
+  </div>
+</section>
+</sc-if>
+
+<sc-if value="{{ isCart }}">
+<section data-screen-label="Cart" style="max-width:var(--container-max);margin:0 auto;padding:var(--space-8) var(--container-pad) var(--space-10)">
+  <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:var(--space-7)">
+    <span style="font-weight:300;font-size:var(--text-label-lg);letter-spacing:var(--tracking-tagline);text-transform:uppercase;color:var(--gold-500)">Your Bag</span>
+    <h1 style="margin:0;font-family:var(--font-display);font-size:var(--text-display-md);font-weight:500;letter-spacing:0.02em;line-height:var(--leading-display);color:var(--text-on-dark)">Reserved For You</h1>
+  </div>
+
+  <sc-if value="{{ cartEmpty }}">
+  <div style="border:1px solid var(--border-on-dark);padding:var(--space-9) var(--space-6);display:flex;flex-direction:column;gap:var(--space-6);align-items:center;text-align:center">
+    <span style="font-family:var(--font-serif);font-size:var(--text-body-xl);color:var(--text-on-dark)">Your bag is empty.</span>
+    <p style="margin:0;font-family:var(--font-serif);font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted);max-width:44ch;text-wrap:pretty">Nothing is held yet. The collection is small, and single-unit pieces move quickly.</p>
+    <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="200px,48px" onClick="{{ goCollection }}">Browse The Collection</x-import>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ cartHasLines }}">
+  <div style="display:grid;grid-template-columns:{{ listCols }};gap:var(--space-8);align-items:start">
+    <div style="display:flex;flex-direction:column;order:2">
+      <sc-for list="{{ cartLines }}" as="l" hint-placeholder-count="2">
+        <div style="display:flex;flex-wrap:wrap;gap:var(--space-6);padding:var(--space-6) 0;border-bottom:1px solid var(--border-on-dark)">
+          <button onClick="{{ l.onOpen }}" style="width:112px;height:112px;flex:0 0 112px;padding:0;border:1px solid var(--border-on-dark);background:var(--surface-elevated);cursor:pointer;overflow:hidden">
+            <span role="img" aria-label="{{ l.name }}" style="{{ l.imageStyle }}"></span>
+          </button>
+          <div style="flex:1 1 220px;min-width:0;display:flex;flex-direction:column;gap:8px">
+            <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--gold-500)">{{ l.brand }}</span>
+            <button onClick="{{ l.onOpen }}" style="background:none;border:none;padding:0;text-align:left;cursor:pointer;font-family:var(--font-serif);font-size:var(--text-body-xl);color:var(--text-on-dark)">{{ l.name }}</button>
+            <span style="font-family:var(--font-serif);font-size:var(--text-body-sm);color:var(--text-on-dark-muted)">{{ l.strap }}</span>
+            <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">{{ l.stockNote }}</span>
+            <div style="display:flex;align-items:center;gap:14px;margin-top:4px">
+              <button onClick="{{ l.dec }}" style="width:44px;height:44px;border:1px solid var(--border-on-dark);background:transparent;color:var(--text-on-dark);cursor:pointer;font-family:var(--font-serif);font-size:var(--text-body-lg);border-radius:var(--radius-sm)">−</button>
+              <span style="font-family:var(--font-serif);font-size:var(--text-body-lg);min-width:22px;text-align:center;color:var(--text-on-dark)">{{ l.qty }}</span>
+              <button onClick="{{ l.inc }}" style="width:44px;height:44px;border:1px solid var(--border-on-dark);background:transparent;color:var(--text-on-dark);cursor:pointer;font-family:var(--font-serif);font-size:var(--text-body-lg);border-radius:var(--radius-sm)">+</button>
+              <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="80px,20px" variant="ghost" onClick="{{ l.remove }}">Remove</x-import>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:4px;align-items:flex-end;text-align:right">
+            <span style="font-family:var(--font-serif);font-size:var(--text-body-xl);color:var(--text-on-dark)">{{ l.total }}</span>
+            <span style="font-family:var(--font-serif);font-size:var(--text-body-sm);color:var(--text-on-dark-faint)">{{ l.unit }} each</span>
+          </div>
+        </div>
+      </sc-for>
+      <div style="padding-top:var(--space-6)">
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="200px,20px" variant="ghost" onClick="{{ goCollection }}">← Continue Browsing</x-import>
+      </div>
+    </div>
+
+    <aside style="order:1;border:1px solid var(--border-on-dark);padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-6);position:sticky;top:110px">
+      <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">Order Summary</span>
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Select" hint-size="100%,44px" label="Delivering To" value="{{ dest }}" onChange="{{ setDest }}" options="{{ destOptions }}"></x-import>
+      <sc-if value="{{ showZone }}">
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Select" hint-size="100%,44px" label="Zone" value="{{ zone }}" onChange="{{ setZone }}" options="{{ zoneOptions }}"></x-import>
+      </sc-if>
+      <div style="display:flex;flex-direction:column;gap:12px;border-top:1px solid var(--border-on-dark);padding-top:var(--space-5)">
+        <sc-for list="{{ sumRows }}" as="r" hint-placeholder-count="3">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px">
+            <span style="{{ r.labelStyle }}">{{ r.label }}</span>
+            <span style="{{ r.valueStyle }}">{{ r.value }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;border-top:1px solid var(--border-on-dark-strong);padding-top:var(--space-5)">
+        <span style="font-size:var(--text-label-md);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark)">{{ grandLabel }}</span>
+        <span style="font-family:var(--font-serif);font-size:var(--text-body-xl);color:var(--gold-500)">{{ grandValue }}</span>
+      </div>
+      <span style="font-family:var(--font-serif);font-size:var(--text-body-sm);line-height:var(--leading-body);color:var(--text-on-dark-faint)">{{ codNote }}</span>
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="100%,52px" size="lg" onClick="{{ goCheckout }}" style="{{ fullBtn }}">Proceed To Checkout</x-import>
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="100%,20px" variant="ghost" onClick="{{ openWa }}">Reserve By Message Instead</x-import>
+    </aside>
+  </div>
+  </sc-if>
+</section>
+</sc-if>
+
+<sc-if value="{{ isCheckout }}">
+<section data-screen-label="Checkout" style="max-width:1080px;margin:0 auto;padding:var(--space-8) var(--container-pad) var(--space-10)">
+  <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:var(--space-7)">
+    <span style="font-weight:300;font-size:var(--text-label-lg);letter-spacing:var(--tracking-tagline);text-transform:uppercase;color:var(--gold-500)">Checkout</span>
+    <h1 style="margin:0;font-family:var(--font-display);font-size:var(--text-display-sm);font-weight:500;letter-spacing:0.02em;color:var(--text-on-dark)">Four Steps, No Account Needed</h1>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:2px;margin-bottom:var(--space-7)">
+    <sc-for list="{{ steps }}" as="s" hint-placeholder-count="4">
+      <button onClick="{{ s.onClick }}" style="{{ s.style }}">{{ s.label }}</button>
+    </sc-for>
+  </div>
+
+  <div style="display:grid;grid-template-columns:{{ listCols }};gap:var(--space-8);align-items:start">
+    <div style="order:2;display:flex;flex-direction:column;gap:var(--space-7);min-width:0">
+
+      <sc-if value="{{ hasErrors }}">
+      <div style="border:1px solid var(--color-error);padding:var(--space-5) var(--space-6);display:flex;flex-direction:column;gap:8px">
+        <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--color-error)">Please Check</span>
+        <sc-for list="{{ errorList }}" as="e" hint-placeholder-count="1">
+          <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark)">{{ e.text }}</span>
+        </sc-for>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ step1 }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-direction:column;gap:var(--space-6)">
+        <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;border:1px solid var(--border-on-dark);padding:var(--space-5) var(--space-6)">
+          <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark-muted)">{{ guestLine }}</span>
+          <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="130px,20px" variant="ghost" onClick="{{ goAuthFromCheckout }}">Sign In Instead</x-import>
+        </div>
+        <span style="font-size:var(--text-label-md);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">Delivery Details</span>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--space-6)">
+          <sc-for list="{{ formFields }}" as="f" hint-placeholder-count="8">
+            <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Input" hint-size="100%,64px" label="{{ f.label }}" placeholder="{{ f.placeholder }}" value="{{ f.value }}" onChange="{{ f.onChange }}"></x-import>
+          </sc-for>
+          <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Select" hint-size="100%,64px" label="Country" value="{{ country }}" onChange="{{ setCountry }}" options="{{ countryOptions }}"></x-import>
+        </div>
+        <div style="border:1px solid var(--border-on-dark);padding:var(--space-6);display:flex;flex-direction:column;gap:8px">
+          <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--gold-500)">Why We Ask For A Wrist Measurement</span>
+          <span style="font-family:var(--font-serif);font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">Give it and the bracelet arrives sized, with the removed links in the box. Leave it blank and the watch ships at full length.</span>
+          <div><x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="150px,20px" variant="ghost" onClick="{{ openSizeGuide }}">How To Measure →</x-import></div>
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ step2 }}">
+      <div style="display:flex;flex-direction:column;gap:var(--space-6)">
+        <span style="font-size:var(--text-label-md);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">Shipping Method</span>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <sc-for list="{{ shipChoices }}" as="s" hint-placeholder-count="1">
+            <button onClick="{{ s.onClick }}" style="{{ s.style }}">
+              <span style="display:flex;flex-direction:column;gap:5px;text-align:left">
+                <span style="font-size:var(--text-label-md);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark)">{{ s.label }}</span>
+                <span style="font-family:var(--font-serif);font-size:var(--text-body-sm);color:var(--text-on-dark-muted)">{{ s.note }}</span>
+              </span>
+              <span style="font-family:var(--font-serif);font-size:var(--text-body-lg);color:var(--gold-500)">{{ s.cost }}</span>
+            </button>
+          </sc-for>
+        </div>
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Select" hint-size="100%,64px" label="Delivering To" value="{{ dest }}" onChange="{{ setDest }}" options="{{ destOptions }}"></x-import>
+        <sc-if value="{{ showZone }}">
+          <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Select" hint-size="100%,64px" label="International Zone" value="{{ zone }}" onChange="{{ setZone }}" options="{{ zoneOptions }}"></x-import>
+        </sc-if>
+        <div style="border:1px solid var(--border-on-dark);padding:var(--space-6);font-family:var(--font-serif);font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">Every parcel is insured at full declared value and requires a signature. International parcels carry a commercial invoice; duties are payable by the recipient.</div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ step3 }}">
+      <div style="display:flex;flex-direction:column;gap:var(--space-6)">
+        <span style="font-size:var(--text-label-md);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">Payment Method</span>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <sc-for list="{{ payChoices }}" as="m" hint-placeholder-count="3">
+            <button onClick="{{ m.onClick }}" style="{{ m.style }}">
+              <span style="font-size:var(--text-label-md);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark)">{{ m.label }}</span>
+              <span style="font-family:var(--font-serif);font-size:var(--text-body-sm);line-height:var(--leading-body);color:var(--text-on-dark-muted)">{{ m.note }}</span>
+            </button>
+          </sc-for>
+        </div>
+
+        <sc-if value="{{ payIsBkash }}">
+        <div style="border:1px solid var(--border-on-dark-strong);padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-5)">
+          <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:baseline;justify-content:space-between">
+            <span style="font-size:var(--text-label-md);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--gold-500)">bKash Authorisation</span>
+            <span style="font-family:var(--font-serif);font-size:var(--text-body-lg);color:var(--text-on-dark)">{{ bkAmount }}</span>
+          </div>
+          <sc-if value="{{ bkStageNumber }}" hint-placeholder-val="{{ true }}">
+            <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Input" hint-size="100%,64px" label="bKash Account Number" placeholder="01XXXXXXXXX" value="{{ bkNo }}" onChange="{{ setBkNo }}"></x-import>
+          </sc-if>
+          <sc-if value="{{ bkStageOtp }}">
+            <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Input" hint-size="100%,64px" label="Verification Code Sent By SMS" placeholder="6-digit code" value="{{ bkOtp }}" onChange="{{ setBkOtp }}"></x-import>
+          </sc-if>
+          <sc-if value="{{ bkStagePin }}">
+            <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Input" hint-size="100%,64px" label="bKash PIN" type="password" placeholder="Your PIN" value="{{ bkPin }}" onChange="{{ setBkPin }}"></x-import>
+          </sc-if>
+          <sc-if value="{{ bkStageDone }}">
+            <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-start">
+              <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Badge" hint-size="150px,26px" tone="solid">Authorised</x-import>
+              <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark-muted)">bKash has authorised this payment. The amount is captured when you place the order.</span>
+            </div>
+          </sc-if>
+          <sc-if value="{{ bkStagePending }}">
+            <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="220px,48px" onClick="{{ bkNext }}">{{ bkCtaLabel }}</x-import>
+          </sc-if>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ payIsSsl }}">
+        <div style="border:1px solid var(--border-on-dark-strong);padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-5)">
+          <span style="font-size:var(--text-label-md);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--gold-500)">SSLCommerz — Hosted Payment Page</span>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <sc-for list="{{ sslTabs }}" as="t" hint-placeholder-count="4">
+              <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Tag" hint-size="120px,38px" active="{{ t.active }}" onClick="{{ t.onClick }}">{{ t.label }}</x-import>
+            </sc-for>
+          </div>
+          <sc-if value="{{ sslIsCard }}" hint-placeholder-val="{{ true }}">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--space-6)">
+              <sc-for list="{{ cardFields }}" as="f" hint-placeholder-count="4">
+                <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Input" hint-size="100%,64px" label="{{ f.label }}" placeholder="{{ f.placeholder }}" value="{{ f.value }}" onChange="{{ f.onChange }}"></x-import>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ sslIsWallet }}">
+            <span style="font-family:var(--font-serif);font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">You will be handed to {{ sslWallet }} to approve the payment, then returned here. Nothing is charged until you place the order.</span>
+          </sc-if>
+          <span style="font-family:var(--font-serif);font-size:var(--text-body-sm);color:var(--text-on-dark-faint)">Card details are entered on the SSLCommerz page and never reach our servers. 3-D Secure is applied to every transaction.</span>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ payIsCod }}">
+        <div style="border:1px solid var(--border-on-dark-strong);padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-5)">
+          <span style="font-size:var(--text-label-md);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--gold-500)">Cash On Delivery Rules</span>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <sc-for list="{{ codRules }}" as="r" hint-placeholder-count="4">
+              <div style="display:flex;gap:12px;align-items:flex-start">
+                <span style="width:5px;height:5px;background:var(--gold-500);transform:rotate(45deg);margin-top:8px;flex:0 0 5px"></span>
+                <span style="font-family:var(--font-serif);font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">{{ r.text }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <sc-if value="{{ codNeedsAdvance }}">
+            <div style="border-top:1px solid var(--border-on-dark);padding-top:var(--space-5);display:flex;flex-wrap:wrap;gap:var(--space-5);align-items:center;justify-content:space-between">
+              <div style="display:flex;flex-direction:column;gap:4px">
+                <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">Advance Due Now</span>
+                <span style="font-family:var(--font-serif);font-size:var(--text-body-xl);color:var(--text-on-dark)">{{ codAdvanceAmount }}</span>
+              </div>
+              <sc-if value="{{ codAdvancePaid }}">
+                <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Badge" hint-size="150px,26px" tone="solid">Advance Paid</x-import>
+              </sc-if>
+              <sc-if value="{{ codAdvanceUnpaid }}">
+                <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="220px,48px" size="sm" onClick="{{ payAdvance }}">Pay Advance By bKash</x-import>
+              </sc-if>
+            </div>
+          </sc-if>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ payIsRedirect }}">
+        <div style="border:1px solid var(--border-on-dark-strong);padding:var(--space-6);display:flex;flex-direction:column;gap:10px">
+          <span style="font-size:var(--text-label-md);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--gold-500)">{{ redirectTitle }}</span>
+          <span style="font-family:var(--font-serif);font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">{{ redirectNote }}</span>
+        </div>
+        </sc-if>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ step4 }}">
+      <div style="display:flex;flex-direction:column;gap:var(--space-6)">
+        <span style="font-size:var(--text-label-md);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">Review And Place</span>
+        <div style="display:flex;flex-direction:column">
+          <sc-for list="{{ reviewRows }}" as="r" hint-placeholder-count="5">
+            <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:baseline;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--border-on-dark)">
+              <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">{{ r.label }}</span>
+              <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark);text-align:right;max-width:46ch">{{ r.value }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <sc-for list="{{ cartLines }}" as="l" hint-placeholder-count="1">
+            <div style="display:flex;gap:var(--space-5);align-items:center">
+              <span role="img" aria-label="{{ l.name }}" style="{{ l.thumbStyle }}"></span>
+              <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px">
+                <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark)">{{ l.name }}</span>
+                <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">{{ l.strap }} — {{ l.qty }}</span>
+              </div>
+              <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark-muted)">{{ l.total }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <button onClick="{{ toggleAgree }}" style="display:flex;gap:14px;align-items:flex-start;background:none;border:none;padding:0;cursor:pointer;text-align:left">
+          <span style="{{ agreeStyle }}">{{ agreeMark }}</span>
+          <span style="font-family:var(--font-serif);font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">I accept the terms of sale and understand the watch is supplied with a signed authenticity certificate and a 24-month mechanical warranty.</span>
+        </button>
+      </div>
+      </sc-if>
+
+      <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="240px,52px" size="lg" onClick="{{ next }}">{{ nextLabel }}</x-import>
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="90px,20px" variant="ghost" onClick="{{ back }}">Back</x-import>
+      </div>
+    </div>
+
+    <aside style="order:1;border:1px solid var(--border-on-dark);padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-5);position:sticky;top:110px">
+      <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">Your Order</span>
+      <sc-for list="{{ sumRows }}" as="r" hint-placeholder-count="3">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px">
+          <span style="{{ r.labelStyle }}">{{ r.label }}</span>
+          <span style="{{ r.valueStyle }}">{{ r.value }}</span>
+        </div>
+      </sc-for>
+      <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;border-top:1px solid var(--border-on-dark-strong);padding-top:var(--space-5)">
+        <span style="font-size:var(--text-label-md);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark)">Total</span>
+        <span style="font-family:var(--font-serif);font-size:var(--text-body-xl);color:var(--gold-500)">{{ grandValue }}</span>
+      </div>
+      <span style="font-family:var(--font-serif);font-size:var(--text-body-sm);line-height:var(--leading-body);color:var(--text-on-dark-faint)">Prices are charged in BDT. Cards are handled by SSLCommerz; we never store card data.</span>
+    </aside>
+  </div>
+</section>
+</sc-if>
+<sc-if value="{{ isConfirm }}">
+<section data-screen-label="Order Confirmation" style="max-width:900px;margin:0 auto;padding:var(--space-9) var(--container-pad) var(--space-10)">
+  <sc-if value="{{ hasPlaced }}" hint-placeholder-val="{{ true }}">
+  <div style="display:flex;flex-direction:column;gap:var(--space-7)">
+    <div style="display:flex;flex-direction:column;gap:var(--space-5);align-items:flex-start">
+      <span style="width:14px;height:14px;background:var(--gold-500);transform:rotate(45deg)"></span>
+      <span style="font-weight:300;font-size:var(--text-label-lg);letter-spacing:var(--tracking-tagline);text-transform:uppercase;color:var(--gold-500)">Order Placed</span>
+      <h1 style="margin:0;font-family:var(--font-display);font-size:var(--text-display-md);font-weight:500;letter-spacing:0.02em;line-height:var(--leading-display);color:var(--text-on-dark)">Thank You — {{ placed.id }}</h1>
+      <p style="margin:0;font-family:var(--font-serif);font-size:var(--text-body-lg);line-height:var(--leading-body);color:var(--text-on-dark-muted);max-width:56ch;text-wrap:pretty">A confirmation has gone to {{ placed.email }}. We telephone every order before despatch to confirm the address and, where a bracelet is being sized, the measurement.</p>
+    </div>
+
+    <sc-if value="{{ placed.codPending }}">
+    <div style="border:1px solid var(--gold-600);padding:var(--space-6);display:flex;flex-direction:column;gap:8px">
+      <span style="font-size:var(--text-label-md);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--gold-500)">Payable On Delivery</span>
+      <span style="font-family:var(--font-serif);font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">Have {{ placed.total }} ready for the courier. Please count the notes before signing — the certificate is signed at the same time.</span>
+    </div>
+    </sc-if>
+
+    <div style="display:flex;flex-direction:column">
+      <sc-for list="{{ placed.rows }}" as="r" hint-placeholder-count="5">
+        <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:baseline;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--border-on-dark)">
+          <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">{{ r.label }}</span>
+          <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark);text-align:right;max-width:46ch">{{ r.value }}</span>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <sc-for list="{{ placed.items }}" as="i" hint-placeholder-count="1">
+        <div style="display:flex;gap:var(--space-5);align-items:center;border:1px solid var(--border-on-dark);padding:var(--space-5)">
+          <span role="img" aria-label="{{ i.name }}" style="{{ i.thumbStyle }}"></span>
+          <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px">
+            <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--gold-500)">{{ i.brand }}</span>
+            <span style="font-family:var(--font-serif);font-size:var(--text-body-lg);color:var(--text-on-dark)">{{ i.name }}</span>
+            <span style="font-family:var(--font-serif);font-size:var(--text-body-sm);color:var(--text-on-dark-faint)">{{ i.meta }}</span>
+          </div>
+          <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark-muted)">{{ i.line }}</span>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="border:1px solid var(--border-on-dark);padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-5)">
+      <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">What Happens Next</span>
+      <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark)">{{ placed.eta }}</span>
+      <div style="display:flex;flex-direction:column;gap:10px;border-top:1px solid var(--border-on-dark);padding-top:var(--space-5)">
+        <sc-for list="{{ placed.notes }}" as="n" hint-placeholder-count="2">
+          <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:baseline;justify-content:space-between">
+            <span style="font-family:var(--font-serif);font-size:var(--text-body-sm);color:var(--text-on-dark-muted)">{{ n.channel }} — {{ n.text }}</span>
+            <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);color:var(--text-on-dark-faint)">{{ n.at }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:12px">
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="180px,48px" onClick="{{ placed.trackIt }}">Track This Order</x-import>
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="180px,48px" variant="secondary" onClick="{{ goCollection }}">Continue Browsing</x-import>
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="130px,20px" variant="ghost" onClick="{{ placed.print }}">Print Receipt</x-import>
+    </div>
+  </div>
+  </sc-if>
+</section>
+</sc-if>
+
+<sc-if value="{{ isTrack }}">
+<section data-screen-label="Order Tracking" style="max-width:820px;margin:0 auto;padding:var(--space-9) var(--container-pad) var(--space-10);display:flex;flex-direction:column;gap:var(--space-7)">
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <span style="font-weight:300;font-size:var(--text-label-lg);letter-spacing:var(--tracking-tagline);text-transform:uppercase;color:var(--gold-500)">Tracking</span>
+    <h1 style="margin:0;font-family:var(--font-display);font-size:var(--text-display-md);font-weight:500;letter-spacing:0.02em;line-height:var(--leading-display);color:var(--text-on-dark)">Where Is My Watch</h1>
+    <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark-muted)">Enter the order reference from your confirmation message and the phone number on the order. No account needed.</span>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--space-6);align-items:end">
+    <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Input" hint-size="100%,64px" label="Order Reference" placeholder="PWBD-24187" value="{{ trackId }}" onChange="{{ setTrackId }}"></x-import>
+    <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Input" hint-size="100%,64px" label="Phone On The Order" placeholder="01711 204 556" value="{{ trackPhone }}" onChange="{{ setTrackPhone }}"></x-import>
+    <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="100%,48px" onClick="{{ doTrack }}" style="{{ fullBtn }}">Find My Order</x-import>
+  </div>
+
+  <sc-if value="{{ hasTrackError }}">
+    <div style="border:1px solid var(--color-error);padding:var(--space-5) var(--space-6);font-family:var(--font-serif);font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark)">{{ trackError }}</div>
+  </sc-if>
+
+  <sc-if value="{{ hasTrackResult }}">
+  <div style="border:1px solid var(--border-on-dark);padding:var(--space-7);display:flex;flex-direction:column;gap:var(--space-7)">
+    <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
+      <span style="font-family:var(--font-display);font-size:var(--text-display-sm);font-weight:500;letter-spacing:0.02em;color:var(--text-on-dark)">{{ trackOrder.id }}</span>
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Badge" hint-size="120px,26px" tone="solid">{{ trackOrder.status }}</x-import>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:var(--space-5)">
+      <sc-for list="{{ trackOrder.stages }}" as="s" hint-placeholder-count="5">
+        <div style="display:flex;gap:var(--space-5);align-items:center">
+          <span style="{{ s.dotStyle }}"></span>
+          <span style="{{ s.labelStyle }}">{{ s.label }}</span>
+          <span style="margin-left:auto;font-family:var(--font-serif);font-size:var(--text-body-sm);color:var(--text-on-dark-faint)">{{ s.note }}</span>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:flex;flex-direction:column;border-top:1px solid var(--border-on-dark);padding-top:var(--space-5)">
+      <sc-for list="{{ trackOrder.rows }}" as="r" hint-placeholder-count="4">
+        <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:baseline;justify-content:space-between;padding:11px 0">
+          <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">{{ r.label }}</span>
+          <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark);text-align:right;max-width:44ch">{{ r.value }}</span>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;border-top:1px solid var(--border-on-dark);padding-top:var(--space-5)">
+      <sc-for list="{{ trackOrder.items }}" as="i" hint-placeholder-count="1">
+        <div style="display:flex;gap:var(--space-5);align-items:center">
+          <span role="img" aria-label="{{ i.name }}" style="{{ i.thumbStyle }}"></span>
+          <div style="display:flex;flex-direction:column;gap:3px">
+            <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark)">{{ i.name }}</span>
+            <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">{{ i.brand }} — {{ i.meta }}</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="220px,20px" variant="ghost" onClick="{{ openWa }}">Something Wrong? Message Us →</x-import>
+  </div>
+  </sc-if>
+
+  <div style="border:1px solid var(--border-on-dark);padding:var(--space-6);display:flex;flex-direction:column;gap:8px">
+    <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--gold-500)">Try It</span>
+    <span style="font-family:var(--font-serif);font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">Order PWBD-24187 with phone 01711 204 556 is out with the courier.</span>
+  </div>
+</section>
+</sc-if>
+<sc-if value="{{ isAuth }}">
+<section data-screen-label="Sign In" style="max-width:520px;margin:0 auto;padding:var(--space-9) var(--container-pad) var(--space-10);display:flex;flex-direction:column;gap:var(--space-7)">
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <span style="font-weight:300;font-size:var(--text-label-lg);letter-spacing:var(--tracking-tagline);text-transform:uppercase;color:var(--gold-500)">Your Account</span>
+    <h1 style="margin:0;font-family:var(--font-display);font-size:var(--text-display-sm);font-weight:500;letter-spacing:0.02em;color:var(--text-on-dark)">{{ authTitle }}</h1>
+    <span style="font-family:var(--font-serif);font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">{{ authLede }}</span>
+  </div>
+
+  <sc-if value="{{ authShowTabs }}" hint-placeholder-val="{{ true }}">
+  <div style="display:flex;gap:8px">
+    <sc-for list="{{ authTabs }}" as="t" hint-placeholder-count="2">
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Tag" hint-size="150px,38px" active="{{ t.active }}" onClick="{{ t.onClick }}">{{ t.label }}</x-import>
+    </sc-for>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ hasAuthNote }}">
+    <div style="border:1px solid var(--border-on-dark-strong);padding:var(--space-5) var(--space-6);font-family:var(--font-serif);font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark)">{{ authNote }}</div>
+  </sc-if>
+
+  <sc-if value="{{ authIsSignin }}" hint-placeholder-val="{{ true }}">
+  <div style="display:flex;flex-direction:column;gap:var(--space-6)">
+    <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Input" hint-size="100%,64px" label="Email" placeholder="you@example.com" value="{{ authEmail }}" onChange="{{ setAuthemail }}"></x-import>
+    <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Input" hint-size="100%,64px" label="Password" type="password" placeholder="Your password" value="{{ authPass }}" onChange="{{ setAuthpass }}"></x-import>
+    <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="100%,52px" size="lg" onClick="{{ doSignin }}" style="{{ fullBtn }}">Sign In</x-import>
+    <div style="display:flex;flex-wrap:wrap;gap:var(--space-6);justify-content:space-between">
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="180px,20px" variant="ghost" onClick="{{ switchToPhone }}">Use A Phone Number</x-import>
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="150px,20px" variant="ghost" onClick="{{ switchToRecover }}">Forgotten Password</x-import>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ authIsRegister }}">
+  <div style="display:flex;flex-direction:column;gap:var(--space-6)">
+    <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Input" hint-size="100%,64px" label="Full Name" placeholder="Tanvir Ahmed" value="{{ authName }}" onChange="{{ setAuthname }}"></x-import>
+    <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Input" hint-size="100%,64px" label="Email" placeholder="you@example.com" value="{{ authEmail }}" onChange="{{ setAuthemail }}"></x-import>
+    <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Input" hint-size="100%,64px" label="Password — At Least Eight Characters" type="password" placeholder="Choose a password" value="{{ authPass }}" onChange="{{ setAuthpass }}"></x-import>
+    <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="100%,52px" size="lg" onClick="{{ doRegister }}" style="{{ fullBtn }}">Create Account</x-import>
+    <span style="font-family:var(--font-serif);font-size:var(--text-body-sm);line-height:var(--leading-body);color:var(--text-on-dark-faint)">We hold your name, number and address so an order can be delivered and a warranty honoured. Nothing else.</span>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ authIsPhone }}">
+  <div style="display:flex;flex-direction:column;gap:var(--space-6)">
+    <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Input" hint-size="100%,64px" label="Mobile Number" placeholder="01XXXXXXXXX" value="{{ authPhone }}" onChange="{{ setAuthphone }}"></x-import>
+    <sc-if value="{{ otpSent }}">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">Six-Digit Code</span>
+        <div style="display:flex;gap:8px">
+          <sc-for list="{{ otpDigits }}" as="d" hint-placeholder-count="6">
+            <span style="{{ d.style }}">{{ d.char }}</span>
+          </sc-for>
+        </div>
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Input" hint-size="100%,64px" label="Enter The Code" placeholder="000000" value="{{ authOtp }}" onChange="{{ setAuthotp }}"></x-import>
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="100%,52px" size="lg" onClick="{{ verifyOtp }}" style="{{ fullBtn }}">Verify And Continue</x-import>
+      </div>
+    </sc-if>
+    <sc-if value="{{ otpNotSent }}" hint-placeholder-val="{{ true }}">
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="100%,52px" size="lg" onClick="{{ sendOtp }}" style="{{ fullBtn }}">Send Me A Code</x-import>
+    </sc-if>
+    <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="150px,20px" variant="ghost" onClick="{{ switchToSignin }}">← Use Email Instead</x-import>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ authIsRecover }}">
+  <div style="display:flex;flex-direction:column;gap:var(--space-6)">
+    <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Input" hint-size="100%,64px" label="Email On The Account" placeholder="you@example.com" value="{{ authEmail }}" onChange="{{ setAuthemail }}"></x-import>
+    <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="100%,52px" size="lg" onClick="{{ doRecover }}" style="{{ fullBtn }}">Send Reset Link</x-import>
+    <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="120px,20px" variant="ghost" onClick="{{ switchToSignin }}">← Back To Sign In</x-import>
+  </div>
+  </sc-if>
+
+  <div style="border-top:1px solid var(--border-on-dark);padding-top:var(--space-6);display:flex;flex-direction:column;gap:12px">
+    <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">In A Hurry</span>
+    <span style="font-family:var(--font-serif);font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">You can buy without an account. Tracking works from the order reference and your phone number.</span>
+    <div><x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="200px,44px" variant="secondary" size="sm" onClick="{{ goGuest }}">Continue As Guest</x-import></div>
+  </div>
+</section>
+</sc-if>
+
+<sc-if value="{{ isAccount }}">
+<section data-screen-label="Account" style="max-width:var(--container-max);margin:0 auto;padding:var(--space-8) var(--container-pad) var(--space-10);display:flex;flex-direction:column;gap:var(--space-7)">
+  <div style="display:flex;flex-wrap:wrap;gap:var(--space-6);align-items:flex-end;justify-content:space-between">
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <span style="font-weight:300;font-size:var(--text-label-lg);letter-spacing:var(--tracking-tagline);text-transform:uppercase;color:var(--gold-500)">Your Account</span>
+      <h1 style="margin:0;font-family:var(--font-display);font-size:var(--text-display-sm);font-weight:500;letter-spacing:0.02em;color:var(--text-on-dark)">{{ user.name }}</h1>
+      <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark-muted)">{{ user.email }}</span>
+    </div>
+    <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="110px,44px" variant="secondary" size="sm" onClick="{{ signOut }}">Sign Out</x-import>
+  </div>
+
+  <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Tabs" hint-size="100%,44px" tabs="{{ accountTabs }}" active="{{ accountTab }}" onChange="{{ setAccountTab }}"></x-import>
+
+  <sc-if value="{{ acctOrders }}" hint-placeholder-val="{{ true }}">
+  <div style="display:flex;flex-direction:column;gap:14px">
+    <sc-if value="{{ hasMyOrders }}" hint-placeholder-val="{{ true }}">
+      <sc-for list="{{ myOrders }}" as="o" hint-placeholder-count="3">
+        <button onClick="{{ o.onClick }}" style="display:flex;flex-wrap:wrap;gap:var(--space-6);align-items:center;text-align:left;width:100%;cursor:pointer;background:transparent;border:1px solid var(--border-on-dark);padding:var(--space-5)">
+          <span role="img" aria-label="{{ o.title }}" style="{{ o.thumbStyle }}"></span>
+          <div style="flex:1 1 200px;min-width:0;display:flex;flex-direction:column;gap:4px">
+            <span style="font-size:var(--text-label-md);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark)">{{ o.id }}</span>
+            <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark-muted)">{{ o.title }}</span>
+            <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">{{ o.date }} — {{ o.payment }}</span>
+          </div>
+          <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Badge" hint-size="110px,26px" tone="{{ o.tone }}">{{ o.status }}</x-import>
+          <span style="font-family:var(--font-serif);font-size:var(--text-body-lg);color:var(--gold-500)">{{ o.total }}</span>
+        </button>
+      </sc-for>
+    </sc-if>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ acctOrderDetail }}">
+  <div style="display:flex;flex-direction:column;gap:var(--space-6);border:1px solid var(--border-on-dark);padding:var(--space-7)">
+    <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="150px,20px" variant="ghost" onClick="{{ acctOrder.back }}">← All Orders</x-import>
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Badge" hint-size="110px,26px" tone="{{ acctOrder.tone }}">{{ acctOrder.status }}</x-import>
+    </div>
+    <span style="font-family:var(--font-display);font-size:var(--text-display-sm);font-weight:500;letter-spacing:0.02em;color:var(--text-on-dark)">{{ acctOrder.id }}</span>
+    <div style="display:flex;flex-direction:column">
+      <sc-for list="{{ acctOrder.rows }}" as="r" hint-placeholder-count="5">
+        <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:baseline;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border-on-dark)">
+          <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">{{ r.label }}</span>
+          <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark);text-align:right;max-width:44ch">{{ r.value }}</span>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <sc-for list="{{ acctOrder.items }}" as="i" hint-placeholder-count="1">
+        <div style="display:flex;gap:var(--space-5);align-items:center">
+          <span role="img" aria-label="{{ i.name }}" style="{{ i.thumbStyle }}"></span>
+          <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px">
+            <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark)">{{ i.name }}</span>
+            <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">{{ i.meta }}</span>
+          </div>
+          <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark-muted)">{{ i.line }}</span>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;border-top:1px solid var(--border-on-dark);padding-top:var(--space-5)">
+      <sc-for list="{{ acctOrder.notes }}" as="n" hint-placeholder-count="2">
+        <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:baseline;justify-content:space-between">
+          <span style="font-family:var(--font-serif);font-size:var(--text-body-sm);color:var(--text-on-dark-muted)">{{ n.channel }} — {{ n.text }}</span>
+          <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);color:var(--text-on-dark-faint)">{{ n.at }}</span>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:12px">
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="160px,44px" size="sm" onClick="{{ acctOrder.track }}">Track Order</x-import>
+      <sc-if value="{{ acctOrder.canCancel }}">
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="150px,44px" size="sm" variant="secondary" onClick="{{ acctOrder.cancelOrder }}">Cancel Order</x-import>
+      </sc-if>
+      <sc-if value="{{ acctOrder.cancelled }}">
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Badge" hint-size="190px,26px" tone="subtle">Cancelled — Refund Due</x-import>
+      </sc-if>
+      <sc-if value="{{ acctOrder.canReturn }}">
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="180px,44px" size="sm" variant="secondary" onClick="{{ acctOrder.requestReturn }}">Request A Return</x-import>
+      </sc-if>
+      <sc-if value="{{ acctOrder.returnPending }}">
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Badge" hint-size="170px,26px" tone="outline">Return Requested</x-import>
+      </sc-if>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ acctWishlist }}">
+  <div style="display:flex;flex-direction:column;gap:14px">
+    <sc-if value="{{ hasWishlist }}" hint-placeholder-val="{{ true }}">
+      <sc-for list="{{ wishItems }}" as="w" hint-placeholder-count="2">
+        <div style="display:flex;flex-wrap:wrap;gap:var(--space-6);align-items:center;border:1px solid var(--border-on-dark);padding:var(--space-5)">
+          <button onClick="{{ w.onOpen }}" style="width:80px;height:80px;flex:0 0 80px;padding:0;border:none;background:none;cursor:pointer;overflow:hidden">
+            <span role="img" aria-label="{{ w.name }}" style="{{ w.imageStyle }}"></span>
+          </button>
+          <div style="flex:1 1 200px;min-width:0;display:flex;flex-direction:column;gap:5px">
+            <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--gold-500)">{{ w.brand }}</span>
+            <button onClick="{{ w.onOpen }}" style="background:none;border:none;padding:0;text-align:left;cursor:pointer;font-family:var(--font-serif);font-size:var(--text-body-lg);color:var(--text-on-dark)">{{ w.name }}</button>
+            <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">{{ w.stock }}</span>
+          </div>
+          <span style="font-family:var(--font-serif);font-size:var(--text-body-lg);color:var(--text-on-dark)">{{ w.price }}</span>
+          <div style="display:flex;gap:10px">
+            <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="130px,44px" size="sm" onClick="{{ w.add }}">Add To Bag</x-import>
+            <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="80px,20px" variant="ghost" onClick="{{ w.remove }}">Remove</x-import>
+          </div>
+        </div>
+      </sc-for>
+    </sc-if>
+    <sc-if value="{{ wishlistEmpty }}">
+      <div style="border:1px solid var(--border-on-dark);padding:var(--space-8);display:flex;flex-direction:column;gap:var(--space-5);align-items:center;text-align:center">
+        <span style="font-family:var(--font-serif);font-size:var(--text-body-xl);color:var(--text-on-dark)">Nothing saved yet.</span>
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="200px,44px" size="sm" variant="secondary" onClick="{{ goCollection }}">Browse The Collection</x-import>
+      </div>
+    </sc-if>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ acctAddresses }}">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--space-6)">
+    <sc-for list="{{ addresses }}" as="a" hint-placeholder-count="2">
+      <div style="border:1px solid var(--border-on-dark);padding:var(--space-6);display:flex;flex-direction:column;gap:8px">
+        <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--gold-500)">{{ a.label }}</span>
+        <span style="font-family:var(--font-serif);font-size:var(--text-body-lg);line-height:var(--leading-body);color:var(--text-on-dark)">{{ a.lines }}</span>
+        <span style="font-family:var(--font-serif);font-size:var(--text-body-sm);color:var(--text-on-dark-faint)">{{ a.note }}</span>
+      </div>
+    </sc-for>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ acctSecurity }}">
+  <div style="display:flex;flex-direction:column">
+    <sc-for list="{{ securityRows }}" as="r" hint-placeholder-count="4">
+      <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:var(--space-5) 0;border-bottom:1px solid var(--border-on-dark)">
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <span style="font-size:var(--text-label-md);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark)">{{ r.label }}</span>
+          <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark-muted)">{{ r.value }}</span>
+        </div>
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="110px,40px" size="sm" variant="secondary" onClick="{{ r.onClick }}">{{ r.action }}</x-import>
+      </div>
+    </sc-for>
+  </div>
+  </sc-if>
+</section>
+</sc-if>
+
+<sc-if value="{{ isPage }}">
+<section data-screen-label="Content Page" style="max-width:1000px;margin:0 auto;padding:var(--space-9) var(--container-pad) var(--space-10)">
+  <div style="display:grid;grid-template-columns:{{ listCols }};gap:var(--space-8);align-items:start">
+    <aside style="display:flex;flex-direction:column;gap:2px;position:sticky;top:110px">
+      <sc-for list="{{ pageNav }}" as="p" hint-placeholder-count="7">
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Tag" hint-size="100%,38px" active="{{ p.active }}" onClick="{{ p.onClick }}">{{ p.label }}</x-import>
+      </sc-for>
+    </aside>
+    <article style="display:flex;flex-direction:column;gap:var(--space-7);min-width:0">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-weight:300;font-size:var(--text-label-lg);letter-spacing:var(--tracking-tagline);text-transform:uppercase;color:var(--gold-500)">{{ page.eyebrow }}</span>
+        <h1 style="margin:0;font-family:var(--font-display);font-size:var(--text-display-md);font-weight:500;letter-spacing:0.02em;line-height:var(--leading-display);color:var(--text-on-dark)">{{ page.title }}</h1>
+        <p style="margin:0;font-family:var(--font-serif);font-style:italic;font-size:var(--text-body-xl);line-height:var(--leading-body);color:var(--text-on-dark-muted);max-width:56ch;text-wrap:pretty">{{ page.lede }}</p>
+      </div>
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Divider" hint-size="100%,16px" ornament="{{ yes }}"></x-import>
+      <sc-for list="{{ page.blocks }}" as="b" hint-placeholder-count="4">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <h2 style="margin:0;font-size:var(--text-label-lg);letter-spacing:var(--tracking-label);text-transform:uppercase;font-weight:400;color:var(--text-on-dark)">{{ b.heading }}</h2>
+          <p style="margin:0;font-family:var(--font-serif);font-size:var(--text-body-lg);line-height:var(--leading-body);color:var(--text-on-dark-muted);max-width:68ch;text-wrap:pretty">{{ b.body }}</p>
+        </div>
+      </sc-for>
+      <div style="border:1px solid var(--border-on-dark);padding:var(--space-6);display:flex;flex-wrap:wrap;gap:var(--space-5);align-items:center;justify-content:space-between">
+        <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark-muted);max-width:44ch">Anything unclear? Ask before you buy — we would rather answer twice than sell once badly.</span>
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="150px,44px" size="sm" onClick="{{ goContact }}">Ask A Question</x-import>
+      </div>
+    </article>
+  </div>
+</section>
+</sc-if>
+
+<sc-if value="{{ isContact }}">
+<section data-screen-label="Contact" style="max-width:var(--container-max);margin:0 auto;padding:var(--space-9) var(--container-pad) var(--space-10)">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--space-9)">
+    <div style="display:flex;flex-direction:column;gap:var(--space-6)">
+      <span style="font-weight:300;font-size:var(--text-label-lg);letter-spacing:var(--tracking-tagline);text-transform:uppercase;color:var(--gold-500)">The Salon</span>
+      <h1 style="margin:0;font-family:var(--font-display);font-size:var(--text-display-md);font-weight:500;letter-spacing:0.02em;line-height:var(--leading-display);color:var(--text-on-dark)">Come And See Them</h1>
+      <p style="margin:0;font-family:var(--font-serif);font-size:var(--text-body-lg);line-height:var(--leading-body);color:var(--text-on-dark-muted);max-width:50ch;text-wrap:pretty">Every piece can be reserved for a private viewing. Bring your wrist and we will size the bracelet while you wait.</p>
+      <div style="display:flex;flex-direction:column">
+        <sc-for list="{{ contactRows }}" as="r" hint-placeholder-count="6">
+          <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:baseline;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--border-on-dark)">
+            <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">{{ r.label }}</span>
+            <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark);text-align:right;max-width:40ch">{{ r.value }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:12px">
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="200px,48px" onClick="{{ openWa }}">Message Us</x-import>
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="160px,48px" variant="secondary" onClick="{{ goTrack }}">Track An Order</x-import>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:var(--space-6);border:1px solid var(--border-on-dark);padding:var(--space-7)">
+      <span style="font-size:var(--text-label-md);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">Written Enquiry</span>
+      <sc-for list="{{ contactFields }}" as="f" hint-placeholder-count="4">
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Input" hint-size="100%,64px" label="{{ f.label }}" placeholder="{{ f.placeholder }}" value="{{ f.value }}" onChange="{{ f.onChange }}"></x-import>
+          <sc-if value="{{ f.hasError }}"><span style="font-family:var(--font-serif);font-size:var(--text-body-sm);color:var(--color-error)">{{ f.error }}</span></sc-if>
+        </div>
+      </sc-for>
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="100%,52px" size="lg" onClick="{{ sendEnquiry }}" style="{{ fullBtn }}">Send Enquiry</x-import>
+      <sc-if value="{{ enquirySent }}"><span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--gold-300)">{{ enquiryMsg }}</span></sc-if>
+      <span style="font-family:var(--font-serif);font-size:var(--text-body-sm);line-height:var(--leading-body);color:var(--text-on-dark-faint)">We reply within one working hour, Saturday to Thursday. Sourcing requests are answered with a written quotation.</span>
+    </div>
+  </div>
+</section>
+</sc-if>
+
+</main>
+
+<footer style="background:var(--surface-base-deep);padding:var(--space-9) var(--container-pad) var(--space-6);border-top:1px solid var(--border-on-dark)">
+  <div style="max-width:var(--container-max);margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--space-7)">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <img src="assets/logo-full.png" alt="Prime Wrist BD — A Journey Through Time, Perfected" style="height:96px;width:auto;display:block;align-self:flex-start;margin-bottom:4px">
+      <span style="font-family:var(--font-serif);font-size:var(--text-body-sm);line-height:var(--leading-body);color:var(--text-on-dark-muted);max-width:34ch">{{ footerAddress }}</span>
+    </div>
+    <sc-for list="{{ footerCols }}" as="col" hint-placeholder-count="3">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">{{ col.title }}</span>
+        <sc-for list="{{ col.links }}" as="l" hint-placeholder-count="4">
+          <button onClick="{{ l.onClick }}" style="background:none;border:none;padding:0;text-align:left;cursor:pointer;font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark-muted)" style-hover="color:var(--gold-300)">{{ l.label }}</button>
+        </sc-for>
+      </div>
+    </sc-for>
+  </div>
+  <div style="max-width:var(--container-max);margin:var(--space-8) auto 0;border-top:1px solid var(--border-on-dark);padding-top:var(--space-5);display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);color:var(--text-on-dark-faint)">
+    <span>© 2026 Prime Wrist BD. All Rights Reserved.</span>
+    <span>Payments Secured By SSLCommerz — Cards Never Touch Our Servers</span>
+  </div>
+</footer>
+
+<sc-if value="{{ searchOpen }}">
+<div style="position:fixed;inset:0;z-index:70;background:rgba(2,22,15,.96);display:flex;flex-direction:column">
+  <div style="display:flex;align-items:center;gap:var(--space-5);padding:var(--space-6) var(--container-pad);border-bottom:1px solid var(--border-on-dark)">
+    <div style="flex:1">
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Input" hint-size="100%,50px" placeholder="Search the collection" value="{{ q }}" onChange="{{ setQ }}"></x-import>
+    </div>
+    <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.IconButton" hint-size="32px,32px" icon="x" label="Close search" onClick="{{ closeSearch }}"></x-import>
+  </div>
+  <div style="flex:1;overflow-y:auto;padding:var(--space-7) var(--container-pad);max-width:820px;width:100%;margin:0 auto;display:flex;flex-direction:column;gap:var(--space-7)">
+    <sc-if value="{{ searchIdle }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">Recent Searches</span>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <sc-for list="{{ recentTags }}" as="r" hint-placeholder-count="3">
+            <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Tag" hint-size="120px,38px" onClick="{{ r.onClick }}">{{ r.label }}</x-import>
+          </sc-for>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">Browse By House</span>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <sc-for list="{{ houseTags }}" as="h" hint-placeholder-count="4">
+            <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Tag" hint-size="140px,38px" onClick="{{ h.onClick }}">{{ h.label }}</x-import>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+    <sc-if value="{{ searchHasHits }}">
+      <div style="display:flex;flex-direction:column">
+        <sc-for list="{{ searchHits }}" as="s" hint-placeholder-count="3">
+          <button onClick="{{ s.onClick }}" style="display:flex;align-items:center;gap:var(--space-5);padding:14px 0;border:none;border-bottom:1px solid var(--border-on-dark);background:none;cursor:pointer;text-align:left;width:100%">
+            <span role="img" aria-label="{{ s.name }}" style="{{ s.imageStyle }}"></span>
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px">
+              <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">{{ s.brand }}</span>
+              <span style="font-family:var(--font-serif);font-size:var(--text-body-lg);color:var(--text-on-dark)">{{ s.name }}</span>
+            </div>
+            <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark-muted)">{{ s.price }}</span>
+          </button>
+        </sc-for>
+      </div>
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="200px,44px" variant="secondary" size="sm" onClick="{{ searchAll }}">See All Results</x-import>
+    </sc-if>
+    <sc-if value="{{ searchZero }}">
+      <div style="display:flex;flex-direction:column;gap:var(--space-6);align-items:flex-start">
+        <span style="font-family:var(--font-serif);font-size:var(--text-body-xl);color:var(--text-on-dark)">{{ searchZeroText }}</span>
+        <span style="font-family:var(--font-serif);font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted);max-width:52ch">Try a house name, a reference number, or a movement type. We also source to order — tell us the reference and we will find it.</span>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <sc-for list="{{ houseTags }}" as="h" hint-placeholder-count="4">
+            <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Tag" hint-size="140px,38px" onClick="{{ h.onClick }}">{{ h.label }}</x-import>
+          </sc-for>
+        </div>
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="190px,44px" size="sm" onClick="{{ goContact }}">Request A Sourcing</x-import>
+      </div>
+    </sc-if>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ sizeGuideOpen }}">
+<div style="position:fixed;inset:0;z-index:80;background:rgba(2,22,15,.9);display:flex;align-items:flex-start;justify-content:center;padding:var(--space-6);overflow-y:auto">
+  <div style="background:var(--surface-base);border:1px solid var(--border-on-dark-strong);max-width:720px;width:100%;padding:var(--space-7);display:flex;flex-direction:column;gap:var(--space-6)">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-5)">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-tagline);text-transform:uppercase;color:var(--gold-500)">Fit</span>
+        <h2 style="margin:0;font-family:var(--font-display);font-size:var(--text-display-sm);font-weight:500;letter-spacing:0.02em;color:var(--text-on-dark)">Wrist &amp; Strap Guide</h2>
+      </div>
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.IconButton" hint-size="32px,32px" icon="x" label="Close" onClick="{{ closeSizeGuide }}"></x-import>
+    </div>
+    <p style="margin:0;font-family:var(--font-serif);font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted);text-wrap:pretty">Wrap a strip of paper around your wrist just behind the bone, mark where it meets, and measure it flat against a ruler. Round up to the nearest half centimetre.</p>
+    <div style="display:flex;flex-direction:column">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--border-on-dark-strong)">
+        <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">Wrist</span>
+        <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">Case Diameter</span>
+        <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">Strap Length</span>
+      </div>
+      <sc-for list="{{ sizeRows }}" as="s" hint-placeholder-count="4">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;padding:13px 0;border-bottom:1px solid var(--border-on-dark)">
+          <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark)">{{ s.wrist }}</span>
+          <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark-muted)">{{ s.case }}</span>
+          <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark-muted)">{{ s.strap }}</span>
+        </div>
+      </sc-for>
+    </div>
+    <div style="border:1px solid var(--border-on-dark);padding:var(--space-6);display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--gold-500)">Bracelet Sizing Is Free</span>
+      <span style="font-family:var(--font-serif);font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">Tell us your measurement at checkout and the bracelet arrives sized. Removed links are returned in the box.</span>
+    </div>
+    <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="100%,48px" onClick="{{ closeSizeGuide }}" style="{{ fullBtn }}">Close</x-import>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ zoomOpen }}">
+<div onClick="{{ closeZoom }}" style="position:fixed;inset:0;z-index:90;background:rgba(2,22,15,.97);display:flex;align-items:center;justify-content:center;cursor:zoom-out;overflow:hidden">
+  <div role="img" aria-label="{{ pd.name }}" onMouseMove="{{ trackZoom }}" style="{{ zoomStyle }}"></div>
+  <span style="position:absolute;bottom:var(--space-7);left:0;right:0;text-align:center;font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">Move The Pointer To Inspect — Click Anywhere To Close</span>
+</div>
+</sc-if>
+
+<sc-if value="{{ waOpen }}">
+<div style="position:fixed;right:var(--space-6);bottom:96px;z-index:55;width:min(320px,calc(100vw - 48px));background:var(--surface-elevated);border:1px solid var(--border-on-dark-strong);padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-5)">
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px">
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--gold-500)">Concierge</span>
+      <span style="font-family:var(--font-serif);font-size:var(--text-body-lg);color:var(--text-on-dark)">We reply within the hour</span>
+    </div>
+    <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.IconButton" hint-size="28px,28px" icon="x" label="Close" onClick="{{ closeWa }}"></x-import>
+  </div>
+  <span style="font-family:var(--font-serif);font-size:var(--text-body-sm);line-height:var(--leading-body);color:var(--text-on-dark-muted)">Saturday to Thursday, 11:00 — 20:00 BST. Choose where to reach us — send a reference number and we will confirm availability, condition and papers.</span>
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="100%,44px" size="sm" onClick="{{ goWhatsApp }}" style="{{ fullBtn }}">WhatsApp {{ waNumber }}</x-import>
+    <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="100%,44px" size="sm" variant="secondary" onClick="{{ goMessenger }}" style="{{ fullBtn }}">Messenger</x-import>
+    <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="100%,44px" size="sm" variant="ghost" onClick="{{ goContact }}">Send A Written Enquiry</x-import>
+  </div>
+</div>
+</sc-if>
+
+<button onClick="{{ toggleWa }}" style="position:fixed;right:var(--space-6);bottom:var(--space-6);z-index:54;width:56px;height:56px;border-radius:50%;border:1px solid var(--gold-600);background:var(--accent-primary);color:var(--accent-on-primary);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-card)">
+  <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Icon" hint-size="22px,22px" name="message-circle" size="{{ n22 }}"></x-import>
+</button>
+
+<sc-if value="{{ toastOpen }}">
+<div style="position:fixed;left:50%;bottom:var(--space-7);transform:translateX(-50%);z-index:95;max-width:calc(100vw - 32px);background:var(--surface-elevated);border:1px solid var(--border-on-dark-strong);padding:14px var(--space-6);display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px var(--space-5)">
+  <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark)">{{ toast }}</span>
+  <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="90px,20px" variant="ghost" onClick="{{ goCart }}">View Bag</x-import>
+</div>
+</sc-if>
+
+<sc-if value="{{ cookieOpen }}">
+<div style="position:fixed;left:0;right:0;bottom:0;z-index:96;background:var(--surface-base-deep);border-top:1px solid var(--border-on-dark-strong);padding:var(--space-6) var(--container-pad)">
+  <div style="max-width:var(--container-max);margin:0 auto;display:flex;flex-wrap:wrap;gap:var(--space-6);align-items:center;justify-content:space-between">
+    <div style="display:flex;flex-direction:column;gap:6px;max-width:60ch">
+      <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--gold-500)">Cookies</span>
+      <span style="font-family:var(--font-serif);font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">We use strictly necessary cookies to keep your bag and session. Analytics cookies are optional and off until you allow them.</span>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:12px">
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="140px,44px" size="sm" onClick="{{ acceptCookies }}">Allow All</x-import>
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="170px,44px" size="sm" variant="secondary" onClick="{{ necessaryOnly }}">Necessary Only</x-import>
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="90px,20px" variant="ghost" onClick="{{ goPrivacy }}">Policy</x-import>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;currency&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;BDT&quot;,&quot;USD&quot;],&quot;default&quot;:&quot;BDT&quot;,&quot;tsType&quot;:&quot;'BDT' | 'USD'&quot;,&quot;section&quot;:&quot;Storefront&quot;},&quot;forceView&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Auto&quot;,&quot;Mobile&quot;,&quot;Desktop&quot;],&quot;default&quot;:&quot;Auto&quot;,&quot;tsType&quot;:&quot;'Auto' | 'Mobile' | 'Desktop'&quot;,&quot;section&quot;:&quot;Storefront&quot;},&quot;codAdvanceThreshold&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:50000,&quot;min&quot;:0,&quot;max&quot;:300000,&quot;step&quot;:5000,&quot;unit&quot;:&quot;BDT&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Commerce rules&quot;},&quot;showCookieBanner&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Storefront&quot;}}">
+class Component extends DCLogic {
+  RATE = 119.5;
+  rate() { const s = this.state.content && this.state.content.settings; return (s && Number(s.fxRate)) || this.RATE; }
+
+  seed = {
+    products: [
+      { id: 'pp-5711g', brand: 'Patek Philippe', name: 'Nautilus 5711/1A Olive Green', ref: 'Ref. 5711/1A-014', sku: 'PWBD-PP-5711G', price: 4950000, originalPrice: null, movement: 'Automatic', condition: 'Unworn', stock: 1, image: 'assets/patek-green.jpg', archived: false,
+        specs: { diameter: '40 mm', case: 'Stainless steel', crystal: 'Sapphire, glare-proofed', water: '120 m', bracelet: 'Integrated steel bracelet', caliber: 'Cal. 26-330 S C', power: '45 hours', year: '2022', warranty: '24 months' },
+        story: ['A full set in olive green, unworn and still bearing its factory seals. The dial carries the horizontal embossed pattern the reference is known for, in a shade Patek retired shortly after introducing it.', 'Delivered with the original box, certificate of origin dated 2022, and the outer card. The bracelet is untouched at full length.'] },
+      { id: 'pp-5980', brand: 'Patek Philippe', name: 'Nautilus Chronograph 5980/1A', ref: 'Ref. 5980/1A-014', sku: 'PWBD-PP-5980', price: 5400000, originalPrice: null, movement: 'Automatic', condition: 'Excellent', stock: 1, image: 'assets/patek-chrono.jpg', archived: false,
+        specs: { diameter: '40.5 mm', case: 'Stainless steel', crystal: 'Sapphire', water: '120 m', bracelet: 'Integrated steel bracelet', caliber: 'Cal. CH 28-520 C', power: '55 hours', year: '2019', warranty: '24 months' },
+        story: ['A flyback chronograph on the integrated steel bracelet, worn lightly and serviced by an authorised centre in 2024. Light hairlines on the clasp only.', 'Two links held back for sizing, both returned in the box with the original papers.'] },
+      { id: 'pp-5205', brand: 'Patek Philippe', name: 'Annual Calendar 5205G Blue', ref: 'Ref. 5205G-013', sku: 'PWBD-PP-5205', price: 3850000, originalPrice: 4100000, movement: 'Automatic', condition: 'Unworn', stock: 2, image: 'assets/patek-complication.jpg', archived: false,
+        specs: { diameter: '40 mm', case: 'White gold', crystal: 'Sapphire', water: '30 m', bracelet: 'Alligator strap, gold buckle', caliber: 'Cal. 324 S QA LU 24H/303', power: '45 hours', year: '2023', warranty: '24 months' },
+        story: ['An annual calendar in white gold with the blue-to-black gradient dial, day and month in apertures, and a moon phase at six.', 'Held as a pair. Both are unworn with sealed papers; the second is available on request.'] },
+      { id: 'pp-5711r', brand: 'Patek Philippe', name: 'Nautilus 5711/1AR Two-Tone', ref: 'Ref. 5711/1AR-001', sku: 'PWBD-PP-5711R', price: 5150000, originalPrice: null, movement: 'Automatic', condition: 'Excellent', stock: 1, image: 'assets/patek-twotone.jpg', archived: false,
+        specs: { diameter: '40 mm', case: 'Steel and rose gold', crystal: 'Sapphire', water: '120 m', bracelet: 'Integrated two-tone bracelet', caliber: 'Cal. 26-330 S C', power: '45 hours', year: '2021', warranty: '24 months' },
+        story: ['The two-tone Nautilus with the chocolate-brown dial, a short production run and increasingly hard to place.', 'Worn occasionally and never polished. Original box, papers and both spare links present.'] },
+      { id: 'ap-15407', brand: 'Audemars Piguet', name: 'Royal Oak Double Balance Skeleton', ref: 'Ref. 15407ST', sku: 'PWBD-AP-15407', price: 6200000, originalPrice: null, movement: 'Automatic', condition: 'Unworn', stock: 1, image: 'assets/ap-skeleton.jpg', archived: false,
+        specs: { diameter: '41 mm', case: 'Stainless steel', crystal: 'Sapphire, both sides', water: '50 m', bracelet: 'Integrated steel bracelet', caliber: 'Cal. 3132', power: '45 hours', year: '2023', warranty: '24 months' },
+        story: ['An openworked Royal Oak with the double balance wheel visible through the dial side, hand-finished bridges and a fully skeletonised movement.', 'Unworn with the AP extract of the archives, box, and warranty card in the buyer name to be transferred.'] },
+      { id: 'ts-gent', brand: 'Tissot', name: 'Gentleman Powermatic 80 Skeleton', ref: 'Ref. T127.407', sku: 'PWBD-TS-GENT', price: 96000, originalPrice: 112000, movement: 'Automatic', condition: 'Unworn', stock: 6, image: 'assets/tissot-skeleton.jpg', archived: false,
+        specs: { diameter: '40 mm', case: 'Stainless steel', crystal: 'Sapphire', water: '100 m', bracelet: 'Steel bracelet, butterfly clasp', caliber: 'Powermatic 80.671', power: '80 hours', year: '2024', warranty: '24 months' },
+        story: ['An openworked Powermatic 80 with an eighty-hour reserve and a Nivachron balance spring — the most sensible mechanical watch in the salon.', 'New stock, six pieces held, supplied with the international warranty booklet.'] }
+    ],
+    orders: [
+      { id: 'PWBD-24194', customer: 'Mahmudul Hasan', phone: '01615 774 209', email: '', guest: true, address: 'Road 4, Nasirabad Housing Society, Chattogram 4000', city: 'Chattogram', country: 'Bangladesh', intl: false, payment: 'Cash on Delivery', total: 96000, shipping: 250, status: 'Pending', date: '23 Aug', today: true, refusals: 2, codCall: null, courier: null, consignment: null,
+        items: [{ name: 'Gentleman Powermatic 80 Skeleton', brand: 'Tissot', qty: 1, price: 96000, image: 'assets/tissot-skeleton.jpg', strap: 'Bracelet As Supplied' }],
+        notifications: [{ channel: 'SMS', text: 'Order received — awaiting confirmation call', at: '23 Aug 11:20' }] },
+      { id: 'PWBD-24193', customer: 'Nusrat Jahan', phone: '01727 331 908', email: 'nusrat.j@example.com', guest: false, address: 'Apartment 9C, Gulshan Avenue, Gulshan 2, Dhaka 1212', city: 'Dhaka', country: 'Bangladesh', intl: false, payment: 'SSLCommerz', total: 3850000, shipping: 0, status: 'Confirmed', date: '23 Aug', today: true, refusals: 0, codCall: null, courier: null, consignment: null,
+        items: [{ name: 'Annual Calendar 5205G Blue', brand: 'Patek Philippe', qty: 1, price: 3850000, image: 'assets/patek-complication.jpg', strap: 'Alligator, Gold Buckle' }],
+        notifications: [{ channel: 'Email', text: 'Payment captured — receipt sent', at: '23 Aug 09:48' }, { channel: 'SMS', text: 'Order confirmed, preparing for despatch', at: '23 Aug 09:49' }] },
+      { id: 'PWBD-24192', customer: 'Rezaul Karim', phone: '01919 887 210', email: '', guest: true, address: 'Flat 5B, House 7, Dhanmondi 9/A, Dhaka 1209', city: 'Dhaka', country: 'Bangladesh', intl: false, payment: 'Cash on Delivery', total: 96000, shipping: 0, status: 'Pending', date: '23 Aug', today: true, refusals: 0, codCall: null, courier: null, consignment: null,
+        items: [{ name: 'Gentleman Powermatic 80 Skeleton', brand: 'Tissot', qty: 1, price: 96000, image: 'assets/tissot-skeleton.jpg', strap: 'Bracelet As Supplied' }],
+        notifications: [{ channel: 'SMS', text: 'Order received — awaiting confirmation call', at: '23 Aug 08:02' }] },
+      { id: 'PWBD-24187', customer: 'Tanvir Ahmed', phone: '01711 204 556', email: 'tanvir.ahmed@example.com', guest: false, address: 'House 32, Road 11, Banani, Dhaka 1213', city: 'Dhaka', country: 'Bangladesh', intl: false, payment: 'bKash', total: 96000, shipping: 0, status: 'Shipped', date: '21 Aug', today: false, refusals: 0, codCall: null, courier: 'Pathao', consignment: 'CN-482119',
+        items: [{ name: 'Gentleman Powermatic 80 Skeleton', brand: 'Tissot', qty: 1, price: 96000, image: 'assets/tissot-skeleton.jpg', strap: 'Bracelet As Supplied' }],
+        notifications: [{ channel: 'SMS', text: 'Order confirmed — PWBD-24187', at: '21 Aug 14:02' }, { channel: 'Email', text: 'Receipt and warranty card sent', at: '21 Aug 14:03' }, { channel: 'SMS', text: 'Despatched with Pathao — CN-482119', at: '22 Aug 10:41' }] },
+      { id: 'PWBD-24188', customer: 'Adnan Chowdhury', phone: '+44 7700 900 812', email: 'adnan.c@example.co.uk', guest: false, address: '14 Devonshire Row, London EC2M 4RH', city: 'London', country: 'United Kingdom', intl: true, payment: 'Stripe', total: 5400000, shipping: 9800, status: 'Delivered', date: '18 Aug', today: false, refusals: 0, codCall: null, courier: 'DHL Express', consignment: 'DHL-771204', zone: 'Zone C — Europe & North America',
+        items: [{ name: 'Nautilus Chronograph 5980/1A', brand: 'Patek Philippe', qty: 1, price: 5400000, image: 'assets/patek-chrono.jpg', strap: 'Bracelet As Supplied' }],
+        notifications: [{ channel: 'Email', text: 'Commercial invoice and HS declaration attached', at: '18 Aug 16:10' }, { channel: 'Email', text: 'Delivered and signed for', at: '21 Aug 11:26' }] },
+      { id: 'PWBD-24180', customer: 'Sabrina Islam', phone: '01844 662 175', email: 'sabrina.i@example.com', guest: false, address: 'House 5, Road 2, Baridhara DOHS, Dhaka 1206', city: 'Dhaka', country: 'Bangladesh', intl: false, payment: 'bKash', total: 4950000, shipping: 0, status: 'Delivered', date: '12 Aug', today: false, refusals: 0, codCall: null, courier: 'Pathao', consignment: 'CN-479002',
+        items: [{ name: 'Nautilus 5711/1A Olive Green', brand: 'Patek Philippe', qty: 1, price: 4950000, image: 'assets/patek-green.jpg', strap: 'Bracelet As Supplied' }],
+        notifications: [{ channel: 'SMS', text: 'Delivered and signed for', at: '14 Aug 12:55' }] }
+    ]
+  };
+
+  state = {
+    route: 'home', productId: 'pp-5711g', gal: 0, tab: 'Description',
+    products: this.seed.products, orders: this.seed.orders,
+    drawer: false, searchOpen: false, q: '', recent: ['Nautilus', 'Skeleton', 'Under 200,000'],
+    sizeGuide: false, zoom: false, zoomOrigin: '50% 50%',
+    filters: { brands: [], movements: [], price: 'Any Price', condition: 'Any Condition', inStock: false },
+    sort: 'Recently Acquired', page: 1, showFilters: false,
+    cart: [], wishlist: ['pp-5205'], strap: 'Bracelet As Supplied', qty: 1,
+    dest: 'Inside Dhaka', zone: 'Zone C — Europe & North America',
+    step: 1, form: { name: '', phone: '', email: '', address: '', area: '', city: 'Dhaka', post: '', country: 'Bangladesh', wrist: '' },
+    ship: null, pay: 'bKash', bkStage: 'number', bk: { no: '', otp: '', pin: '' }, card: { no: '', exp: '', cvc: '', name: '' }, sslTab: 'Card', codAdvance: false, agree: false,
+    errors: {}, placed: null,
+    authMode: 'signin', auth: { email: '', pass: '', phone: '', otp: '', name: '' }, otpSent: false, user: null, authNote: '',
+    accountTab: 'Orders', accountOrderId: null,
+    track: { id: '', phone: '' }, trackResult: null, trackError: '',
+    pageKey: 'about',
+    cookie: true, waOpen: false, currency: 'BDT', vw: 1280, toast: '',
+    contact: { name: '', phone: '', email: '', ref: '' }, contactErrors: {}, enquirySent: false,
+    content: this.cmsSeed()
+  };
+
+  NAME_RE = /^[A-Za-z][A-Za-z .'-]{1,}$/;
+  openWhatsApp() {
+    const msg = 'Hello Prime Wrist BD, I have a question about a piece in your collection.';
+    const raw = (this.content().settings && this.content().settings.whatsapp) || '+880 1410 681682';
+    const num = raw.replace(/[^0-9]/g, '');
+    window.open('https://wa.me/' + num + '?text=' + encodeURIComponent(msg), '_blank', 'noopener');
+    this.setState({ waOpen: false });
+  }
+  openMessenger() {
+    const raw = ((this.content().settings && this.content().settings.messenger) || '61591387296685').trim();
+    let handle = raw;
+    const idMatch = raw.match(/profile\.php\?id=(\d+)/i) || raw.match(/^(\d{6,})$/);
+    if (idMatch) handle = idMatch[1];
+    else handle = raw.replace(/^https?:\/\/(m\.me|www\.facebook\.com|facebook\.com|messenger\.com)\//i, '').replace(/^@/, '').replace(/[/?].*$/, '');
+    window.open('https://m.me/' + handle, '_blank', 'noopener');
+    this.setState({ waOpen: false });
+  }
+  qtyBtn(disabled) {
+    return { width: '44px', height: '44px', border: '1px solid var(--border-on-dark)', background: 'transparent', color: 'var(--text-on-dark)', cursor: disabled ? 'not-allowed' : 'pointer', opacity: disabled ? 0.35 : 1, fontFamily: 'var(--font-serif)', fontSize: 'var(--text-body-lg)', borderRadius: 'var(--radius-sm)' };
+  }
+
+  componentDidMount() {
+    const base = (this.state.content && this.state.content.settings && this.state.content.settings.currency) || this.props.currency || 'BDT';
+    this.setState({ vw: window.innerWidth, currency: base, cookie: this.props.showCookieBanner !== false });
+    this._r = () => this.setState({ vw: window.innerWidth });
+    window.addEventListener('resize', this._r);
+    this.resolveAssets();
+  }
+  resolveAssets() {
+    const map = {};
+    document.querySelectorAll('[data-asset]').forEach(el => { const k = el.getAttribute('data-asset'); const v = el.src || el.currentSrc; if (k && v && v !== k) map[k] = v; });
+    if (!Object.keys(map).length) return;
+    const r = u => (u && map[u]) ? map[u] : u;
+    this.setState(s => {
+      const products = s.products.map(p => Object.assign({}, p, { image: r(p.image) }));
+      const orders = s.orders.map(o => Object.assign({}, o, { items: (o.items || []).map(it => Object.assign({}, it, { image: r(it.image) })) }));
+      const content = Object.assign({}, s.content);
+      content.home = Object.assign({}, content.home, { heroImage: r(content.home.heroImage) });
+      return { products, orders, content };
+    });
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this._r); if (this._t) clearTimeout(this._t); }
+
+  mobile() { const f = this.props.forceView; if (f === 'Mobile') return true; if (f === 'Desktop') return false; return this.state.vw < 900; }
+  cur() { return this.state.currency; }
+  conv(b) { return this.cur() === 'USD' ? Math.round(b / this.rate()) : Math.round(b); }
+  grp(n) { return new Intl.NumberFormat('en-US').format(n); }
+  fmt(b) { return this.cur() + ' ' + this.grp(this.conv(b)); }
+  go(route, extra) { this.setState(Object.assign({ route, drawer: false, searchOpen: false }, extra || {})); window.scrollTo(0, 0); }
+  flash(msg) { this.setState({ toast: msg }); if (this._t) clearTimeout(this._t); this._t = setTimeout(() => this.setState({ toast: '' }), 3200); }
+  product(id) { return this.state.products.find(p => p.id === id); }
+  live() { return this.state.products.filter(p => !p.archived); }
+
+  straps() {
+    return [{ label: 'Bracelet As Supplied', add: 0 }, { label: 'Black Alligator', add: 18000 }, { label: 'Brown Calf', add: 12000 }];
+  }
+  strapAdd(label) { const s = this.straps().find(x => x.label === label); return s ? s.add : 0; }
+
+  cartLines() {
+    return this.state.cart.map(l => {
+      const p = this.product(l.id) || {};
+      const unit = (p.price || 0) + this.strapAdd(l.strap);
+      return { line: l, p, unit, total: unit * l.qty };
+    });
+  }
+  subtotal() { return this.cartLines().reduce((a, x) => a + x.total, 0); }
+  isIntl() { return this.state.dest === 'International'; }
+
+  shipOptions() {
+    const d = this.state.dest;
+    if (d === 'Inside Dhaka') return [{ id: 'dhaka', label: 'Insured Hand Delivery', note: '1 to 2 working days, inside Dhaka city', cost: 0 }];
+    if (d === 'Outside Dhaka') return [{ id: 'bd', label: 'Insured Nationwide Courier', note: '3 to 5 working days, signature required', cost: 250 }];
+    const zones = { 'Zone A — South Asia': 4500, 'Zone B — Gulf & Southeast Asia': 7200, 'Zone C — Europe & North America': 9800 };
+    return [{ id: 'dhl', label: 'DHL Express Worldwide', note: this.state.zone + ' — 4 to 7 working days, duties payable on arrival', cost: zones[this.state.zone] || 9800 }];
+  }
+  shipCost() { const o = this.shipOptions(); const s = o.find(x => x.id === this.state.ship) || o[0]; return s ? s.cost : 0; }
+  total() { return this.subtotal() + this.shipCost(); }
+  vat() { return Math.round(this.subtotal() * 0.075 / 1.075); }
+  codThreshold() { return this.props.codAdvanceThreshold || 50000; }
+
+  codState() {
+    const sub = this.subtotal();
+    if (this.isIntl()) return { ok: false, reason: 'Cash on delivery is available inside Bangladesh only.' };
+    if (this.state.dest !== 'Inside Dhaka') return { ok: false, reason: 'Cash on delivery is limited to Dhaka city while we expand courier cover.' };
+    if (sub > 150000) return { ok: false, reason: 'Cash on delivery is capped at BDT 150,000. Please choose bKash or a card.' };
+    const need = sub > this.codThreshold();
+    return { ok: true, advance: need, advanceAmount: Math.round(sub * 0.2), reason: need ? 'Orders above ' + 'BDT ' + this.grp(this.codThreshold()) + ' require a 20% advance by bKash before despatch.' : 'No advance required. Pay the courier in full on delivery.' };
+  }
+
+  payMethods() {
+    if (this.isIntl()) return [
+      { id: 'Stripe', label: 'Card — Stripe', note: 'Visa, Mastercard and Amex. 3-D Secure applied.' },
+      { id: 'PayPal', label: 'PayPal', note: 'Redirects to PayPal, returns here on approval.' },
+      { id: 'SSLCommerz', label: 'SSLCommerz', note: 'Cards issued in Bangladesh, billed in BDT.' }
+    ];
+    return [
+      { id: 'bKash', label: 'bKash', note: 'Pay direct from your bKash wallet.' },
+      { id: 'SSLCommerz', label: 'Card Or Mobile Banking', note: 'SSLCommerz — cards, Nagad, Rocket, internet banking.' },
+      { id: 'Cash on Delivery', label: 'Cash On Delivery', note: this.codState().reason }
+    ];
+  }
+
+  ln(t, v) { return { label: t, value: v }; }
+
+  bg(url) { return url ? 'url("' + url + '")' : 'none'; }
+  thumb(url, px, extra) {
+    return Object.assign({ display: 'block', width: px + 'px', height: px + 'px', flex: '0 0 ' + px + 'px', backgroundImage: this.bg(url), backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }, extra || {});
+  }
+  fill(url, extra) {
+    return Object.assign({ position: 'absolute', inset: 0, backgroundImage: this.bg(url), backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }, extra || {});
+  }
+
+  patchOrder = (id, patch) => this.setState(s => ({ orders: s.orders.map(o => o.id === id ? Object.assign({}, o, patch) : o) }));
+  patchProduct = (id, patch) => this.setState(s => ({ products: s.products.map(p => p.id === id ? Object.assign({}, p, patch) : p) }));
+  patchContent = (next) => this.setState({ content: next });
+
+  filtered() {
+    const st = this.state;
+    const q = st.q.trim().toLowerCase();
+    const f = st.filters;
+    let out = this.live().filter(p => {
+      if (q && !((p.brand + ' ' + p.name + ' ' + p.ref + ' ' + p.movement).toLowerCase().includes(q))) return false;
+      if (f.brands.length && f.brands.indexOf(p.brand) < 0) return false;
+      if (f.movements.length && f.movements.indexOf(p.movement) < 0) return false;
+      if (f.condition !== 'Any Condition' && p.condition !== f.condition) return false;
+      if (f.inStock && p.stock < 1) return false;
+      if (f.price === 'Under BDT 200,000' && p.price >= 200000) return false;
+      if (f.price === 'BDT 200,000 — 4,000,000' && (p.price < 200000 || p.price > 4000000)) return false;
+      if (f.price === 'Above BDT 4,000,000' && p.price <= 4000000) return false;
+      return true;
+    });
+    if (st.sort === 'Price — Low To High') out = out.slice().sort((a, b) => a.price - b.price);
+    if (st.sort === 'Price — High To Low') out = out.slice().sort((a, b) => b.price - a.price);
+    if (st.sort === 'Brand A To Z') out = out.slice().sort((a, b) => (a.brand + a.name).localeCompare(b.brand + b.name));
+    return out;
+  }
+
+  card(p) {
+    return { image: p.image, brand: p.brand, name: p.name, price: this.conv(p.price), originalPrice: p.originalPrice ? this.conv(p.originalPrice) : null, movement: p.movement, onClick: () => this.go('product', { productId: p.id, gal: 0, tab: 'Description', qty: 1, strap: 'Bracelet As Supplied' }) };
+  }
+
+  navLink(label, fn) {
+    return { label, onClick: fn, style: { background: 'none', border: 'none', padding: 0, cursor: 'pointer', fontFamily: 'var(--font-sans)', fontSize: 'var(--text-label-md)', letterSpacing: 'var(--tracking-label)', textTransform: 'uppercase', color: 'var(--text-on-dark-muted)', whiteSpace: 'nowrap' } };
+  }
+
+  content() { return this.state.content; }
+
+  footerLink(label) {
+    const brands = ['Patek Philippe', 'Audemars Piguet', 'Tissot', 'Rolex', 'Omega', 'Cartier'];
+    const m = {
+      'All Watches': () => this.go('collection'),
+      'Authenticity Guarantee': () => this.go('contact'),
+      'Contact Us': () => this.go('contact'),
+      'Warranty & Care': () => this.go('page', { pageKey: 'warranty' }),
+      'Shipping & Delivery': () => this.go('page', { pageKey: 'shipping' }),
+      'Returns & Refunds': () => this.go('page', { pageKey: 'returns' }),
+      'Heritage': () => this.go('page', { pageKey: 'about' }),
+      'Visit The Salon': () => this.go('contact'),
+      'Track An Order': () => this.go('track'),
+      'Privacy Policy': () => this.go('page', { pageKey: 'privacy' }),
+      'Terms Of Sale': () => this.go('page', { pageKey: 'terms' })
+    };
+    if (m[label]) return m[label];
+    if (brands.indexOf(label) >= 0) return () => this.byBrand(label);
+    return () => this.go('collection');
+  }
+
+  pageContent(key) {
+    const pages = (this.content() && this.content().pages) || [];
+    return pages.find(p => p.id === key) || pages[0] || { eyebrow: '', title: '', lede: '', blocks: [] };
+  }
+
+  cmsSeed() {
+    return {
+      home: {
+        heroEyebrow: 'A Journey Through Time, Perfected',
+        heroHeadline: 'Mechanical Timepieces, Examined And Judged Worthy',
+        heroSubhead: 'A considered collection of automatic, mechanical and quartz watches, held in Dhaka. Every piece is opened, wound and authenticated in-house before it is offered.',
+        heroPrimary: 'Explore The Collection',
+        heroSecondary: 'Contact Us',
+        heroImage: 'assets/hero-collection.jpg',
+        trust: [
+          { label: 'Authenticated In-House', note: 'Case opened, movement identified, timing measured over 24 hours.' },
+          { label: 'Papers Where They Exist', note: 'Box and certificate listed plainly; absent papers are stated, never implied.' },
+          { label: 'Insured Delivery', note: 'Hand-delivered in Dhaka, DHL Express and fully declared worldwide.' },
+          { label: '24 Months Of Cover', note: 'Mechanical warranty on every watch, serviced at our own bench.' }
+        ],
+        quote: 'Every mechanism we place on a wrist has been examined, wound, and judged worthy of a lifetime.',
+        houseBlurb: 'Prime Wrist BD trades in established watch houses from a single salon in Dhaka. Pieces are sourced, verified against manufacturer records, serviced where required, and offered with a written guarantee.',
+        salonHeading: 'Try It On Before You Decide',
+        salonBody: 'Any piece in the collection can be reserved for a private viewing. Bring your wrist; we will size the bracelet while you wait.'
+      },
+      brands: ['Patek Philippe', 'Audemars Piguet', 'Rolex', 'Omega', 'Cartier', 'Tissot'],
+      pages: [
+        { id: 'about', title: 'A Single Salon In Dhaka', eyebrow: 'The House', status: 'Published', lede: 'Prime Wrist BD began as a private collection and became a shop because friends kept asking to buy from it.', blocks: [
+          { heading: 'How We Buy', body: 'Every piece is bought outright, in person, from an owner or an established dealer. We do not broker watches we have not held. If a reference cannot be verified against manufacturer records, we do not take it.' },
+          { heading: 'What Happens Before A Listing', body: 'The case back comes off, the movement is identified, timing is measured over twenty-four hours, and water resistance is tested where the case permits. Anything requiring service is serviced before it is offered, not after it is sold.' },
+          { heading: 'Why The Collection Is Small', body: 'We hold what we would wear. A dozen pieces at a time, sometimes fewer. If you are looking for a specific reference, tell us and we will source it against a written quotation.' }
+        ] },
+        { id: 'warranty', title: 'Warranty & Care', eyebrow: 'Aftercare', status: 'Published', lede: 'Twenty-four months of mechanical cover on every watch, and a workshop that answers the phone.', blocks: [
+          { heading: 'What Is Covered', body: 'Twenty-four months from the delivery date on the movement and its regulation. Covered work is carried out at our own bench or at an authorised centre, at our cost, including collection and return inside Bangladesh.' },
+          { heading: 'What Is Not Covered', body: 'Water ingress after the gaskets have been disturbed by a third party, impact damage, and normal wear to straps, crystals and plating. Opening the case outside an authorised workshop ends the cover.' },
+          { heading: 'Service Intervals', body: 'A mechanical watch worn daily wants a full service every five to seven years. Bring it in for a free timing check annually; we will tell you honestly when it is due.' },
+          { heading: 'Daily Care', body: 'Wind a manual watch at the same time each day and stop at the first resistance. Keep automatics off loudspeakers and away from magnetic clasps. Rinse a diver in fresh water after the sea, and never operate a crown or pusher while the watch is wet.' }
+        ] },
+        { id: 'shipping', title: 'Shipping & Delivery', eyebrow: 'Delivery', status: 'Published', lede: 'Insured, tracked, and signed for. Inside Dhaka we deliver by hand.', blocks: [
+          { heading: 'Inside Dhaka', body: 'Free hand delivery within one to two working days. A member of staff brings the watch, sizes the bracelet on your wrist if needed, and takes signature on the certificate.' },
+          { heading: 'Elsewhere In Bangladesh', body: 'BDT 250 by insured courier, three to five working days, signature required. Cash on delivery is not yet available outside Dhaka city.' },
+          { heading: 'International', body: 'DHL Express, fully insured and declared at full value. Zone A South Asia BDT 4,500; Zone B Gulf and Southeast Asia BDT 7,200; Zone C Europe and North America BDT 9,800. Duties and import taxes are payable by the recipient on arrival.' },
+          { heading: 'Customs Documents', body: 'Every international parcel carries a commercial invoice and the HS declaration 9101.21.00 for automatic wrist-watches. We do not under-declare value; insurance depends on it.' }
+        ] },
+        { id: 'returns', title: 'Returns & Refunds', eyebrow: 'Policy', status: 'Published', lede: 'Fourteen days to change your mind, on the condition the watch comes back as it left.', blocks: [
+          { heading: 'The Window', body: 'Tell us within fourteen days of delivery. The watch must be unworn beyond trying it on, complete with box, papers, links and protective stickers where they were present.' },
+          { heading: 'How A Refund Is Paid', body: 'Card and SSLCommerz payments are refunded to the original transaction within seven working days. bKash payments are returned by send-money to the paying number. Cash on delivery refunds are paid by bKash and logged against the order.' },
+          { heading: 'Exchanges', body: 'An exchange for another piece in the collection carries no fee; any difference in price is settled either way. Bracelet sizing and strap changes are not chargeable.' },
+          { heading: 'What We Cannot Take Back', body: 'Watches that have been worn, engraved, sized by a third party, or opened outside our workshop. Sourced-to-order pieces bought against a written quotation are final sale, stated at the time of quotation.' }
+        ] },
+        { id: 'privacy', title: 'Privacy Policy', eyebrow: 'Legal', status: 'Published', lede: 'We hold the least we can, for as long as the sale and its warranty require.', blocks: [
+          { heading: 'What We Collect', body: 'Your name, phone number, delivery address and email, so that an order can be fulfilled and a warranty honoured. Nothing more is required to buy from us.' },
+          { heading: 'Payment Data', body: 'Card details are entered on the payment provider page and never reach our servers. We store only the transaction reference, the last four digits, and the result.' },
+          { heading: 'Cookies', body: 'Strictly necessary cookies keep your bag and session. Analytics cookies are off until you allow them and can be withdrawn at any time from the banner.' },
+          { heading: 'Your Rights', body: 'Write to privacy@primewristbd.com to see, correct or erase what we hold. We answer within thirty days. Warranty records are kept for the length of the cover, then deleted.' }
+        ] },
+        { id: 'terms', title: 'Terms Of Sale', eyebrow: 'Legal', status: 'Draft', lede: 'Plain terms, written to be read.', blocks: [
+          { heading: 'Prices And Currency', body: 'Prices are shown in Bangladeshi Taka and include VAT at 7.5%. The USD figure is a conversion for reference; the charge is taken in BDT at the rate applied on the day of payment.' },
+          { heading: 'Stock And Allocation', body: 'The collection is single-unit in most cases. A piece is allocated when payment clears, or when a cash-on-delivery order is confirmed by phone. Until then it remains available to others.' },
+          { heading: 'Cash On Delivery', body: 'Available inside Dhaka up to BDT 150,000. Orders above BDT 50,000 require a 20% advance by bKash before despatch. Two refused deliveries on one phone number disable the method for that number.' },
+          { heading: 'Governing Law', body: 'These terms are governed by the laws of Bangladesh. Disputes are heard in the courts of Dhaka.' }
+        ] }
+      ],
+      salon: {
+        rows: [
+          { label: 'Salon', value: 'Level 4, Bashundhara City, Panthapath, Dhaka 1215' },
+          { label: 'Hours', value: 'Saturday — Thursday, 11:00 to 20:00. Friday by appointment.' },
+          { label: 'Telephone', value: '+880 1410-681682' },
+          { label: 'WhatsApp', value: '+880 1410-681682' },
+          { label: 'Email', value: 'salon@primewristbd.com' },
+          { label: 'Trade Licence', value: 'TRAD/DNCC/041729/2023' }
+        ]
+      },
+      footer: {
+        tagline: 'A Journey Through Time, Perfected',
+        address: 'Level 4, Bashundhara City, Panthapath, Dhaka 1215. Trade licence TRAD/DNCC/041729/2023.',
+        columns: [
+          { title: 'Collection', links: ['All Watches', 'Patek Philippe', 'Audemars Piguet', 'Tissot'] },
+          { title: 'Assurance', links: ['Contact Us', 'Warranty & Care', 'Shipping & Delivery', 'Returns & Refunds'] },
+          { title: 'The House', links: ['Heritage', 'Visit The Salon', 'Track An Order', 'Privacy Policy', 'Terms Of Sale'] }
+        ]
+      },
+      settings: {
+        wordmark: 'Prime Wrist BD',
+        tagline: 'A Journey Through Time, Perfected',
+        currency: 'BDT',
+        fxRate: 119.5,
+        bannerOn: true,
+        bannerText: 'Insured Delivery Across Bangladesh — Worldwide Despatch By DHL Express',
+        whatsapp: '+880 1410-681682',
+        messenger: '61591387296685',
+        email: 'salon@primewristbd.com',
+        seoTitle: 'Prime Wrist BD — Luxury Watches In Dhaka',
+        seoDesc: 'A considered collection of authenticated automatic, mechanical and quartz watches, held in Dhaka and delivered worldwide.'
+      },
+      enquiries: [
+        { id: 'ENQ-4821', name: 'Farhan Kabir', contact: '01711 204 556', ref: 'Ref. 5711/1A Olive Green', at: '23 Aug 10:12', status: 'New', message: 'Is the olive green Nautilus still available with full set? Could visit the salon this weekend.' },
+        { id: 'ENQ-4820', name: 'Ishita Rahman', contact: 'ishita.r@example.com', ref: 'Sourcing — Cartier Tank', at: '22 Aug 17:40', status: 'New', message: 'Looking to source a Cartier Tank Louis in yellow gold, small model. Budget is flexible.' },
+        { id: 'ENQ-4816', name: 'Adnan Chowdhury', contact: '+44 7700 900 812', ref: 'International shipping', at: '21 Aug 09:03', status: 'Replied', message: 'Do you ship the 5980 to the UK fully insured and declared? Need it before month end.' }
+      ]
+    };
+  }
+
+  renderVals() {
+    const st = this.state;
+    const isMobile = this.mobile();
+    const v = {
+      isAdmin: st.route === 'admin',
+      isStore: st.route !== 'admin',
+      isMobile, isDesktop: !isMobile,
+      n20: 20, n22: 22, yes: true,
+      fullBtn: { width: '100%' },
+      inkGhostProps: { style: { background: '#eeba2b', color: '#0b4a34', padding: '14px 30px', borderColor: '#eeba2b' } },
+      currency: this.cur(),
+      orders: st.orders, products: st.products, content: st.content,
+      codThreshold: this.codThreshold(),
+      patchOrder: this.patchOrder, patchProduct: this.patchProduct, patchContent: this.patchContent,
+      cartCount: st.cart.reduce((a, l) => a + l.qty, 0),
+      drawerOpen: st.drawer, searchOpen: st.searchOpen, sizeGuideOpen: st.sizeGuide, zoomOpen: st.zoom,
+      waOpen: st.waOpen, cookieOpen: st.cookie, toast: st.toast, toastOpen: !!st.toast,
+      q: st.q, tab: st.tab, sort: st.sort,
+      goHome: () => this.go('home'), goCollection: () => this.go('collection', { page: 1 }),
+      goCart: () => this.go('cart'), goTrack: () => this.go('track'), goAdmin: () => this.go('admin'),
+      goContact: () => this.go('contact'), goAbout: () => this.go('page', { pageKey: 'about' }),
+      goAuthenticity: () => this.go('contact'), goPrivacy: () => this.go('page', { pageKey: 'privacy' }),
+      goAccount: () => this.go(st.user ? 'account' : 'auth', { accountTab: 'Orders' }),
+      goWishlist: () => this.go(st.user ? 'account' : 'auth', { accountTab: 'Wishlist' }),
+      openSearch: () => this.setState({ searchOpen: true }), closeSearch: () => this.setState({ searchOpen: false }),
+      openDrawer: () => this.setState({ drawer: true }), closeDrawer: () => this.setState({ drawer: false }),
+      openSizeGuide: () => this.setState({ sizeGuide: true }), closeSizeGuide: () => this.setState({ sizeGuide: false }),
+      openZoom: () => this.setState({ zoom: true }), closeZoom: () => this.setState({ zoom: false }),
+      openWa: () => this.setState({ waOpen: true }), closeWa: () => this.setState({ waOpen: false }), toggleWa: () => this.setState(s => ({ waOpen: !s.waOpen })),
+      goWhatsApp: () => this.openWhatsApp(), goMessenger: () => this.openMessenger(),
+      acceptCookies: () => this.setState({ cookie: false }), necessaryOnly: () => this.setState({ cookie: false }),
+      setQ: e => this.setState({ q: e.target.value, page: 1 }),
+      setSort: e => this.setState({ sort: e.target.value, page: 1 }),
+      setTab: t => this.setState({ tab: t }),
+      pdTabs: ['Description', 'Specification', 'Care'],
+      tabIsDescription: st.tab === 'Description', tabIsSpec: st.tab === 'Specification', tabIsCare: st.tab === 'Care',
+      isHome: st.route === 'home', isCollection: st.route === 'collection', isProduct: st.route === 'product',
+      isCart: st.route === 'cart', isCheckout: st.route === 'checkout', isConfirm: st.route === 'confirm',
+      isTrack: st.route === 'track', isAccount: st.route === 'account', isAuth: st.route === 'auth',
+      isPage: st.route === 'page', isContact: st.route === 'contact',
+      hasCart: st.cart.length > 0
+    };
+
+    v.currencies = ['BDT', 'USD'].map(c => ({
+      label: c, onClick: () => this.setState({ currency: c }),
+      style: { background: 'none', border: 'none', padding: '0 2px', cursor: 'pointer', fontFamily: 'var(--font-sans)', fontSize: 'var(--text-label-sm)', letterSpacing: 'var(--tracking-label)', color: st.currency === c ? 'var(--gold-500)' : 'var(--text-on-dark-faint)' }
+    }));
+    v.currencyTags = ['BDT', 'USD'].map(c => ({ label: c, active: st.currency === c, onClick: () => this.setState({ currency: c }) }));
+
+    v.navLeft = [this.navLink('Collection', () => this.go('collection')), this.navLink('Heritage', () => this.go('page', { pageKey: 'about' }))];
+    v.navRight = [this.navLink('Warranty', () => this.go('page', { pageKey: 'warranty' })), this.navLink('Contact', () => this.go('contact'))];
+
+    const drawerStyle = { background: 'none', border: 'none', borderBottom: '1px solid var(--border-on-dark)', padding: '18px 0', textAlign: 'left', cursor: 'pointer', fontFamily: 'var(--font-sans)', fontSize: 'var(--text-label-lg)', letterSpacing: 'var(--tracking-label)', textTransform: 'uppercase', color: 'var(--text-on-dark)' };
+    v.drawerLinks = [
+      { label: 'The Collection', onClick: () => this.go('collection') },
+      { label: 'Heritage', onClick: () => this.go('page', { pageKey: 'about' }) },
+      { label: 'Contact Us', onClick: () => this.go('contact') },
+      { label: 'Warranty & Care', onClick: () => this.go('page', { pageKey: 'warranty' }) },
+      { label: 'Your Bag', onClick: () => this.go('cart') },
+      { label: 'Saved Pieces', onClick: () => this.go(st.user ? 'account' : 'auth', { accountTab: 'Wishlist' }) },
+      { label: st.user ? 'Your Account' : 'Sign In', onClick: () => this.go(st.user ? 'account' : 'auth') },
+      { label: 'Track An Order', onClick: () => this.go('track') },
+      { label: 'Contact', onClick: () => this.go('contact') }
+    ].map(d => ({ label: d.label, onClick: d.onClick, style: drawerStyle }));
+
+    const c = this.content();
+    if (typeof document !== 'undefined' && c.settings && c.settings.seoTitle) document.title = c.settings.seoTitle;
+    v.footerCols = c.footer.columns.map(col => ({ title: col.title, links: col.links.map(l => ({ label: l, onClick: this.footerLink(l) })) }));
+    v.footerTagline = c.footer.tagline;
+    v.footerAddress = c.footer.address;
+    v.bannerOn = c.settings.bannerOn;
+    v.bannerOff = !c.settings.bannerOn;
+    v.bannerText = c.settings.bannerText;
+    v.waNumber = c.settings.whatsapp;
+
+    // home — content-driven
+    v.trustPoints = c.home.trust;
+    v.heroStyle = { position: 'relative', minHeight: 'min(78vh,620px)', display: 'flex', alignItems: 'flex-end', backgroundImage: "linear-gradient(90deg,rgba(2,22,15,.9) 0%,rgba(2,22,15,.55) 55%,rgba(2,22,15,.35) 100%),url('" + c.home.heroImage + "')", backgroundSize: 'cover', backgroundPosition: 'center', padding: 'var(--space-10) var(--container-pad) calc(var(--space-9) + 76px)' };
+    v.heroEyebrow = c.home.heroEyebrow;
+    v.heroHeadline = c.home.heroHeadline;
+    v.heroSubhead = c.home.heroSubhead;
+    v.heroPrimary = c.home.heroPrimary;
+    v.heroSecondary = c.home.heroSecondary;
+    v.quoteText = '“' + c.home.quote + '”';
+    v.houseBlurb = c.home.houseBlurb;
+    v.salonHeading = c.home.salonHeading;
+    v.salonBody = c.home.salonBody;
+    v.featured = this.live().slice(0, 6).map(p => this.card(p));
+    v.houses = c.brands.map(h => ({
+      label: h, onClick: () => this.byBrand(h),
+      style: { background: 'none', border: 'none', padding: 0, cursor: 'pointer', fontFamily: 'var(--font-sans)', fontWeight: 300, fontSize: 'var(--text-label-lg)', letterSpacing: 'var(--tracking-tagline)', textTransform: 'uppercase', color: 'var(--text-on-dark-faint)' }
+    }));
+    v.salonRows = c.salon.rows;
+
+    // collection
+    const results = this.filtered();
+    const size = 8;
+    const pages = Math.max(1, Math.ceil(results.length / size));
+    const page = Math.min(st.page, pages);
+    v.listEyebrow = 'The Collection';
+    v.listTitle = st.filters.brands.length === 1 ? st.filters.brands[0] : 'Every Piece In The Salon';
+    v.listCount = results.length + (results.length === 1 ? ' piece held' : ' pieces held') + (st.q ? ' matching “' + st.q + '”' : '');
+    v.sortOptions = ['Recently Acquired', 'Price — Low To High', 'Price — High To Low', 'Brand A To Z'];
+    v.filtersVisible = !isMobile || st.showFilters;
+    v.listCols = (!isMobile) ? '260px 1fr' : '1fr';
+    v.toggleFilters = () => this.setState(s => ({ showFilters: !s.showFilters }));
+    v.filterBtnLabel = st.showFilters ? 'Hide Filters' : 'Filters';
+    v.filterGroups = [
+      { title: 'House', options: ['Patek Philippe', 'Audemars Piguet', 'Tissot'].map(b => ({ label: b, active: st.filters.brands.indexOf(b) >= 0, onClick: () => this.toggleArr('brands', b) })) },
+      { title: 'Movement', options: ['Automatic', 'Mechanical', 'Quartz'].map(m => ({ label: m, active: st.filters.movements.indexOf(m) >= 0, onClick: () => this.toggleArr('movements', m) })) },
+      { title: 'Price', options: ['Any Price', 'Under BDT 200,000', 'BDT 200,000 — 4,000,000', 'Above BDT 4,000,000'].map(p => ({ label: p, active: st.filters.price === p, onClick: () => this.setFilter('price', p) })) },
+      { title: 'Condition', options: ['Any Condition', 'Unworn', 'Excellent'].map(c => ({ label: c, active: st.filters.condition === c, onClick: () => this.setFilter('condition', c) })) },
+      { title: 'Availability', options: [{ label: 'In Stock Only', active: st.filters.inStock, onClick: () => this.setFilter('inStock', !st.filters.inStock) }] }
+    ];
+    const chips = [];
+    st.filters.brands.forEach(b => chips.push({ label: b, onClick: () => this.toggleArr('brands', b) }));
+    st.filters.movements.forEach(m => chips.push({ label: m, onClick: () => this.toggleArr('movements', m) }));
+    if (st.filters.price !== 'Any Price') chips.push({ label: st.filters.price, onClick: () => this.setFilter('price', 'Any Price') });
+    if (st.filters.condition !== 'Any Condition') chips.push({ label: st.filters.condition, onClick: () => this.setFilter('condition', 'Any Condition') });
+    if (st.filters.inStock) chips.push({ label: 'In Stock', onClick: () => this.setFilter('inStock', false) });
+    if (st.q) chips.push({ label: '“' + st.q + '”', onClick: () => this.setState({ q: '' }) });
+    v.activeChips = chips;
+    v.hasActiveFilters = chips.length > 0;
+    v.clearFilters = () => this.setState({ q: '', page: 1, filters: { brands: [], movements: [], price: 'Any Price', condition: 'Any Condition', inStock: false } });
+    v.hasResults = results.length > 0;
+    v.noResults = results.length === 0;
+    v.pageItems = results.slice((page - 1) * size, page * size).map(p => this.card(p));
+    v.pageNote = 'Showing ' + (results.length ? ((page - 1) * size + 1) : 0) + ' to ' + Math.min(page * size, results.length) + ' of ' + results.length;
+    v.pageNumbers = Array.from({ length: pages }, (_, i) => i + 1).map(n => ({
+      label: String(n), onClick: () => this.setState({ page: n }),
+      style: { width: '40px', height: '40px', cursor: 'pointer', fontFamily: 'var(--font-sans)', fontSize: 'var(--text-label-md)', letterSpacing: 'var(--tracking-label)', borderRadius: 'var(--radius-sm)', border: '1px solid ' + (n === page ? 'var(--accent-primary)' : 'var(--border-on-dark)'), background: n === page ? 'var(--accent-primary)' : 'transparent', color: n === page ? 'var(--accent-on-primary)' : 'var(--text-on-dark)' }
+    }));
+    v.showPager = pages > 1;
+    v.prevDisabled = page <= 1; v.nextDisabled = page >= pages;
+    v.prevPage = () => this.setState({ page: Math.max(1, page - 1) });
+    v.nextPage = () => this.setState({ page: Math.min(pages, page + 1) });
+    v.zeroTitle = st.q ? 'No Match For “' + st.q + '”' : 'No Match For Those Filters';
+    v.zeroSuggestions = ['Patek Philippe', 'Audemars Piguet', 'Under BDT 200,000', 'Unworn Only'].map(s => ({
+      label: s, onClick: () => {
+        if (s === 'Under BDT 200,000') this.setState({ q: '', page: 1, filters: Object.assign({}, st.filters, { brands: [], price: 'Under BDT 200,000' }) });
+        else if (s === 'Unworn Only') this.setState({ q: '', page: 1, filters: Object.assign({}, st.filters, { brands: [], condition: 'Unworn' }) });
+        else this.byBrand(s);
+      }
+    }));
+
+    // search overlay
+    const hits = st.q.trim() ? this.filtered() : [];
+    v.searchIdle = !st.q.trim();
+    v.searchHasHits = !!st.q.trim() && hits.length > 0;
+    v.searchZero = !!st.q.trim() && hits.length === 0;
+    v.searchZeroText = 'Nothing here matches “' + st.q + '”.';
+    v.searchHits = hits.slice(0, 5).map(p => ({ image: p.image, imageStyle: this.thumb(p.image, 56), brand: p.brand, name: p.name, price: this.fmt(p.price), onClick: () => { this.setState({ recent: [st.q].concat(st.recent.filter(r => r !== st.q)).slice(0, 4) }); this.go('product', { productId: p.id, gal: 0, tab: 'Description', qty: 1, strap: 'Bracelet As Supplied' }); } }));
+    v.searchAll = () => this.go('collection', { page: 1 });
+    v.recentTags = st.recent.map(r => ({ label: r, onClick: () => this.setState({ q: r }) }));
+    v.houseTags = ['Patek Philippe', 'Audemars Piguet', 'Tissot', 'Skeleton Dials'].map(h => ({ label: h, onClick: () => this.setState({ q: h === 'Skeleton Dials' ? 'Skeleton' : h }) }));
+
+    v.sizeRows = [
+      { wrist: '14 — 15.5 cm', case: '34 to 37 mm', strap: 'Short, 105/65 mm' },
+      { wrist: '15.5 — 17 cm', case: '36 to 39 mm', strap: 'Regular, 115/75 mm' },
+      { wrist: '17 — 18.5 cm', case: '39 to 41 mm', strap: 'Regular, 120/80 mm' },
+      { wrist: '18.5 cm and above', case: '41 to 44 mm', strap: 'Long, 125/85 mm' }
+    ];
+
+    // product detail
+    const p = this.product(st.productId) || this.live()[0];
+    if (p) {
+      const inWish = st.wishlist.indexOf(p.id) >= 0;
+      const views = [{ label: 'Full', t: 'scale(1)' }, { label: 'Dial', t: 'scale(1.9) translate(0%,-4%)' }, { label: 'Profile', t: 'scale(1.5) translate(-14%,6%)' }, { label: 'Clasp', t: 'scale(1.7) translate(12%,14%)' }];
+      const view = views[st.gal] || views[0];
+      v.pd = {
+        crumb: p.brand + ' — ' + p.ref, image: p.image, hasImage: !!p.image, name: p.name, brand: p.brand, ref: p.ref, sku: p.sku,
+        movement: p.movement, condition: p.condition,
+        price: this.conv(p.price), originalPrice: p.originalPrice ? this.conv(p.originalPrice) : null,
+        vatNote: this.cur() === 'USD' ? 'Converted from BDT ' + this.grp(p.price) + ' at 1 USD = ' + this.rate() + ' BDT. Charged in BDT.' : 'VAT at 7.5% included. Free insured delivery inside Dhaka.',
+        mainStyle: this.fill(p.image, { transform: view.t, transition: 'transform var(--duration-slow) var(--ease-standard)' }),
+        stockDot: p.stock > 1 ? 'var(--gold-500)' : (p.stock === 1 ? 'var(--gold-300)' : 'var(--color-error)'),
+        stockLabel: p.stock > 1 ? p.stock + ' Held In The Salon' : (p.stock === 1 ? 'One Only — Single Unit' : 'Sold — Sourcing To Order'),
+        soldOut: p.stock < 1,
+        ctaLabel: p.stock < 1 ? 'Enquire About Sourcing' : 'Add To Bag',
+        qty: st.qty,
+        inc: () => this.setState(s => ({ qty: Math.min(p.stock || 1, s.qty + 1) })),
+        dec: () => this.setState(s => ({ qty: Math.max(1, s.qty - 1) })),
+        decStyle: this.qtyBtn(st.qty <= 1),
+        incStyle: this.qtyBtn(st.qty >= (p.stock || 1)),
+        qtyNote: (p.stock || 0) <= 1 ? 'One only — single-unit stock, maximum quantity 1.' : 'Up to ' + p.stock + ' available at this price.',
+        wishLabel: inWish ? 'Saved ✓' : 'Save This Piece',
+        toggleWish: () => this.setState(s => ({ wishlist: inWish ? s.wishlist.filter(x => x !== p.id) : s.wishlist.concat([p.id]) })),
+        addToCart: () => this.addToCart(p),
+        straps: this.straps().map(s => ({ label: s.add ? s.label + ' +' + this.fmt(s.add).replace(this.cur() + ' ', '') : s.label, active: st.strap === s.label, onClick: () => this.setState({ strap: s.label }) })),
+        thumbs: views.map((w, i) => ({
+          label: w.label, src: p.image, hasImage: !!p.image, onClick: () => this.setState({ gal: i }),
+          style: { position: 'relative', width: '76px', height: '76px', padding: 0, overflow: 'hidden', cursor: 'pointer', background: 'var(--surface-elevated)', border: '1px solid ' + (st.gal === i ? 'var(--border-on-dark-strong)' : 'var(--border-on-dark)') },
+          imgStyle: this.fill(p.image, { transform: w.t, opacity: st.gal === i ? 1 : 0.62 })
+        })),
+        assurances: [
+          { label: 'Authenticity Guaranteed In Writing', note: 'Signed certificate naming reference, serial and the technician who examined it.' },
+          { label: '24-Month Mechanical Warranty', note: 'Serviced at our bench, collection and return included inside Bangladesh.' },
+          { label: 'Fourteen-Day Return', note: 'Unworn and complete, refunded to the original payment method.' },
+          { label: 'Free Bracelet Sizing', note: 'Tell us your wrist measurement at checkout; removed links travel in the box.' }
+        ],
+        story: p.story.map(t => ({ text: t })),
+        specRows: [
+          this.ln('Reference', p.ref), this.ln('Case Diameter', p.specs.diameter), this.ln('Case Material', p.specs.case),
+          this.ln('Crystal', p.specs.crystal), this.ln('Water Resistance', p.specs.water), this.ln('Bracelet Or Strap', p.specs.bracelet),
+          this.ln('Calibre', p.specs.caliber), this.ln('Power Reserve', p.specs.power), this.ln('Year', p.specs.year),
+          this.ln('Movement', p.movement), this.ln('Condition', p.condition), this.ln('Warranty', p.specs.warranty)
+        ],
+        care: [
+          { label: 'Winding', text: 'Wind at the same time each day and stop at the first resistance. An automatic left off the wrist for two days should be given thirty turns before it is set.' },
+          { label: 'Water', text: p.specs.water === '30 m' ? 'Splash resistant only. Remove before washing, and never operate the crown while wet.' : 'Rated to ' + p.specs.water + '. Rinse in fresh water after the sea and have the gaskets checked annually.' },
+          { label: 'Magnetism', text: 'Keep the watch away from laptop speakers, magnetic phone mounts and bag clasps. A magnetised movement runs fast; we demagnetise free of charge.' },
+          { label: 'Service', text: 'A full service every five to seven years for a watch worn daily. Free timing check any time you are in the building.' }
+        ],
+        related: this.live().filter(x => x.id !== p.id).slice(0, 3).map(x => this.card(x))
+      };
+      v.zoomStyle = { position: 'absolute', inset: 0, backgroundImage: this.bg(p.image), backgroundRepeat: 'no-repeat', backgroundSize: '220%', backgroundPosition: st.zoomOrigin, cursor: 'zoom-out' };
+      v.trackZoom = e => { const r = e.currentTarget.getBoundingClientRect(); this.setState({ zoomOrigin: ((e.clientX - r.left) / r.width * 100).toFixed(1) + '% ' + ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%' }); };
+    }
+
+    Object.assign(v, this.commerceVals(), this.accountVals(), this.contentVals());
+    return v;
+  }
+
+  byBrand(b) { this.setState({ route: 'collection', page: 1, q: '', searchOpen: false, drawer: false, filters: Object.assign({}, this.state.filters, { brands: [b] }) }); window.scrollTo(0, 0); }
+  toggleArr(key, val) {
+    this.setState(s => {
+      const arr = s.filters[key];
+      const next = arr.indexOf(val) >= 0 ? arr.filter(x => x !== val) : arr.concat([val]);
+      return { page: 1, filters: Object.assign({}, s.filters, { [key]: next }) };
+    });
+  }
+  setFilter(key, val) { this.setState(s => ({ page: 1, filters: Object.assign({}, s.filters, { [key]: val }) })); }
+
+  addToCart(p) {
+    if (p.stock < 1) { this.go('contact'); return; }
+    const strap = this.state.strap, qty = this.state.qty;
+    this.setState(s => {
+      const i = s.cart.findIndex(l => l.id === p.id && l.strap === strap);
+      const cart = s.cart.slice();
+      if (i >= 0) cart[i] = Object.assign({}, cart[i], { qty: Math.min(p.stock, cart[i].qty + qty) });
+      else cart.push({ id: p.id, strap, qty });
+      return { cart };
+    });
+    this.flash(p.name + ' added to your bag.');
+  }
+
+  commerceVals() {
+    const st = this.state, sub = this.subtotal(), cod = this.codState();
+    const opts = this.shipOptions();
+    const shipId = st.ship || (opts[0] && opts[0].id);
+    const v = {
+      cartEmpty: st.cart.length === 0, cartHasLines: st.cart.length > 0,
+      cartLines: this.cartLines().map(x => ({
+        id: x.p.id, image: x.p.image, brand: x.p.brand, name: x.p.name, strap: x.line.strap,
+        imageStyle: this.thumb(x.p.image, 112, { width: '100%', height: '100%', flex: 'none' }),
+        thumbStyle: this.thumb(x.p.image, 64, { border: '1px solid var(--border-on-dark)' }),
+        unit: this.fmt(x.unit), total: this.fmt(x.total), qty: String(x.line.qty),
+        stockNote: x.p.stock <= 1 ? 'Single unit — held for 30 minutes' : x.p.stock + ' available',
+        onOpen: () => this.go('product', { productId: x.p.id }),
+        inc: () => this.setState(s => ({ cart: s.cart.map(l => (l.id === x.p.id && l.strap === x.line.strap) ? Object.assign({}, l, { qty: Math.min(x.p.stock, l.qty + 1) }) : l) })),
+        dec: () => this.setState(s => ({ cart: s.cart.map(l => (l.id === x.p.id && l.strap === x.line.strap) ? Object.assign({}, l, { qty: Math.max(1, l.qty - 1) }) : l) })),
+        remove: () => this.setState(s => ({ cart: s.cart.filter(l => !(l.id === x.p.id && l.strap === x.line.strap)) }))
+      })),
+      destOptions: ['Inside Dhaka', 'Outside Dhaka', 'International'],
+      dest: st.dest, setDest: e => this.setState({ dest: e.target.value, ship: null, pay: e.target.value === 'International' ? 'Stripe' : 'bKash' }),
+      zoneOptions: ['Zone A — South Asia', 'Zone B — Gulf & Southeast Asia', 'Zone C — Europe & North America'],
+      zone: st.zone, setZone: e => this.setState({ zone: e.target.value }),
+      showZone: this.isIntl(),
+      sumRows: [
+        { label: 'Subtotal', value: this.fmt(sub), strong: false },
+        { label: 'Delivery', value: this.shipCost() ? this.fmt(this.shipCost()) : 'Included', strong: false },
+        { label: 'VAT 7.5% Included', value: this.fmt(this.vat()), strong: false }
+      ].map(r => ({ label: r.label, value: r.value, labelStyle: this.lblStyle(false), valueStyle: this.valStyle(false) })),
+      grandLabel: 'Total', grandValue: this.fmt(this.total()),
+      codNote: cod.ok ? (cod.advance ? 'Cash on delivery available — 20% advance of ' + this.fmt(cod.advanceAmount) + ' required before despatch.' : 'Cash on delivery available on this order.') : cod.reason,
+      goCheckout: () => this.go('checkout', { step: 1, ship: shipId }),
+      // checkout
+      steps: ['Delivery', 'Shipping', 'Payment', 'Review'].map((label, i) => {
+        const n = i + 1, active = st.step === n, done = st.step > n;
+        return { label: n + '. ' + label, style: { flex: '1 1 120px', padding: '12px 4px', textAlign: 'center', background: 'none', cursor: done ? 'pointer' : 'default', border: 'none', borderTop: '2px solid ' + (active || done ? 'var(--gold-500)' : 'var(--border-on-dark)'), fontFamily: 'var(--font-sans)', fontSize: 'var(--text-label-sm)', letterSpacing: 'var(--tracking-label)', textTransform: 'uppercase', color: active ? 'var(--gold-500)' : (done ? 'var(--text-on-dark-muted)' : 'var(--text-on-dark-faint)') }, onClick: done ? () => this.setState({ step: n }) : () => {} };
+      }),
+      step1: st.step === 1, step2: st.step === 2, step3: st.step === 3, step4: st.step === 4,
+      guestLine: st.user ? 'Signed in as ' + st.user.email : 'Checking out as a guest. An account is not required to buy.',
+      goAuthFromCheckout: () => this.go('auth', { authMode: 'signin' }),
+      formFields: [
+        { key: 'name', label: 'Full Name', ph: 'Tanvir Ahmed' },
+        { key: 'phone', label: 'Mobile Number', ph: '01711 204 556' },
+        { key: 'email', label: 'Email', ph: 'you@example.com' },
+        { key: 'address', label: 'Street Address', ph: 'House 32, Road 11' },
+        { key: 'area', label: 'Area', ph: 'Banani' },
+        { key: 'city', label: 'City', ph: 'Dhaka' },
+        { key: 'post', label: 'Postcode', ph: '1213' },
+        { key: 'wrist', label: 'Wrist Measurement (Optional)', ph: '17.5 cm' }
+      ].map(f => ({ label: f.label, placeholder: f.ph, value: st.form[f.key] || '', onChange: e => this.setState(s => ({ form: Object.assign({}, s.form, { [f.key]: e.target.value }), errors: {} })) })),
+      countryOptions: ['Bangladesh', 'India', 'United Arab Emirates', 'Singapore', 'United Kingdom', 'United States'],
+      country: st.form.country, setCountry: e => this.setState(s => ({ form: Object.assign({}, s.form, { country: e.target.value }), dest: e.target.value === 'Bangladesh' ? s.dest : 'International', ship: null, pay: e.target.value === 'Bangladesh' ? s.pay : 'Stripe' })),
+      errorList: Object.keys(st.errors).map(k => ({ text: st.errors[k] })),
+      hasErrors: Object.keys(st.errors).length > 0,
+      shipChoices: opts.map(o => ({
+        label: o.label, note: o.note, cost: o.cost ? this.fmt(o.cost) : 'Included', active: shipId === o.id,
+        onClick: () => this.setState({ ship: o.id }),
+        style: { display: 'flex', flexWrap: 'wrap', gap: '12px', alignItems: 'center', justifyContent: 'space-between', width: '100%', textAlign: 'left', cursor: 'pointer', padding: 'var(--space-6)', background: 'transparent', border: '1px solid ' + (shipId === o.id ? 'var(--border-on-dark-strong)' : 'var(--border-on-dark)') }
+      })),
+      payChoices: this.payMethods().map(m => {
+        const disabled = m.id === 'Cash on Delivery' && !cod.ok;
+        return {
+          label: m.label, note: m.note, active: st.pay === m.id,
+          onClick: disabled ? () => {} : () => this.setState({ pay: m.id, bkStage: 'number' }),
+          style: { display: 'flex', flexDirection: 'column', gap: '6px', width: '100%', textAlign: 'left', padding: 'var(--space-6)', cursor: disabled ? 'not-allowed' : 'pointer', opacity: disabled ? 0.4 : 1, background: 'transparent', border: '1px solid ' + (st.pay === m.id ? 'var(--border-on-dark-strong)' : 'var(--border-on-dark)') }
+        };
+      }),
+      payIsBkash: st.pay === 'bKash', payIsSsl: st.pay === 'SSLCommerz', payIsCod: st.pay === 'Cash on Delivery',
+      payIsStripe: st.pay === 'Stripe', payIsPaypal: st.pay === 'PayPal',
+      payIsRedirect: st.pay === 'Stripe' || st.pay === 'PayPal',
+      redirectTitle: st.pay === 'PayPal' ? 'PayPal' : 'Stripe — 3-D Secure',
+      redirectNote: st.pay === 'PayPal'
+        ? 'You will be handed to PayPal to approve the payment and returned here. The charge is taken in BDT and converted by PayPal at their rate.'
+        : 'Card details are entered on the Stripe payment sheet and never reach our servers. 3-D Secure is applied to every international transaction.',
+      sslIsWallet: st.sslTab !== 'Card',
+      codAdvanceUnpaid: !st.codAdvance,
+      bkStagePending: st.bkStage !== 'done',
+      bkStageNumber: st.bkStage === 'number', bkStageOtp: st.bkStage === 'otp', bkStagePin: st.bkStage === 'pin', bkStageDone: st.bkStage === 'done',
+      bkNo: st.bk.no, bkOtp: st.bk.otp, bkPin: st.bk.pin,
+      setBkNo: e => this.setState(s => ({ bk: Object.assign({}, s.bk, { no: e.target.value }) })),
+      setBkOtp: e => this.setState(s => ({ bk: Object.assign({}, s.bk, { otp: e.target.value }) })),
+      setBkPin: e => this.setState(s => ({ bk: Object.assign({}, s.bk, { pin: e.target.value }) })),
+      bkAmount: this.fmt(cod.ok && st.pay === 'Cash on Delivery' ? cod.advanceAmount : this.total()),
+      bkNext: () => {
+        const s = this.state;
+        if (s.bkStage === 'number') { if (!/^01\d{9}$/.test(s.bk.no.replace(/\s/g, ''))) { this.setState({ errors: { bk: 'Enter an eleven-digit bKash number beginning 01.' } }); return; } this.setState({ bkStage: 'otp', errors: {} }); return; }
+        if (s.bkStage === 'otp') { if (!/^\d{6}$/.test(s.bk.otp.trim())) { this.setState({ errors: { bk: 'The bKash verification code is six digits.' } }); return; } this.setState({ bkStage: 'pin', errors: {} }); return; }
+        if (s.bkStage === 'pin') { if (!/^\d{4,5}$/.test(s.bk.pin.trim())) { this.setState({ errors: { bk: 'Your bKash PIN is four or five digits.' } }); return; } this.setState({ bkStage: 'done', errors: {} }); }
+      },
+      bkCtaLabel: st.bkStage === 'number' ? 'Send Verification Code' : (st.bkStage === 'otp' ? 'Verify Code' : 'Confirm With PIN'),
+      sslTabs: ['Card', 'Nagad', 'Rocket', 'Internet Banking'].map(t => ({ label: t, active: st.sslTab === t, onClick: () => this.setState({ sslTab: t }) })),
+      sslIsCard: st.sslTab === 'Card', sslWallet: st.sslTab,
+      cardFields: [
+        { key: 'no', label: 'Card Number', ph: '4111 1111 1111 1111' },
+        { key: 'name', label: 'Name On Card', ph: 'TANVIR AHMED' },
+        { key: 'exp', label: 'Expiry', ph: 'MM / YY' },
+        { key: 'cvc', label: 'CVC', ph: '123' }
+      ].map(f => ({ label: f.label, placeholder: f.ph, value: st.card[f.key] || '', onChange: e => this.setState(s => ({ card: Object.assign({}, s.card, { [f.key]: e.target.value }) })) })),
+      codOk: cod.ok, codNeedsAdvance: !!cod.advance, codAdvanceAmount: cod.ok ? this.fmt(cod.advanceAmount) : '',
+      codRules: [
+        'Available inside Dhaka city only, up to BDT 150,000 per order.',
+        'Orders above ' + 'BDT ' + this.grp(this.codThreshold()) + ' require a 20% advance by bKash before the courier is booked.',
+        'We telephone to confirm every cash-on-delivery order before despatch.',
+        'Two refused deliveries on one number disable the method for that number.'
+      ].map(t => ({ text: t })),
+      codAdvancePaid: st.codAdvance,
+      payAdvance: () => this.setState({ codAdvance: true, pay: 'Cash on Delivery' }),
+      agree: st.agree, toggleAgree: () => this.setState(s => ({ agree: !s.agree })),
+      agreeStyle: { width: '20px', height: '20px', flex: '0 0 20px', cursor: 'pointer', border: '1px solid ' + (st.agree ? 'var(--accent-primary)' : 'var(--border-on-dark-strong)'), background: st.agree ? 'var(--accent-primary)' : 'transparent', color: 'var(--accent-on-primary)', fontSize: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 'var(--radius-sm)' },
+      agreeMark: st.agree ? '✓' : '',
+      reviewRows: [
+        this.ln('Deliver To', (st.form.name || '—') + ', ' + (st.form.address || '') + ' ' + (st.form.area || '') + ', ' + (st.form.city || '') + ' ' + (st.form.post || '')),
+        this.ln('Contact', (st.form.phone || '—') + (st.form.email ? ' — ' + st.form.email : '')),
+        this.ln('Shipping', (opts.find(o => o.id === shipId) || {}).label || '—'),
+        this.ln('Payment', st.pay + (st.pay === 'Cash on Delivery' && cod.advance ? ' — advance ' + this.fmt(cod.advanceAmount) + (st.codAdvance ? ' paid' : ' outstanding') : '')),
+        this.ln('Wrist Sizing', st.form.wrist ? st.form.wrist + ' — bracelet sized before despatch' : 'Not supplied — shipped at full length')
+      ],
+      next: () => this.advance(),
+      back: () => this.setState(s => ({ step: Math.max(1, s.step - 1), errors: {} })),
+      nextLabel: st.step === 4 ? 'Place Order — ' + this.fmt(this.total()) : 'Continue',
+      placeBlocked: st.step === 4 && !st.agree
+    };
+    const o = st.placed;
+    if (o) {
+      v.placed = {
+        id: o.id, total: this.fmt(o.total), payment: o.payment, email: o.email || o.phone,
+        eta: o.intl ? 'Four to seven working days by DHL Express' : (o.city === 'Dhaka' ? 'One to two working days, hand delivered' : 'Three to five working days by insured courier'),
+        rows: [this.ln('Order', o.id), this.ln('Placed', o.date + ', 2026'), this.ln('Payment', o.payment), this.ln('Deliver To', o.address), this.ln('Total Paid', this.fmt(o.total))],
+        items: o.items.map(it => ({ name: it.name, brand: it.brand, image: it.image, thumbStyle: this.thumb(it.image, 72), meta: it.strap + ' — Qty ' + it.qty, line: this.fmt(it.price * it.qty) })),
+        notes: o.notifications.map(n => ({ channel: n.channel, text: n.text, at: n.at })),
+        codPending: o.payment === 'Cash on Delivery',
+        trackIt: () => this.go('track', { track: { id: o.id, phone: o.phone }, trackResult: o, trackError: '' }),
+        print: () => window.print()
+      };
+    }
+    v.hasPlaced = !!o;
+    v.trackId = st.track.id; v.trackPhone = st.track.phone;
+    v.setTrackId = e => this.setState(s => ({ track: Object.assign({}, s.track, { id: e.target.value }), trackError: '' }));
+    v.setTrackPhone = e => this.setState(s => ({ track: Object.assign({}, s.track, { phone: e.target.value }), trackError: '' }));
+    v.doTrack = () => {
+      const id = this.state.track.id.trim().toUpperCase();
+      const ph = this.state.track.phone.replace(/\D/g, '').slice(-4);
+      const found = this.state.orders.find(o => o.id.toUpperCase() === id && o.phone.replace(/\D/g, '').slice(-4) === ph);
+      if (!found) { this.setState({ trackResult: null, trackError: 'No order matches that number and phone. Check the order reference in your confirmation message.' }); return; }
+      this.setState({ trackResult: found, trackError: '' });
+    };
+    v.trackError = st.trackError; v.hasTrackError = !!st.trackError;
+    v.hasTrackResult = !!st.trackResult;
+    if (st.trackResult) {
+      const o = st.trackResult;
+      const flow = ['Pending', 'Confirmed', 'Packed', 'Shipped', 'Delivered'];
+      const labels = { Pending: 'Order Received', Confirmed: 'Confirmed', Packed: 'Packed And Sealed', Shipped: 'With The Courier', Delivered: 'Delivered' };
+      const idx = flow.indexOf(o.status);
+      v.trackOrder = {
+        id: o.id, status: o.status, courier: o.courier || 'Not yet booked', consignment: o.consignment || '—',
+        rows: [this.ln('Placed', o.date), this.ln('Payment', o.payment), this.ln('Deliver To', o.address), this.ln('Courier', (o.courier || 'Awaiting booking') + (o.consignment ? ' — ' + o.consignment : ''))],
+        stages: flow.map((f, i) => ({
+          label: labels[f],
+          note: i === 0 ? o.date : (i <= idx ? 'Complete' : 'Pending'),
+          dotStyle: { width: '11px', height: '11px', flex: '0 0 11px', transform: 'rotate(45deg)', background: i <= idx ? 'var(--gold-500)' : 'transparent', border: '1px solid ' + (i <= idx ? 'var(--gold-500)' : 'var(--border-on-dark)') },
+          labelStyle: { fontFamily: 'var(--font-sans)', fontSize: 'var(--text-label-md)', letterSpacing: 'var(--tracking-label)', textTransform: 'uppercase', color: i <= idx ? 'var(--text-on-dark)' : 'var(--text-on-dark-faint)' }
+        })),
+        items: o.items.map(it => ({ name: it.name, brand: it.brand, image: it.image, thumbStyle: this.thumb(it.image, 56), meta: 'Qty ' + it.qty }))
+      };
+    }
+    return v;
+  }
+
+  advance() {
+    const st = this.state;
+    if (st.step === 1) {
+      const e = {};
+      if (!this.NAME_RE.test(st.form.name.trim())) e.name = 'Enter the recipient name in letters — no digits or symbols.';
+      if (!/^(01\d{9}|\+?\d{7,15})$/.test(st.form.phone.replace(/\s/g, ''))) e.phone = 'Enter a reachable mobile number — we telephone before despatch.';
+      if (st.form.email && !/^\S+@\S+\.\S+$/.test(st.form.email)) e.email = 'That email address does not look right.';
+      if (!st.form.address.trim()) e.address = 'A street address is required.';
+      if (!st.form.city.trim()) e.city = 'A city is required.';
+      if (Object.keys(e).length) { this.setState({ errors: e }); return; }
+      this.setState({ step: 2, errors: {} }); window.scrollTo(0, 0); return;
+    }
+    if (st.step === 2) { this.setState({ step: 3, errors: {}, ship: st.ship || this.shipOptions()[0].id }); window.scrollTo(0, 0); return; }
+    if (st.step === 3) {
+      const cod = this.codState();
+      if (st.pay === 'bKash' && st.bkStage !== 'done') { this.setState({ errors: { pay: 'Complete the bKash authorisation to continue.' } }); return; }
+      if (st.pay === 'SSLCommerz' && st.sslTab === 'Card' && !st.card.no.trim()) { this.setState({ errors: { pay: 'Enter the card details, or choose a mobile wallet.' } }); return; }
+      if (st.pay === 'Cash on Delivery' && cod.advance && !st.codAdvance) { this.setState({ errors: { pay: 'The 20% advance must be paid by bKash before this order can be placed.' } }); return; }
+      this.setState({ step: 4, errors: {} }); window.scrollTo(0, 0); return;
+    }
+    if (!st.agree) { this.setState({ errors: { agree: 'Please accept the terms of sale and the authenticity certificate.' } }); return; }
+    this.place();
+  }
+
+  place() {
+    const st = this.state, cod = this.codState();
+    const num = 'PWBD-' + (24195 + st.orders.length);
+    const items = this.cartLines().map(x => ({ name: x.p.name, brand: x.p.brand, qty: x.line.qty, price: x.unit, image: x.p.image, strap: x.line.strap }));
+    const order = {
+      id: num, customer: st.form.name, phone: st.form.phone, email: st.form.email, guest: !st.user,
+      address: [st.form.address, st.form.area, st.form.city, st.form.post].filter(Boolean).join(', '),
+      city: st.form.city, country: st.form.country, intl: this.isIntl(),
+      payment: st.pay, total: this.total(), shipping: this.shipCost(),
+      status: 'Pending', date: '23 Aug', today: true, refusals: 0, codCall: null, courier: null, consignment: null,
+      zone: this.isIntl() ? st.zone : null, advancePaid: st.codAdvance, items,
+      notifications: [
+        { channel: 'SMS', text: 'Order ' + num + ' received — we will telephone to confirm', at: '23 Aug 12:04' },
+        { channel: 'Email', text: st.pay === 'Cash on Delivery' ? 'Order summary sent — payable on delivery' : 'Payment captured, receipt and certificate attached', at: '23 Aug 12:04' }
+      ]
+    };
+    this.setState(s => ({
+      orders: [order].concat(s.orders),
+      products: s.products.map(p => { const l = s.cart.find(c => c.id === p.id); return l ? Object.assign({}, p, { stock: Math.max(0, p.stock - l.qty) }) : p; }),
+      cart: [], placed: order, route: 'confirm', step: 1, agree: false, bkStage: 'number', codAdvance: false, errors: {}
+    }));
+    window.scrollTo(0, 0);
+  }
+
+  accountVals() {
+    const st = this.state;
+    const v = {
+      authMode: st.authMode,
+      authIsSignin: st.authMode === 'signin', authIsRegister: st.authMode === 'register',
+      authIsPhone: st.authMode === 'phone', authIsRecover: st.authMode === 'recover',
+      authShowTabs: st.authMode === 'signin' || st.authMode === 'register',
+      authTitle: st.authMode === 'register' ? 'Create An Account' : (st.authMode === 'phone' ? 'Sign In By Phone' : (st.authMode === 'recover' ? 'Reset Your Password' : 'Welcome Back')),
+      authLede: st.authMode === 'register' ? 'An account keeps your orders, saved pieces and delivery addresses in one place.' : (st.authMode === 'phone' ? 'We will text a six-digit code to your Bangladeshi mobile number.' : (st.authMode === 'recover' ? 'Enter the email on the account and we will send a link valid for one hour.' : 'Sign in to see your orders, saved pieces and addresses.')),
+      otpNotSent: !st.otpSent,
+      authTabs: [{ id: 'signin', label: 'Sign In' }, { id: 'register', label: 'Create Account' }].map(t => ({
+        label: t.label, active: st.authMode === t.id, onClick: () => this.setState({ authMode: t.id, authNote: '' })
+      })),
+      authEmail: st.auth.email, authPass: st.auth.pass, authPhone: st.auth.phone, authOtp: st.auth.otp, authName: st.auth.name,
+      setAuth: {},
+      authNote: st.authNote, hasAuthNote: !!st.authNote,
+      otpSent: st.otpSent,
+      otpDigits: [0, 1, 2, 3, 4, 5].map(i => ({
+        char: (st.auth.otp[i] || ''),
+        style: { width: '46px', height: '56px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-serif)', fontSize: 'var(--text-body-xl)', color: 'var(--text-on-dark)', border: '1px solid ' + (st.auth.otp.length === i ? 'var(--accent-primary)' : 'var(--border-on-dark)'), borderRadius: 'var(--radius-sm)' }
+      })),
+      goGuest: () => this.go('checkout', { step: 1 }),
+      switchToPhone: () => this.setState({ authMode: 'phone', authNote: '' }),
+      switchToRecover: () => this.setState({ authMode: 'recover', authNote: '' }),
+      switchToSignin: () => this.setState({ authMode: 'signin', authNote: '', otpSent: false })
+    };
+    ['email', 'pass', 'phone', 'otp', 'name'].forEach(k => { v['setAuth' + k] = e => this.setState(s => ({ auth: Object.assign({}, s.auth, { [k]: e.target.value }), authNote: '' })); });
+    v.doSignin = () => {
+      const a = this.state.auth;
+      if (!/^\S+@\S+\.\S+$/.test(a.email) || a.pass.length < 4) { this.setState({ authNote: 'Enter a valid email and your password.' }); return; }
+      this.setState({ user: { email: a.email, name: a.email.split('@')[0] } }); this.go('account', { accountTab: 'Orders' });
+    };
+    v.doRegister = () => {
+      const a = this.state.auth;
+      if (!this.NAME_RE.test(a.name.trim())) { this.setState({ authNote: 'Enter your name in letters — no digits or symbols.' }); return; }
+      if (!/^\S+@\S+\.\S+$/.test(a.email)) { this.setState({ authNote: 'Enter a valid email address.' }); return; }
+      if (a.pass.length < 8) { this.setState({ authNote: 'Your password must be at least eight characters.' }); return; }
+      this.setState({ user: { email: a.email, name: a.name } }); this.go('account', { accountTab: 'Orders' });
+    };
+    v.sendOtp = () => {
+      const a = this.state.auth;
+      if (!/^01\d{9}$/.test(a.phone.replace(/\s/g, ''))) { this.setState({ authNote: 'Enter an eleven-digit Bangladeshi mobile number.' }); return; }
+      this.setState({ otpSent: true, authNote: 'Code sent by SMS to ' + a.phone + '. It expires in five minutes.' });
+    };
+    v.verifyOtp = () => {
+      const a = this.state.auth;
+      if (!/^\d{6}$/.test(a.otp.trim())) { this.setState({ authNote: 'The code is six digits.' }); return; }
+      this.setState({ user: { email: a.phone, name: a.phone } }); this.go('account', { accountTab: 'Orders' });
+    };
+    v.doRecover = () => {
+      const a = this.state.auth;
+      if (!/^\S+@\S+\.\S+$/.test(a.email)) { this.setState({ authNote: 'Enter the email on the account.' }); return; }
+      this.setState({ authNote: 'A reset link has been sent to ' + a.email + '. It is valid for one hour.' });
+    };
+
+    const mine = st.orders.filter(o => !o.intl && !o.guest).slice(0, 4);
+    v.user = st.user || { name: '', email: '' };
+    v.accountTabs = ['Orders', 'Wishlist', 'Addresses', 'Security'];
+    v.accountTab = st.accountTab;
+    v.setAccountTab = t => this.setState({ accountTab: t, accountOrderId: null });
+    v.acctOrders = st.accountTab === 'Orders' && !st.accountOrderId;
+    v.acctOrderDetail = st.accountTab === 'Orders' && !!st.accountOrderId;
+    v.acctWishlist = st.accountTab === 'Wishlist';
+    v.acctAddresses = st.accountTab === 'Addresses';
+    v.acctSecurity = st.accountTab === 'Security';
+    v.signOut = () => { this.setState({ user: null }); this.go('home'); };
+    v.myOrders = mine.map(o => ({
+      id: o.id, date: o.date, total: this.fmt(o.total), status: o.status, payment: o.payment,
+      tone: o.status === 'Delivered' ? 'solid' : (o.status === 'Cancelled' ? 'subtle' : 'outline'),
+      thumb: o.items[0] ? o.items[0].image : '', thumbStyle: this.thumb(o.items[0] ? o.items[0].image : '', 64), title: o.items.map(i => i.name).join(', '),
+      onClick: () => this.setState({ accountOrderId: o.id })
+    }));
+    v.hasMyOrders = mine.length > 0;
+    const ao = st.orders.find(o => o.id === st.accountOrderId);
+    if (ao) {
+      v.acctOrder = {
+        id: ao.id, status: ao.status, tone: ao.status === 'Delivered' ? 'solid' : (ao.status === 'Cancelled' ? 'subtle' : 'outline'),
+        rows: [this.ln('Placed', ao.date), this.ln('Payment', ao.payment), this.ln('Deliver To', ao.address), this.ln('Courier', (ao.courier || 'Awaiting booking') + (ao.consignment ? ' — ' + ao.consignment : '')), this.ln('Total', this.fmt(ao.total))],
+        items: ao.items.map(it => ({ name: it.name, brand: it.brand, image: it.image, thumbStyle: this.thumb(it.image, 64), meta: it.strap + ' — Qty ' + it.qty, line: this.fmt(it.price * it.qty) })),
+        notes: ao.notifications.map(n => ({ channel: n.channel, text: n.text, at: n.at })),
+        back: () => this.setState({ accountOrderId: null }),
+        track: () => this.go('track', { track: { id: ao.id, phone: ao.phone }, trackResult: ao, trackError: '' }),
+        tone2: null,
+        canCancel: ['Pending', 'Confirmed', 'Packed'].indexOf(ao.status) >= 0,
+        cancelled: ao.status === 'Cancelled',
+        cancelOrder: () => { this.patchOrder(ao.id, { status: 'Cancelled' }); this.flash('Order cancelled. Any payment is refunded within seven working days.'); },
+        canReturn: ao.status === 'Delivered' && !ao.returnRequested,
+        requestReturn: () => { this.patchOrder(ao.id, { returnRequested: true, returnReason: 'Buyer requests a return within the fourteen-day window.' }); this.flash('Return request logged. Our workshop will call you.'); },
+        returnPending: !!ao.returnRequested
+      };
+    }
+    const wl = st.wishlist.map(id => this.product(id)).filter(Boolean);
+    v.hasWishlist = wl.length > 0;
+    v.wishlistEmpty = wl.length === 0;
+    v.wishItems = wl.map(p => ({
+      image: p.image, imageStyle: this.thumb(p.image, 80, { width: '100%', height: '100%', flex: 'none' }), brand: p.brand, name: p.name, price: this.fmt(p.price),
+      stock: p.stock > 0 ? 'Available' : 'Sold — sourcing to order',
+      onOpen: () => this.go('product', { productId: p.id }),
+      add: () => this.addToCart(p),
+      remove: () => this.setState(s => ({ wishlist: s.wishlist.filter(x => x !== p.id) }))
+    }));
+    v.addresses = [
+      { label: 'Default — Home', lines: 'House 32, Road 11, Banani, Dhaka 1213', note: 'Hand delivery, insured' },
+      { label: 'Office', lines: 'Level 9, Bay\u2019s Galleria, Gulshan 1, Dhaka 1212', note: 'Reception accepts parcels until 18:00' }
+    ];
+    v.securityRows = [
+      { label: 'Password', value: 'Changed 2 months ago', action: 'Change' },
+      { label: 'Two-Factor Authentication', value: 'Off — recommended for high-value orders', action: 'Enable' },
+      { label: 'Mobile Number', value: '01711 204 556 — verified', action: 'Replace' },
+      { label: 'Saved Payment Methods', value: 'bKash 01711 204 556', action: 'Remove' }
+    ].map(r => ({ label: r.label, value: r.value, action: r.action, onClick: () => this.flash(r.action + ' — this opens a verification step in the live build.') }));
+    return v;
+  }
+
+  contentVals() {
+    const c = this.pageContent(this.state.pageKey);
+    return {
+      page: { eyebrow: c.eyebrow, title: c.title, lede: c.lede, blocks: c.blocks.map(b => ({ heading: b.heading, body: b.body })) },
+      pageNav: [
+        { key: 'about', label: 'Heritage' },
+        { key: 'warranty', label: 'Warranty & Care' }, { key: 'shipping', label: 'Shipping' },
+        { key: 'returns', label: 'Returns' }, { key: 'privacy', label: 'Privacy' }, { key: 'terms', label: 'Terms' }
+      ].map(p => ({ label: p.label, active: this.state.pageKey === p.key, onClick: () => this.go('page', { pageKey: p.key }) })),
+      contactRows: this.content().salon.rows,
+      contactFields: [
+        { key: 'name', label: 'Your Name', ph: 'Tanvir Ahmed' }, { key: 'phone', label: 'Mobile Or WhatsApp', ph: '01711 204 556' },
+        { key: 'email', label: 'Email', ph: 'you@example.com' }, { key: 'ref', label: 'Reference You Are After', ph: 'Ref. 5711/1A or “anything under 200,000”' }
+      ].map(f => ({ label: f.label, placeholder: f.ph, value: this.state.contact[f.key] || '', error: this.state.contactErrors[f.key] || '', hasError: !!this.state.contactErrors[f.key], onChange: e => this.setState(s => ({ contact: Object.assign({}, s.contact, { [f.key]: e.target.value }), contactErrors: {}, enquirySent: false })) })),
+      enquirySent: this.state.enquirySent,
+      enquiryMsg: 'Enquiry received. We reply within one working hour, Saturday to Thursday.',
+      sendEnquiry: () => {
+        const c = this.state.contact, e = {};
+        if (!this.NAME_RE.test((c.name || '').trim())) e.name = 'Enter your name in letters — no digits or symbols.';
+        if (!/^(01\d{9}|\+?\d{7,15})$/.test((c.phone || '').replace(/\s/g, ''))) e.phone = 'Enter a reachable mobile number.';
+        if (!/^\S+@\S+\.\S+$/.test((c.email || '').trim())) e.email = 'Enter a valid email address.';
+        if (!(c.ref || '').trim()) e.ref = 'Tell us the reference or budget you are after.';
+        if (Object.keys(e).length) { this.setState({ contactErrors: e, enquirySent: false }); return; }
+        this.setState({ contactErrors: {}, enquirySent: true, contact: { name: '', phone: '', email: '', ref: '' } });
+        this.flash('Enquiry received. We reply within one working hour.');
+      }
+    };
+  }
+
+  lblStyle(strong) { return { fontFamily: 'var(--font-sans)', fontSize: 'var(--text-label-sm)', letterSpacing: 'var(--tracking-label)', textTransform: 'uppercase', color: strong ? 'var(--text-on-dark)' : 'var(--text-on-dark-faint)' }; }
+  valStyle(strong) { return { fontFamily: 'var(--font-serif)', fontSize: strong ? 'var(--text-body-xl)' : 'var(--text-body-md)', color: strong ? 'var(--text-on-dark)' : 'var(--text-on-dark-muted)' }; }
+}
+</script>
+</body>
+</html>

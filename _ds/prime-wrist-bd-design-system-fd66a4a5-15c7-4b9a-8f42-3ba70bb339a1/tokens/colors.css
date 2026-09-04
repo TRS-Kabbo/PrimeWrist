@@ -1,0 +1,53 @@
+:root{
+/* base palette — deep emerald + gold, from brand mark */
+--green-950:#02160f;
+--green-900:#053827;
+--green-800:#0b4a34;
+--green-700:#155c41;
+--green-600:#1f6f4e;
+
+--gold-600:#c99a1e;
+--gold-500:#eeba2b;
+--gold-400:#f2c95c;
+--gold-300:#f7dc92;
+--gold-100:#fbefd3;
+
+--ivory-50:#fbf8f1;
+--ivory-100:#f5f0e4;
+--ivory-200:#ece3cf;
+
+--ink-900:#14201a;
+--ink-700:#2b3a32;
+
+/* semantic — surfaces */
+--surface-base:var(--green-900);
+--surface-base-deep:var(--green-950);
+--surface-elevated:var(--green-800);
+--surface-card-on-dark:var(--green-800);
+--surface-light:var(--ivory-50);
+
+/* semantic — text */
+--text-on-dark:var(--ivory-50);
+--text-on-dark-muted:rgba(251,248,241,.68);
+--text-on-dark-faint:rgba(251,248,241,.42);
+--text-on-light:var(--ink-900);
+--text-on-light-muted:rgba(20,32,26,.62);
+--text-on-light-faint:rgba(20,32,26,.4);
+--text-accent:var(--gold-500);
+
+/* semantic — accent */
+--accent-primary:var(--gold-500);
+--accent-primary-hover:var(--gold-400);
+--accent-on-primary:var(--green-950);
+
+/* semantic — borders */
+--border-on-dark:rgba(238,186,43,.28);
+--border-on-dark-strong:rgba(238,186,43,.55);
+--border-on-light:rgba(20,32,26,.16);
+--border-on-light-strong:rgba(20,32,26,.32);
+--border-hairline:1px solid var(--border-on-dark);
+
+/* semantic — state */
+--color-success:#3f7a4f;
+--color-error:#9a3b34;
+}

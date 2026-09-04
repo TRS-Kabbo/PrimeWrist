@@ -1,0 +1,13 @@
+:root{
+/* radii — sharp, minimal, jewellery-case precision */
+--radius-sm:3px;
+--radius-pill:999px;
+
+/* shadow — used sparingly, soft dark-green tint, never black; only on ivory surfaces */
+--shadow-card:0 20px 48px -16px rgba(2,22,15,.45);
+
+/* motion — slow and deliberate, no bounce/elastic easing */
+--ease-standard:cubic-bezier(.4,0,.2,1); /* @kind other */
+--duration-fast:280ms; /* @kind other */
+--duration-slow:500ms; /* @kind other */
+}

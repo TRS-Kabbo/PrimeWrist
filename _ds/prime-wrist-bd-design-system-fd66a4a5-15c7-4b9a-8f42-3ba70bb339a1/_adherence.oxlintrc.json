@@ -1,0 +1,367 @@
+{
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": []
+      }
+    ],
+    "no-restricted-imports": [
+      "warn",
+      {
+        "patterns": [
+          {
+            "group": [
+              "components/commerce/**",
+              "components/feedback/**",
+              "components/forms/**",
+              "components/icons/**",
+              "components/layout/**",
+              "components/navigation/**",
+              "ui_kits/storefront/**"
+            ],
+            "message": "Import design-system components from 'index.js', not component internals."
+          }
+        ]
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color — use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/\\b\\d+px\\b/]",
+        "message": "Raw px value — use a design-system spacing token via var()."
+      },
+      {
+        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Cinzel|Cormorant Garamond|Montserrat))/i]",
+        "message": "Font not provided by the design system. Available: Cinzel, Cormorant Garamond, Montserrat."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Badge'] > JSXAttribute > JSXIdentifier[name!=/^(?:tone|children|style|key|ref|className|style|children)$/]",
+        "message": "<Badge> doesn't accept that prop. Declared props: tone, children, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Badge'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:outline|solid|subtle)$/]",
+        "message": "<Badge> tone must be one of 'outline' | 'solid' | 'subtle'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute > JSXIdentifier[name!=/^(?:variant|size|disabled|onClick|children|style|key|ref|className|style|children)$/]",
+        "message": "<Button> doesn't accept that prop. Declared props: variant, size, disabled, onClick, children, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:primary|secondary|ghost|on-light)$/]",
+        "message": "<Button> variant must be one of 'primary' | 'secondary' | 'ghost' | 'on-light'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:sm|md|lg)$/]",
+        "message": "<Button> size must be one of 'sm' | 'md' | 'lg'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Divider'] > JSXAttribute > JSXIdentifier[name!=/^(?:ornament|tone|style|key|ref|className|style|children)$/]",
+        "message": "<Divider> doesn't accept that prop. Declared props: ornament, tone, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Divider'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:on-dark|on-light)$/]",
+        "message": "<Divider> tone must be one of 'on-dark' | 'on-light'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='FooterColumn'] > JSXAttribute > JSXIdentifier[name!=/^(?:title|links|key|ref|className|style|children)$/]",
+        "message": "<FooterColumn> doesn't accept that prop. Declared props: title, links."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Icon'] > JSXAttribute > JSXIdentifier[name!=/^(?:name|size|strokeWidth|style|key|ref|className|style|children)$/]",
+        "message": "<Icon> doesn't accept that prop. Declared props: name, size, strokeWidth, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='IconButton'] > JSXAttribute > JSXIdentifier[name!=/^(?:icon|label|size|tone|onClick|style|key|ref|className|style|children)$/]",
+        "message": "<IconButton> doesn't accept that prop. Declared props: icon, label, size, tone, onClick, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='IconButton'] > JSXAttribute[name.name='icon'] > Literal[value!=/^(?:search|bag|menu|close|chevron-down|chevron-left|chevron-right|star|plus|minus|check)$/]",
+        "message": "<IconButton> icon must be one of 'search' | 'bag' | 'menu' | 'close' | 'chevron-down' | 'chevron-left' | 'chevron-right' | 'star' | 'plus' | 'minus' | 'check'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='IconButton'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:on-dark|on-light)$/]",
+        "message": "<IconButton> tone must be one of 'on-dark' | 'on-light'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Input'] > JSXAttribute > JSXIdentifier[name!=/^(?:label|placeholder|type|value|onChange|tone|style|key|ref|className|style|children)$/]",
+        "message": "<Input> doesn't accept that prop. Declared props: label, placeholder, type, value, onChange, tone, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Input'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:on-dark|on-light)$/]",
+        "message": "<Input> tone must be one of 'on-dark' | 'on-light'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='NavBar'] > JSXAttribute > JSXIdentifier[name!=/^(?:logoText|links|onNavigate|cartCount|key|ref|className|style|children)$/]",
+        "message": "<NavBar> doesn't accept that prop. Declared props: logoText, links, onNavigate, cartCount."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='PriceTag'] > JSXAttribute > JSXIdentifier[name!=/^(?:price|originalPrice|currency|tone|size|style|key|ref|className|style|children)$/]",
+        "message": "<PriceTag> doesn't accept that prop. Declared props: price, originalPrice, currency, tone, size, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='PriceTag'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:on-dark|on-light)$/]",
+        "message": "<PriceTag> tone must be one of 'on-dark' | 'on-light'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='PriceTag'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:sm|md|lg)$/]",
+        "message": "<PriceTag> size must be one of 'sm' | 'md' | 'lg'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ProductCard'] > JSXAttribute > JSXIdentifier[name!=/^(?:image|brand|name|price|originalPrice|movement|onClick|style|key|ref|className|style|children)$/]",
+        "message": "<ProductCard> doesn't accept that prop. Declared props: image, brand, name, price, originalPrice, movement, onClick, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='SectionHeading'] > JSXAttribute > JSXIdentifier[name!=/^(?:eyebrow|title|align|tone|style|key|ref|className|style|children)$/]",
+        "message": "<SectionHeading> doesn't accept that prop. Declared props: eyebrow, title, align, tone, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='SectionHeading'] > JSXAttribute[name.name='align'] > Literal[value!=/^(?:center|left)$/]",
+        "message": "<SectionHeading> align must be one of 'center' | 'left'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='SectionHeading'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:on-dark|on-light)$/]",
+        "message": "<SectionHeading> tone must be one of 'on-dark' | 'on-light'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Select'] > JSXAttribute > JSXIdentifier[name!=/^(?:label|value|onChange|options|tone|style|key|ref|className|style|children)$/]",
+        "message": "<Select> doesn't accept that prop. Declared props: label, value, onChange, options, tone, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Select'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:on-dark|on-light)$/]",
+        "message": "<Select> tone must be one of 'on-dark' | 'on-light'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Tabs'] > JSXAttribute > JSXIdentifier[name!=/^(?:tabs|active|onChange|tone|key|ref|className|style|children)$/]",
+        "message": "<Tabs> doesn't accept that prop. Declared props: tabs, active, onChange, tone."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Tabs'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:on-dark|on-light)$/]",
+        "message": "<Tabs> tone must be one of 'on-dark' | 'on-light'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Tag'] > JSXAttribute > JSXIdentifier[name!=/^(?:active|onClick|children|style|key|ref|className|style|children)$/]",
+        "message": "<Tag> doesn't accept that prop. Declared props: active, onClick, children, style."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/index.js"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ],
+  "x-omelette": {
+    "components": {
+      "Badge": {
+        "replaces": []
+      },
+      "Button": {
+        "replaces": []
+      },
+      "Divider": {
+        "replaces": []
+      },
+      "FooterColumn": {
+        "replaces": []
+      },
+      "Icon": {
+        "replaces": []
+      },
+      "IconButton": {
+        "replaces": []
+      },
+      "Input": {
+        "replaces": []
+      },
+      "NavBar": {
+        "replaces": []
+      },
+      "PriceTag": {
+        "replaces": []
+      },
+      "ProductCard": {
+        "replaces": []
+      },
+      "SectionHeading": {
+        "replaces": []
+      },
+      "Select": {
+        "replaces": []
+      },
+      "Tabs": {
+        "replaces": []
+      },
+      "Tag": {
+        "replaces": []
+      }
+    },
+    "tokens": [
+      "--accent-on-primary",
+      "--accent-primary",
+      "--accent-primary-hover",
+      "--border-hairline",
+      "--border-on-dark",
+      "--border-on-dark-strong",
+      "--border-on-light",
+      "--border-on-light-strong",
+      "--color-error",
+      "--color-success",
+      "--container-max",
+      "--container-pad",
+      "--duration-fast",
+      "--duration-slow",
+      "--ease-standard",
+      "--font-display",
+      "--font-sans",
+      "--font-serif",
+      "--gold-100",
+      "--gold-300",
+      "--gold-400",
+      "--gold-500",
+      "--gold-600",
+      "--green-600",
+      "--green-700",
+      "--green-800",
+      "--green-900",
+      "--green-950",
+      "--ink-700",
+      "--ink-900",
+      "--ivory-100",
+      "--ivory-200",
+      "--ivory-50",
+      "--leading-body",
+      "--leading-display",
+      "--radius-pill",
+      "--radius-sm",
+      "--shadow-card",
+      "--space-1",
+      "--space-10",
+      "--space-2",
+      "--space-3",
+      "--space-4",
+      "--space-5",
+      "--space-6",
+      "--space-7",
+      "--space-8",
+      "--space-9",
+      "--surface-base",
+      "--surface-base-deep",
+      "--surface-card-on-dark",
+      "--surface-elevated",
+      "--surface-light",
+      "--text-accent",
+      "--text-body-lg",
+      "--text-body-md",
+      "--text-body-sm",
+      "--text-body-xl",
+      "--text-display-lg",
+      "--text-display-md",
+      "--text-display-sm",
+      "--text-label-lg",
+      "--text-label-md",
+      "--text-label-sm",
+      "--text-on-dark",
+      "--text-on-dark-faint",
+      "--text-on-dark-muted",
+      "--text-on-light",
+      "--text-on-light-faint",
+      "--text-on-light-muted",
+      "--tracking-label",
+      "--tracking-tagline",
+      "--tracking-wordmark"
+    ],
+    "tokenKinds": {
+      "--green-950": "color",
+      "--green-900": "color",
+      "--green-800": "color",
+      "--green-700": "color",
+      "--green-600": "color",
+      "--gold-600": "color",
+      "--gold-500": "color",
+      "--gold-400": "color",
+      "--gold-300": "color",
+      "--gold-100": "color",
+      "--ivory-50": "color",
+      "--ivory-100": "color",
+      "--ivory-200": "color",
+      "--ink-900": "color",
+      "--ink-700": "color",
+      "--surface-base": "color",
+      "--surface-base-deep": "color",
+      "--surface-elevated": "color",
+      "--surface-card-on-dark": "color",
+      "--surface-light": "color",
+      "--text-on-dark": "font",
+      "--text-on-dark-muted": "font",
+      "--text-on-dark-faint": "font",
+      "--text-on-light": "font",
+      "--text-on-light-muted": "font",
+      "--text-on-light-faint": "font",
+      "--text-accent": "font",
+      "--accent-primary": "color",
+      "--accent-primary-hover": "color",
+      "--accent-on-primary": "color",
+      "--border-on-dark": "color",
+      "--border-on-dark-strong": "color",
+      "--border-on-light": "color",
+      "--border-on-light-strong": "color",
+      "--border-hairline": "color",
+      "--color-success": "color",
+      "--color-error": "color",
+      "--font-display": "font",
+      "--font-serif": "font",
+      "--font-sans": "font",
+      "--text-display-lg": "font",
+      "--text-display-md": "font",
+      "--text-display-sm": "font",
+      "--text-body-xl": "font",
+      "--text-body-lg": "font",
+      "--text-body-md": "font",
+      "--text-body-sm": "font",
+      "--text-label-lg": "font",
+      "--text-label-md": "font",
+      "--text-label-sm": "font",
+      "--tracking-wordmark": "font",
+      "--tracking-tagline": "font",
+      "--tracking-label": "font",
+      "--leading-display": "font",
+      "--leading-body": "font",
+      "--space-1": "spacing",
+      "--space-2": "spacing",
+      "--space-3": "spacing",
+      "--space-4": "spacing",
+      "--space-5": "spacing",
+      "--space-6": "spacing",
+      "--space-7": "spacing",
+      "--space-8": "spacing",
+      "--space-9": "spacing",
+      "--space-10": "spacing",
+      "--container-max": "spacing",
+      "--container-pad": "spacing",
+      "--radius-sm": "radius",
+      "--radius-pill": "radius",
+      "--shadow-card": "shadow",
+      "--ease-standard": "other",
+      "--duration-fast": "other",
+      "--duration-slow": "other"
+    },
+    "fontFamilies": [
+      "Cinzel",
+      "Cormorant Garamond",
+      "Montserrat"
+    ]
+  }
+}

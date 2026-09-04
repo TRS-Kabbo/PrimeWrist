@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<template id="__bundler_thumbnail" data-bg-color="#02160f">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#02160f"/>
+    <rect x="120" y="150" width="230" height="500" fill="none" stroke="#eeba2b" stroke-width="6"/>
+    <rect x="160" y="210" width="150" height="14" rx="7" fill="#eeba2b"/>
+    <rect x="160" y="260" width="110" height="10" rx="5" fill="#eeba2b" opacity="0.5"/>
+    <rect x="160" y="300" width="130" height="10" rx="5" fill="#eeba2b" opacity="0.5"/>
+    <rect x="160" y="340" width="95" height="10" rx="5" fill="#eeba2b" opacity="0.5"/>
+    <rect x="420" y="150" width="660" height="500" fill="none" stroke="#eeba2b" stroke-width="6" opacity="0.6"/>
+    <rect x="470" y="210" width="300" height="18" rx="9" fill="#eeba2b"/>
+    <rect x="470" y="290" width="560" height="90" fill="none" stroke="#eeba2b" stroke-width="3" opacity="0.4"/>
+    <rect x="470" y="410" width="560" height="90" fill="none" stroke="#eeba2b" stroke-width="3" opacity="0.4"/>
+  </svg>
+</template>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/prime-wrist-bd-design-system-fd66a4a5-15c7-4b9a-8f42-3ba70bb339a1/styles.css">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script src="_ds/prime-wrist-bd-design-system-fd66a4a5-15c7-4b9a-8f42-3ba70bb339a1/_ds_bundle.js"></script>
+<style>
+  a{color:var(--gold-500);text-decoration:none}
+  a:hover{color:var(--gold-300)}
+  input::placeholder{color:rgba(251,248,241,.32)}
+  *:focus-visible{outline:1px solid var(--gold-500);outline-offset:2px}
+</style>
+</helmet>
+
+<div style="background:var(--surface-base);color:var(--text-on-dark);font-family:var(--font-sans);min-height:100%">
+
+<sc-if value="{{ showLogin }}" hint-placeholder-val="{{ true }}">
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:var(--space-7)">
+<div style="width:100%;max-width:420px;display:flex;flex-direction:column;gap:var(--space-7)">
+  <div style="display:flex;flex-direction:column;gap:10px;align-items:center;text-align:center">
+    <div style="font-family:var(--font-display);font-size:1.375rem;letter-spacing:var(--tracking-wordmark);color:var(--gold-500);text-transform:uppercase">Prime Wrist BD</div>
+    <div style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-tagline);text-transform:uppercase;color:var(--text-on-dark-faint)">Store Administration</div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:var(--space-6);border:1px solid var(--border-on-dark);padding:var(--space-7)">
+    <sc-if value="{{ mfaStage }}">
+      <div style="display:flex;flex-direction:column;gap:var(--space-5)">
+        <div style="font-family:var(--font-serif);font-size:var(--text-body-lg);color:var(--text-on-dark)">Two-factor verification</div>
+        <div style="font-family:var(--font-serif);font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">Owner accounts require an authenticator code. Enter the 6-digit code from your device.</div>
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Input" hint-size="100%,64px" label="Authenticator Code" placeholder="000000" value="{{ mfa }}" onChange="{{ setMfa }}"></x-import>
+        <sc-if value="{{ loginError }}"><div style="font-family:var(--font-serif);font-size:var(--text-body-sm);color:var(--gold-300)">{{ loginError }}</div></sc-if>
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="100%,48px" onClick="{{ verifyMfa }}" style="{{ fullBtn }}">Verify And Enter</x-import>
+      </div>
+    </sc-if>
+    <sc-if value="{{ credStage }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-direction:column;gap:var(--space-5)">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">Sign In As</span>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <sc-for list="{{ roles }}" as="r" hint-placeholder-count="3">
+              <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Tag" hint-size="120px,38px" active="{{ r.active }}" onClick="{{ r.onClick }}">{{ r.label }}</x-import>
+            </sc-for>
+          </div>
+        </div>
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Input" hint-size="100%,64px" label="Work Email" placeholder="owner@primewristbd.com" value="{{ email }}" onChange="{{ setEmail }}"></x-import>
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Input" hint-size="100%,64px" label="Password" type="password" placeholder="••••••••" value="{{ pass }}" onChange="{{ setPass }}"></x-import>
+        <sc-if value="{{ loginError }}"><div style="font-family:var(--font-serif);font-size:var(--text-body-sm);color:var(--gold-300)">{{ loginError }}</div></sc-if>
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="100%,48px" onClick="{{ submitLogin }}" style="{{ fullBtn }}">Sign In</x-import>
+        <div style="font-family:var(--font-serif);font-size:var(--text-body-sm);color:var(--text-on-dark-faint);line-height:var(--leading-body)">Demo: any email and password. Owner sign-in additionally requests a 2FA code — enter any six digits.</div>
+      </div>
+    </sc-if>
+  </div>
+  <div style="text-align:center"><x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="140px,20px" variant="ghost" onClick="{{ exit }}">← Back To Storefront</x-import></div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ showConsole }}">
+<div style="display:flex;flex-direction:{{ shellDir }};min-height:100vh">
+
+  <sc-if value="{{ isDesktop }}">
+  <aside style="width:236px;flex:0 0 236px;border-right:1px solid var(--border-on-dark);padding:var(--space-7) 0;display:flex;flex-direction:column;gap:var(--space-7);position:sticky;top:0;height:100vh">
+    <div style="padding:0 var(--space-6);display:flex;flex-direction:column;gap:6px">
+      <div style="font-family:var(--font-display);font-size:1rem;letter-spacing:var(--tracking-wordmark);color:var(--gold-500);text-transform:uppercase">Prime Wrist BD</div>
+      <div style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-tagline);text-transform:uppercase;color:var(--text-on-dark-faint)">Admin</div>
+    </div>
+    <nav style="display:flex;flex-direction:column;gap:var(--space-6);overflow-y:auto">
+      <sc-for list="{{ navGroups }}" as="g" hint-placeholder-count="3">
+        <div style="display:flex;flex-direction:column">
+          <span style="display:block;margin:0 var(--space-6) 10px;padding-bottom:8px;border-bottom:1px solid var(--border-on-dark);font-family:var(--font-sans);font-weight:600;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold-500)">{{ g.title }}</span>
+          <sc-for list="{{ g.items }}" as="n" hint-placeholder-count="3">
+            <button onClick="{{ n.onClick }}" style="{{ n.style }}">{{ n.label }}<span style="{{ n.countStyle }}">{{ n.count }}</span></button>
+          </sc-for>
+        </div>
+      </sc-for>
+    </nav>
+    <div style="margin-top:auto;padding:0 var(--space-6);display:flex;flex-direction:column;gap:14px;border-top:1px solid var(--border-on-dark);padding-top:var(--space-6)">
+      <div style="display:flex;flex-direction:column;gap:4px">
+        <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark)">{{ session.name }}</span>
+        <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">{{ session.role }}</span>
+      </div>
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="120px,20px" variant="ghost" onClick="{{ exit }}">View Storefront</x-import>
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="120px,20px" variant="ghost" onClick="{{ signOut }}">Sign Out</x-import>
+    </div>
+  </aside>
+  </sc-if>
+
+  <sc-if value="{{ isMobileNav }}">
+  <div style="border-bottom:1px solid var(--border-on-dark);position:sticky;top:0;background:var(--surface-base);z-index:6">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:16px var(--space-5)">
+      <span style="font-family:var(--font-display);font-size:0.9rem;letter-spacing:var(--tracking-wordmark);color:var(--gold-500);text-transform:uppercase">PWBD Admin</span>
+      <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">{{ session.role }}</span>
+    </div>
+    <div style="display:flex;gap:4px;overflow-x:auto;padding:0 var(--space-5) 2px">
+      <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="5">
+        <button onClick="{{ n.onClick }}" style="{{ n.tabStyle }}">{{ n.label }}</button>
+      </sc-for>
+    </div>
+  </div>
+  </sc-if>
+
+  <main style="flex:1;min-width:0;padding:var(--space-7) var(--space-6) var(--space-10)">
+
+  <sc-if value="{{ isReports }}">
+  <section data-screen-label="Admin — Reports" style="display:flex;flex-direction:column;gap:var(--space-7);max-width:1100px">
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-tagline);text-transform:uppercase;color:var(--gold-500)">Order &amp; Sales Reporting</span>
+      <h1 style="margin:0;font-family:var(--font-display);font-size:var(--text-display-sm);font-weight:500;letter-spacing:0.02em;color:var(--text-on-dark)">Today At A Glance</h1>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:1px;background:var(--border-on-dark);border:1px solid var(--border-on-dark)">
+      <sc-for list="{{ kpis }}" as="k" hint-placeholder-count="4">
+        <div style="flex:1 1 190px;background:var(--surface-base);padding:var(--space-6);display:flex;flex-direction:column;gap:10px">
+          <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">{{ k.label }}</span>
+          <span style="font-family:var(--font-serif);font-size:var(--text-display-sm);color:var(--text-on-dark);line-height:1">{{ k.value }}</span>
+          <span style="font-family:var(--font-serif);font-size:var(--text-body-sm);color:var(--text-on-dark-muted)">{{ k.note }}</span>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--space-7)">
+      <div style="border:1px solid var(--border-on-dark);padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-6)">
+        <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">Revenue — Last 7 Days</span>
+        <div style="display:flex;align-items:flex-end;gap:10px;height:150px">
+          <sc-for list="{{ chart }}" as="b" hint-placeholder-count="7">
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:10px;height:100%;justify-content:flex-end">
+              <span style="font-family:var(--font-serif);font-size:11px;color:var(--text-on-dark-faint)">{{ b.short }}</span>
+              <div style="width:100%;background:{{ b.fill }};height:{{ b.h }}"></div>
+              <span style="font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-on-dark-faint)">{{ b.day }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="border:1px solid var(--border-on-dark);padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-5)">
+        <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">COD Versus Prepaid</span>
+        <div style="display:flex;height:10px;border:1px solid var(--border-on-dark)">
+          <div style="background:var(--gold-500);width:{{ split.codPct }}"></div>
+          <div style="background:var(--green-700);flex:1"></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <sc-for list="{{ splitRows }}" as="s" hint-placeholder-count="2">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px">
+              <span style="font-size:var(--text-label-md);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">{{ s.label }}</span>
+              <span style="font-family:var(--font-serif);font-size:var(--text-body-lg);color:var(--text-on-dark)">{{ s.value }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="font-family:var(--font-serif);font-size:var(--text-body-sm);line-height:var(--leading-body);color:var(--text-on-dark-faint);border-top:1px solid var(--border-on-dark);padding-top:14px">COD refusals are logged against the buyer's phone number. Two refusals disable cash on delivery for that number.</div>
+      </div>
+    </div>
+    <div style="border:1px solid var(--border-on-dark);padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-5)">
+      <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">Top Products</span>
+      <div style="display:flex;flex-direction:column">
+        <sc-for list="{{ topProducts }}" as="t" hint-placeholder-count="4">
+          <div style="display:flex;align-items:center;gap:var(--space-5);padding:14px 0;border-bottom:1px solid var(--border-on-dark)">
+            <img src="{{ t.image }}" alt="{{ t.name }}" style="width:44px;height:44px;object-fit:cover;flex:0 0 44px">
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px">
+              <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">{{ t.brand }}</span>
+              <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark)">{{ t.name }}</span>
+            </div>
+            <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark-muted)">{{ t.units }}</span>
+            <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark);min-width:120px;text-align:right">{{ t.revenue }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ isOrders }}">
+  <section data-screen-label="Admin — Orders" style="display:flex;flex-direction:column;gap:var(--space-6)">
+    <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:var(--space-5)">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-tagline);text-transform:uppercase;color:var(--gold-500)">Order Management</span>
+        <h1 style="margin:0;font-family:var(--font-display);font-size:var(--text-display-sm);font-weight:500;letter-spacing:0.02em;color:var(--text-on-dark)">Orders</h1>
+      </div>
+      <div style="min-width:220px;max-width:280px;flex:1">
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Input" hint-size="100%,44px" placeholder="Order number or phone" value="{{ search }}" onChange="{{ setSearch }}"></x-import>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px">
+      <sc-for list="{{ statusFilters }}" as="f" hint-placeholder-count="6">
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Tag" hint-size="110px,38px" active="{{ f.active }}" onClick="{{ f.onClick }}">{{ f.label }}</x-import>
+      </sc-for>
+    </div>
+
+    <sc-if value="{{ hasOrderRows }}" hint-placeholder-val="{{ true }}">
+    <div style="display:flex;flex-direction:column;border-top:1px solid var(--border-on-dark)">
+      <sc-for list="{{ orderRows }}" as="o" hint-placeholder-count="5">
+        <div onClick="{{ o.onClick }}" style="{{ o.rowStyle }}">
+          <div style="flex:1 1 200px;min-width:0;display:flex;flex-direction:column;gap:5px">
+            <span style="font-size:var(--text-label-md);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--gold-500)">{{ o.id }}</span>
+            <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark)">{{ o.customer }}</span>
+            <span style="font-family:var(--font-serif);font-size:var(--text-body-sm);color:var(--text-on-dark-faint)">{{ o.where }}</span>
+          </div>
+          <div style="flex:0 0 auto;display:flex;flex-direction:column;gap:5px">
+            <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">{{ o.payment }}</span>
+            <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark)">{{ o.total }}</span>
+          </div>
+          <div style="flex:0 0 auto;display:flex;align-items:center;gap:12px">
+            <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Badge" hint-size="96px,26px" tone="{{ o.tone }}">{{ o.status }}</x-import>
+            <span style="font-family:var(--font-serif);font-size:var(--text-body-sm);color:var(--text-on-dark-faint);min-width:78px">{{ o.date }}</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    </sc-if>
+    <sc-if value="{{ noOrderRows }}">
+      <div style="border:1px solid var(--border-on-dark);padding:var(--space-9);text-align:center;font-family:var(--font-serif);font-size:var(--text-body-lg);color:var(--text-on-dark-muted)">No orders match this filter.</div>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ isOrderDetail }}">
+  <section data-screen-label="Admin — Order Detail" style="display:flex;flex-direction:column;gap:var(--space-7);max-width:1100px">
+    <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="120px,20px" variant="ghost" onClick="{{ backToOrders }}">← All Orders</x-import>
+    <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:var(--space-5)">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-tagline);text-transform:uppercase;color:var(--gold-500)">{{ detail.placedLabel }}</span>
+        <h1 style="margin:0;font-family:var(--font-display);font-size:var(--text-display-sm);font-weight:500;letter-spacing:0.02em;color:var(--text-on-dark)">{{ detail.id }}</h1>
+      </div>
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Badge" hint-size="110px,26px" tone="{{ detail.tone }}">{{ detail.status }}</x-import>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:10px">
+      <sc-for list="{{ detail.actions }}" as="a" hint-placeholder-count="2">
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="150px,44px" variant="{{ a.variant }}" size="sm" onClick="{{ a.onClick }}">{{ a.label }}</x-import>
+      </sc-for>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:var(--space-7)">
+      <div style="display:flex;flex-direction:column;gap:var(--space-6)">
+        <div style="border:1px solid var(--border-on-dark);padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-5)">
+          <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">Line Items</span>
+          <sc-for list="{{ detail.items }}" as="it" hint-placeholder-count="2">
+            <div style="display:flex;align-items:center;gap:16px;padding-bottom:14px;border-bottom:1px solid var(--border-on-dark)">
+              <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px">
+                <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark)">{{ it.name }}</span>
+                <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">{{ it.meta }}</span>
+              </div>
+              <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark)">{{ it.line }}</span>
+            </div>
+          </sc-for>
+          <sc-for list="{{ detail.totals }}" as="t" hint-placeholder-count="4">
+            <div style="display:flex;justify-content:space-between;gap:16px">
+              <span style="{{ t.labelStyle }}">{{ t.label }}</span>
+              <span style="{{ t.valueStyle }}">{{ t.value }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="border:1px solid var(--border-on-dark);padding:var(--space-6);display:flex;flex-direction:column;gap:14px">
+          <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">Notification Log</span>
+          <sc-for list="{{ detail.notifications }}" as="n" hint-placeholder-count="3">
+            <div style="display:flex;gap:14px;align-items:baseline">
+              <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--gold-500);min-width:44px">{{ n.channel }}</span>
+              <span style="font-family:var(--font-serif);font-size:var(--text-body-sm);color:var(--text-on-dark-muted);flex:1">{{ n.text }}</span>
+              <span style="font-family:var(--font-serif);font-size:var(--text-body-sm);color:var(--text-on-dark-faint)">{{ n.at }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:var(--space-6)">
+        <div style="border:1px solid var(--border-on-dark);padding:var(--space-6);display:flex;flex-direction:column;gap:14px">
+          <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">Customer</span>
+          <sc-for list="{{ detail.customerRows }}" as="c" hint-placeholder-count="4">
+            <div style="display:flex;justify-content:space-between;gap:16px">
+              <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">{{ c.label }}</span>
+              <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark);text-align:right">{{ c.value }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="border:1px solid var(--border-on-dark);padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-5)">
+          <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">{{ detail.shipTitle }}</span>
+          <sc-for list="{{ detail.shipRows }}" as="s" hint-placeholder-count="3">
+            <div style="display:flex;justify-content:space-between;gap:16px">
+              <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">{{ s.label }}</span>
+              <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark);text-align:right">{{ s.value }}</span>
+            </div>
+          </sc-for>
+          <sc-if value="{{ detail.needsCourier }}">
+            <div style="display:flex;flex-direction:column;gap:14px;border-top:1px solid var(--border-on-dark);padding-top:var(--space-5)">
+              <span style="font-family:var(--font-serif);font-size:var(--text-body-sm);line-height:var(--leading-body);color:var(--text-on-dark-muted)">{{ detail.courierHint }}</span>
+              <div style="display:flex;flex-wrap:wrap;gap:8px">
+                <sc-for list="{{ detail.couriers }}" as="c" hint-placeholder-count="3">
+                  <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Tag" hint-size="110px,38px" active="{{ c.active }}" onClick="{{ c.onClick }}">{{ c.label }}</x-import>
+                </sc-for>
+              </div>
+              <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="100%,44px" size="sm" onClick="{{ detail.book }}" style="{{ fullBtn }}">{{ detail.bookLabel }}</x-import>
+            </div>
+          </sc-if>
+          <sc-if value="{{ detail.hasConsignment }}">
+            <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="100%,44px" variant="secondary" size="sm" onClick="{{ detail.printLabel }}" style="{{ fullBtn }}">Print Courier Label</x-import>
+          </sc-if>
+        </div>
+        <sc-if value="{{ detail.returnRequested }}">
+          <div style="border:1px solid var(--border-on-dark-strong);padding:var(--space-6);display:flex;flex-direction:column;gap:14px">
+            <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--gold-500)">Return Request</span>
+            <span style="font-family:var(--font-serif);font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted)">{{ detail.returnReason }}</span>
+            <div style="display:flex;flex-wrap:wrap;gap:10px">
+              <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="150px,40px" size="sm" onClick="{{ detail.approveReturn }}">Approve And Refund</x-import>
+              <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="110px,40px" variant="secondary" size="sm" onClick="{{ detail.declineReturn }}">Decline</x-import>
+            </div>
+            <span style="font-family:var(--font-serif);font-size:var(--text-body-sm);color:var(--text-on-dark-faint);line-height:var(--leading-body)">{{ detail.refundRoute }}</span>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ isCod }}">
+  <section data-screen-label="Admin — COD Queue" style="display:flex;flex-direction:column;gap:var(--space-6);max-width:920px">
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-tagline);text-transform:uppercase;color:var(--gold-500)">Call To Confirm</span>
+      <h1 style="margin:0;font-family:var(--font-display);font-size:var(--text-display-sm);font-weight:500;letter-spacing:0.02em;color:var(--text-on-dark)">COD Confirmation Queue</h1>
+      <p style="margin:0;font-family:var(--font-serif);font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted);max-width:60ch">Every cash-on-delivery order is called before it is released to a courier. Log the outcome — refusals are counted against the buyer's number.</p>
+    </div>
+    <sc-if value="{{ hasCodQueue }}" hint-placeholder-val="{{ true }}">
+    <div style="display:flex;flex-direction:column;gap:var(--space-5)">
+      <sc-for list="{{ codQueue }}" as="c" hint-placeholder-count="3">
+        <div style="border:1px solid var(--border-on-dark);padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-5)">
+          <div style="display:flex;flex-wrap:wrap;gap:var(--space-5);align-items:flex-start;justify-content:space-between">
+            <div style="display:flex;flex-direction:column;gap:6px;min-width:0">
+              <span style="font-size:var(--text-label-md);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--gold-500)">{{ c.id }}</span>
+              <span style="font-family:var(--font-serif);font-size:var(--text-body-lg);color:var(--text-on-dark)">{{ c.customer }}</span>
+              <span style="font-family:var(--font-serif);font-size:var(--text-body-sm);color:var(--text-on-dark-muted)">{{ c.phone }} — {{ c.where }}</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+              <span style="font-family:var(--font-serif);font-size:var(--text-body-lg);color:var(--text-on-dark)">{{ c.total }}</span>
+              <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">{{ c.advance }}</span>
+            </div>
+          </div>
+          <div style="font-family:var(--font-serif);font-size:var(--text-body-sm);line-height:var(--leading-body);color:var(--text-on-dark-faint);border-top:1px solid var(--border-on-dark);padding-top:14px">{{ c.history }}</div>
+          <div style="display:flex;flex-wrap:wrap;gap:10px">
+            <sc-for list="{{ c.outcomes }}" as="o" hint-placeholder-count="3">
+              <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="130px,40px" variant="{{ o.variant }}" size="sm" onClick="{{ o.onClick }}">{{ o.label }}</x-import>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    </sc-if>
+    <sc-if value="{{ noCodQueue }}">
+      <div style="border:1px solid var(--border-on-dark);padding:var(--space-9);text-align:center;font-family:var(--font-serif);font-size:var(--text-body-lg);color:var(--text-on-dark-muted)">The queue is clear. Every COD order has been called and logged.</div>
+    </sc-if>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ isProducts }}">
+  <section data-screen-label="Admin — Products" style="display:flex;flex-direction:column;gap:var(--space-6);max-width:1100px">
+    <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:var(--space-5)">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-tagline);text-transform:uppercase;color:var(--gold-500)">Catalogue</span>
+        <h1 style="margin:0;font-family:var(--font-display);font-size:var(--text-display-sm);font-weight:500;letter-spacing:0.02em;color:var(--text-on-dark)">Products</h1>
+      </div>
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="150px,44px" size="sm" onClick="{{ newProduct }}">Add Product</x-import>
+    </div>
+    <div style="display:flex;flex-direction:column;border-top:1px solid var(--border-on-dark)">
+      <sc-for list="{{ productRows }}" as="p" hint-placeholder-count="6">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-5);padding:16px 0;border-bottom:1px solid var(--border-on-dark)">
+          <img src="{{ p.image }}" alt="{{ p.name }}" style="width:56px;height:56px;object-fit:cover;flex:0 0 56px">
+          <div style="flex:1 1 200px;min-width:0;display:flex;flex-direction:column;gap:4px">
+            <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">{{ p.brand }}</span>
+            <span style="font-family:var(--font-serif);font-size:var(--text-body-lg);color:var(--text-on-dark)">{{ p.name }}</span>
+            <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">{{ p.sku }}</span>
+          </div>
+          <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark);flex:0 0 auto">{{ p.price }}</span>
+          <span style="{{ p.stockStyle }}">{{ p.stockLabel }}</span>
+          <div style="display:flex;gap:12px;flex:0 0 auto">
+            <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="50px,20px" variant="ghost" onClick="{{ p.onEdit }}">Edit</x-import>
+            <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="70px,20px" variant="ghost" onClick="{{ p.onArchive }}">{{ p.archiveLabel }}</x-import>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ isProductEdit }}">
+  <section data-screen-label="Admin — Product Editor" style="display:flex;flex-direction:column;gap:var(--space-7);max-width:820px">
+    <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="120px,20px" variant="ghost" onClick="{{ backToProducts }}">← All Products</x-import>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-tagline);text-transform:uppercase;color:var(--gold-500)">{{ draft.eyebrow }}</span>
+      <h1 style="margin:0;font-family:var(--font-display);font-size:var(--text-display-sm);font-weight:500;letter-spacing:0.02em;color:var(--text-on-dark)">{{ draft.heading }}</h1>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--space-6)">
+      <sc-for list="{{ draft.fields }}" as="f" hint-placeholder-count="8">
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Input" hint-size="100%,64px" label="{{ f.label }}" placeholder="{{ f.placeholder }}" value="{{ f.value }}" onChange="{{ f.onChange }}"></x-import>
+      </sc-for>
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Select" hint-size="100%,64px" label="Movement" value="{{ draft.movement }}" onChange="{{ draft.setMovement }}" options="{{ movementOptions }}"></x-import>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">Media — Drag To Reorder</span>
+      <div style="display:flex;flex-wrap:wrap;gap:12px">
+        <sc-for list="{{ draft.media }}" as="m" hint-placeholder-count="3">
+          <div style="width:96px;height:96px;border:1px solid var(--border-on-dark);background:var(--surface-elevated);position:relative;overflow:hidden">
+            <img src="{{ m.src }}" alt="" style="width:100%;height:100%;object-fit:cover;opacity:{{ m.opacity }}">
+            <span style="position:absolute;bottom:0;left:0;right:0;text-align:center;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;background:rgba(2,22,15,.72);color:var(--text-on-dark-muted);padding:3px 0">{{ m.label }}</span>
+          </div>
+        </sc-for>
+        <div style="width:96px;height:96px;border:1px dashed var(--border-on-dark);display:flex;align-items:center;justify-content:center;font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint);text-align:center;padding:8px">Add Image</div>
+      </div>
+      <span style="font-family:var(--font-serif);font-size:var(--text-body-sm);color:var(--text-on-dark-faint);line-height:var(--leading-body)">Uploads are converted to WebP and AVIF renditions at 480, 960 and 1600px.</span>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;border-top:1px solid var(--border-on-dark);padding-top:var(--space-6)">
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="150px,44px" onClick="{{ draft.save }}">Save Product</x-import>
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="110px,44px" variant="secondary" onClick="{{ backToProducts }}">Cancel</x-import>
+      <sc-if value="{{ draft.error }}"><span style="align-self:center;font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--color-error)">{{ draft.error }}</span></sc-if>
+      <sc-if value="{{ draft.saved }}"><span style="align-self:center;font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--gold-300)">Saved. Storefront updated.</span></sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ isInventory }}">
+  <section data-screen-label="Admin — Inventory" style="display:flex;flex-direction:column;gap:var(--space-7);max-width:960px">
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-tagline);text-transform:uppercase;color:var(--gold-500)">Stock Control</span>
+      <h1 style="margin:0;font-family:var(--font-display);font-size:var(--text-display-sm);font-weight:500;letter-spacing:0.02em;color:var(--text-on-dark)">Inventory Adjustments</h1>
+    </div>
+    <div style="display:flex;flex-direction:column;border-top:1px solid var(--border-on-dark)">
+      <sc-for list="{{ stockRows }}" as="s" hint-placeholder-count="6">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-5);padding:16px 0;border-bottom:1px solid var(--border-on-dark)">
+          <div style="flex:1 1 220px;min-width:0;display:flex;flex-direction:column;gap:4px">
+            <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark)">{{ s.name }}</span>
+            <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">{{ s.sku }}</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px">
+            <button onClick="{{ s.dec }}" style="width:36px;height:36px;border:1px solid var(--border-on-dark);background:transparent;color:var(--text-on-dark);cursor:pointer;font-family:var(--font-serif);font-size:var(--text-body-lg);border-radius:var(--radius-sm)">−</button>
+            <span style="font-family:var(--font-serif);font-size:var(--text-body-xl);color:var(--text-on-dark);min-width:32px;text-align:center">{{ s.stock }}</span>
+            <button onClick="{{ s.inc }}" style="width:36px;height:36px;border:1px solid var(--border-on-dark);background:transparent;color:var(--text-on-dark);cursor:pointer;font-family:var(--font-serif);font-size:var(--text-body-lg);border-radius:var(--radius-sm)">+</button>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:var(--space-5)">
+      <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">Audit Trail</span>
+      <sc-if value="{{ hasAudit }}">
+        <div style="display:flex;flex-direction:column">
+          <sc-for list="{{ audit }}" as="a" hint-placeholder-count="3">
+            <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--border-on-dark)">
+              <span style="font-family:var(--font-serif);font-size:var(--text-body-sm);color:var(--text-on-dark-faint);min-width:66px">{{ a.at }}</span>
+              <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark);flex:1">{{ a.text }}</span>
+              <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--gold-500)">{{ a.who }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{ noAudit }}">
+        <span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--text-on-dark-faint)">No manual corrections yet in this session. Adjust a count above and it is logged here against your name.</span>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ isCmsHome }}">
+  <section data-screen-label="Admin — Homepage Content" style="display:flex;flex-direction:column;gap:var(--space-7);max-width:900px">
+    <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:var(--space-5)">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-tagline);text-transform:uppercase;color:var(--gold-500)">Website Content</span>
+        <h1 style="margin:0;font-family:var(--font-display);font-size:var(--text-display-sm);font-weight:500;letter-spacing:0.02em;color:var(--text-on-dark)">Homepage</h1>
+      </div>
+      <sc-if value="{{ hasPreview }}"><x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="160px,44px" variant="secondary" size="sm" onClick="{{ previewStore }}">Preview Storefront</x-import></sc-if>
+    </div>
+
+    <div style="border:1px solid var(--border-on-dark);padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-5)">
+      <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">Hero Banner</span>
+      <sc-for list="{{ homeHero }}" as="f" hint-placeholder-count="4">
+        <sc-if value="{{ f.isText }}"><x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Input" hint-size="100%,64px" label="{{ f.label }}" placeholder="{{ f.placeholder }}" value="{{ f.value }}" onChange="{{ f.onChange }}"></x-import></sc-if>
+        <sc-if value="{{ f.isArea }}"><label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">{{ f.label }}</span><textarea value="{{ f.value }}" onChange="{{ f.onChange }}" rows="{{ f.rows }}" placeholder="{{ f.placeholder }}" style="width:100%;box-sizing:border-box;resize:vertical;background:var(--surface-elevated);border:1px solid var(--border-on-dark);color:var(--text-on-dark);font-family:var(--font-serif);font-size:var(--text-body-md);line-height:var(--leading-body);padding:12px 14px;border-radius:var(--radius-sm)"></textarea></label></sc-if>
+      </sc-for>
+    </div>
+
+    <div style="border:1px solid var(--border-on-dark);padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-5)">
+      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px">
+        <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">Trust Strip</span>
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="140px,20px" variant="ghost" onClick="{{ addTrust }}">Add Point</x-import>
+      </div>
+      <sc-for list="{{ cmsTrust }}" as="t" hint-placeholder-count="4">
+        <div style="display:flex;gap:12px;align-items:flex-start;border-top:1px solid var(--border-on-dark);padding-top:var(--space-5)">
+          <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:10px">
+            <input value="{{ t.label }}" onChange="{{ t.onLabel }}" placeholder="Label" style="{{ inp }}">
+            <textarea value="{{ t.note }}" onChange="{{ t.onNote }}" rows="2" placeholder="Description" style="width:100%;box-sizing:border-box;resize:vertical;background:var(--surface-elevated);border:1px solid var(--border-on-dark);color:var(--text-on-dark);font-family:var(--font-serif);font-size:var(--text-body-md);line-height:var(--leading-body);padding:10px 12px;border-radius:var(--radius-sm)"></textarea>
+          </div>
+          <button onClick="{{ t.remove }}" style="{{ rm }}">×</button>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="border:1px solid var(--border-on-dark);padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-5)">
+      <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">The House &amp; Salon Section</span>
+      <sc-for list="{{ homeStory }}" as="f" hint-placeholder-count="4">
+        <sc-if value="{{ f.isText }}"><x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Input" hint-size="100%,64px" label="{{ f.label }}" placeholder="{{ f.placeholder }}" value="{{ f.value }}" onChange="{{ f.onChange }}"></x-import></sc-if>
+        <sc-if value="{{ f.isArea }}"><label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">{{ f.label }}</span><textarea value="{{ f.value }}" onChange="{{ f.onChange }}" rows="{{ f.rows }}" placeholder="{{ f.placeholder }}" style="width:100%;box-sizing:border-box;resize:vertical;background:var(--surface-elevated);border:1px solid var(--border-on-dark);color:var(--text-on-dark);font-family:var(--font-serif);font-size:var(--text-body-md);line-height:var(--leading-body);padding:12px 14px;border-radius:var(--radius-sm)"></textarea></label></sc-if>
+      </sc-for>
+    </div>
+
+    <div style="border:1px solid var(--border-on-dark);padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-5)">
+      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px">
+        <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">Houses We Carry</span>
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="130px,20px" variant="ghost" onClick="{{ addBrand }}">Add House</x-import>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px">
+        <sc-for list="{{ cmsBrands }}" as="b" hint-placeholder-count="6">
+          <div style="display:flex;align-items:center;gap:6px;border:1px solid var(--border-on-dark);padding:6px 6px 6px 12px;border-radius:999px">
+            <input value="{{ b.value }}" onChange="{{ b.onChange }}" style="{{ inpBare }}">
+            <button onClick="{{ b.remove }}" style="{{ rmSmall }}">×</button>
+          </div>
+        </sc-for>
+      </div>
+      <span style="font-family:var(--font-serif);font-size:var(--text-body-sm);color:var(--text-on-dark-faint);line-height:var(--leading-body)">The “Recently Acquired” grid is generated from live catalogue stock — manage those pieces under Products.</span>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;border-top:1px solid var(--border-on-dark);padding-top:var(--space-6)">
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="170px,44px" onClick="{{ saveHome }}">Publish Changes</x-import>
+      <sc-if value="{{ homeSaved }}"><span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--gold-300)">Saved. Storefront updated.</span></sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ isCmsPages }}">
+  <section data-screen-label="Admin — Pages" style="display:flex;flex-direction:column;gap:var(--space-6);max-width:900px">
+    <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:var(--space-5)">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-tagline);text-transform:uppercase;color:var(--gold-500)">Website Content</span>
+        <h1 style="margin:0;font-family:var(--font-display);font-size:var(--text-display-sm);font-weight:500;letter-spacing:0.02em;color:var(--text-on-dark)">Editorial Pages</h1>
+      </div>
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="140px,44px" size="sm" onClick="{{ addPage }}">Add Page</x-import>
+    </div>
+    <div style="display:flex;flex-direction:column;border-top:1px solid var(--border-on-dark)">
+      <sc-for list="{{ pageList }}" as="p" hint-placeholder-count="7">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-5);padding:16px 0;border-bottom:1px solid var(--border-on-dark)">
+          <div style="flex:1 1 220px;min-width:0;display:flex;flex-direction:column;gap:5px">
+            <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">{{ p.eyebrow }}</span>
+            <span style="font-family:var(--font-serif);font-size:var(--text-body-lg);color:var(--text-on-dark)">{{ p.title }}</span>
+            <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-faint)">{{ p.blockCount }}</span>
+          </div>
+          <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Badge" hint-size="96px,26px" tone="{{ p.tone }}">{{ p.status }}</x-import>
+          <div style="display:flex;gap:12px;flex:0 0 auto">
+            <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="50px,20px" variant="ghost" onClick="{{ p.edit }}">Edit</x-import>
+            <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="90px,20px" variant="ghost" onClick="{{ p.toggle }}">{{ p.toggleLabel }}</x-import>
+            <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="60px,20px" variant="ghost" onClick="{{ p.remove }}">Delete</x-import>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ isCmsPageEdit }}">
+  <section data-screen-label="Admin — Page Editor" style="display:flex;flex-direction:column;gap:var(--space-7);max-width:820px">
+    <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="120px,20px" variant="ghost" onClick="{{ backToPages }}">← All Pages</x-import>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-tagline);text-transform:uppercase;color:var(--gold-500)">{{ pageEdit.eyebrowLabel }}</span>
+      <h1 style="margin:0;font-family:var(--font-display);font-size:var(--text-display-sm);font-weight:500;letter-spacing:0.02em;color:var(--text-on-dark)">{{ pageEdit.heading }}</h1>
+    </div>
+    <div style="border:1px solid var(--border-on-dark);padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-5)">
+      <sc-for list="{{ pageEdit.fields }}" as="f" hint-placeholder-count="4">
+        <sc-if value="{{ f.isText }}"><x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Input" hint-size="100%,64px" label="{{ f.label }}" placeholder="{{ f.placeholder }}" value="{{ f.value }}" onChange="{{ f.onChange }}"></x-import></sc-if>
+        <sc-if value="{{ f.isSelect }}"><x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Select" hint-size="100%,64px" label="{{ f.label }}" value="{{ f.value }}" onChange="{{ f.onChange }}" options="{{ f.options }}"></x-import></sc-if>
+        <sc-if value="{{ f.isArea }}"><label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">{{ f.label }}</span><textarea value="{{ f.value }}" onChange="{{ f.onChange }}" rows="{{ f.rows }}" placeholder="{{ f.placeholder }}" style="width:100%;box-sizing:border-box;resize:vertical;background:var(--surface-elevated);border:1px solid var(--border-on-dark);color:var(--text-on-dark);font-family:var(--font-serif);font-size:var(--text-body-md);line-height:var(--leading-body);padding:12px 14px;border-radius:var(--radius-sm)"></textarea></label></sc-if>
+      </sc-for>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:var(--space-5)">
+      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px">
+        <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">Content Sections</span>
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="150px,20px" variant="ghost" onClick="{{ pageEdit.addBlock }}">Add Section</x-import>
+      </div>
+      <sc-for list="{{ pageEdit.blocks }}" as="b" hint-placeholder-count="3">
+        <div style="border:1px solid var(--border-on-dark);padding:var(--space-6);display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+            <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--gold-500)">{{ b.num }}</span>
+            <div style="display:flex;gap:8px">
+              <button onClick="{{ b.up }}" style="{{ rm }}">↑</button>
+              <button onClick="{{ b.down }}" style="{{ rm }}">↓</button>
+              <button onClick="{{ b.remove }}" style="{{ rm }}">×</button>
+            </div>
+          </div>
+          <input value="{{ b.heading }}" onChange="{{ b.onHeading }}" placeholder="Section heading" style="{{ inp }}">
+          <textarea value="{{ b.body }}" onChange="{{ b.onBody }}" rows="4" placeholder="Section body" style="width:100%;box-sizing:border-box;resize:vertical;background:var(--surface-elevated);border:1px solid var(--border-on-dark);color:var(--text-on-dark);font-family:var(--font-serif);font-size:var(--text-body-md);line-height:var(--leading-body);padding:12px 14px;border-radius:var(--radius-sm)"></textarea>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;border-top:1px solid var(--border-on-dark);padding-top:var(--space-6)">
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="150px,44px" onClick="{{ pageEdit.save }}">Save Page</x-import>
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="110px,44px" variant="secondary" onClick="{{ backToPages }}">Done</x-import>
+      <sc-if value="{{ pageEdit.saved }}"><span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--gold-300)">Saved. Storefront updated.</span></sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ isCmsMenus }}">
+  <section data-screen-label="Admin — Menus & Footer" style="display:flex;flex-direction:column;gap:var(--space-7);max-width:900px">
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-tagline);text-transform:uppercase;color:var(--gold-500)">Website Content</span>
+      <h1 style="margin:0;font-family:var(--font-display);font-size:var(--text-display-sm);font-weight:500;letter-spacing:0.02em;color:var(--text-on-dark)">Menus &amp; Footer</h1>
+    </div>
+    <div style="border:1px solid var(--border-on-dark);padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-5)">
+      <sc-for list="{{ menuFields }}" as="f" hint-placeholder-count="2">
+        <sc-if value="{{ f.isText }}"><x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Input" hint-size="100%,64px" label="{{ f.label }}" placeholder="{{ f.placeholder }}" value="{{ f.value }}" onChange="{{ f.onChange }}"></x-import></sc-if>
+        <sc-if value="{{ f.isArea }}"><label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">{{ f.label }}</span><textarea value="{{ f.value }}" onChange="{{ f.onChange }}" rows="{{ f.rows }}" placeholder="{{ f.placeholder }}" style="width:100%;box-sizing:border-box;resize:vertical;background:var(--surface-elevated);border:1px solid var(--border-on-dark);color:var(--text-on-dark);font-family:var(--font-serif);font-size:var(--text-body-md);line-height:var(--leading-body);padding:12px 14px;border-radius:var(--radius-sm)"></textarea></label></sc-if>
+      </sc-for>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:var(--space-5)">
+      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px">
+        <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">Footer Columns</span>
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="150px,20px" variant="ghost" onClick="{{ addCol }}">Add Column</x-import>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--space-5)">
+        <sc-for list="{{ footerCols }}" as="col" hint-placeholder-count="3">
+          <div style="border:1px solid var(--border-on-dark);padding:var(--space-6);display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;gap:10px;align-items:center">
+              <input value="{{ col.titleValue }}" onChange="{{ col.onTitle }}" placeholder="Column title" style="{{ inp }}">
+              <button onClick="{{ col.removeCol }}" style="{{ rm }}">×</button>
+            </div>
+            <sc-for list="{{ col.links }}" as="l" hint-placeholder-count="4">
+              <div style="display:flex;gap:8px;align-items:center">
+                <input value="{{ l.value }}" onChange="{{ l.onChange }}" placeholder="Link label" style="{{ inp }}">
+                <button onClick="{{ l.remove }}" style="{{ rmSmall }}">×</button>
+              </div>
+            </sc-for>
+            <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="110px,20px" variant="ghost" onClick="{{ col.addLink }}">Add Link</x-import>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;border-top:1px solid var(--border-on-dark);padding-top:var(--space-6)">
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="170px,44px" onClick="{{ saveMenus }}">Publish Changes</x-import>
+      <sc-if value="{{ menusSaved }}"><span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--gold-300)">Saved. Storefront updated.</span></sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ isCmsContact }}">
+  <section data-screen-label="Admin — Contact & Salon" style="display:flex;flex-direction:column;gap:var(--space-7);max-width:920px">
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-tagline);text-transform:uppercase;color:var(--gold-500)">Website Content</span>
+      <h1 style="margin:0;font-family:var(--font-display);font-size:var(--text-display-sm);font-weight:500;letter-spacing:0.02em;color:var(--text-on-dark)">Contact &amp; Salon</h1>
+    </div>
+    <div style="border:1px solid var(--border-on-dark);padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-5)">
+      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px">
+        <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">Salon Details</span>
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="130px,20px" variant="ghost" onClick="{{ addSalonRow }}">Add Row</x-import>
+      </div>
+      <sc-for list="{{ salonRows }}" as="r" hint-placeholder-count="6">
+        <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;border-top:1px solid var(--border-on-dark);padding-top:14px">
+          <input value="{{ r.labelValue }}" onChange="{{ r.onLabel }}" placeholder="Label" style="width:160px;flex:0 0 auto;background:var(--surface-elevated);border:1px solid var(--border-on-dark);color:var(--text-on-dark);font-family:var(--font-sans);font-size:var(--text-label-md);letter-spacing:var(--tracking-label);text-transform:uppercase;padding:10px 12px;border-radius:var(--radius-sm);box-sizing:border-box">
+          <input value="{{ r.valueValue }}" onChange="{{ r.onValue }}" placeholder="Value" style="{{ inp }}">
+          <button onClick="{{ r.remove }}" style="{{ rm }}">×</button>
+        </div>
+      </sc-for>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;border-top:1px solid var(--border-on-dark);padding-top:var(--space-5)">
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="170px,44px" size="sm" onClick="{{ saveContact }}">Publish Changes</x-import>
+        <sc-if value="{{ contactSaved }}"><span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--gold-300)">Saved. Storefront updated.</span></sc-if>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:var(--space-5)">
+      <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">Enquiry Inbox</span>
+      <sc-if value="{{ hasEnquiries }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:var(--space-5)">
+          <sc-for list="{{ enquiries }}" as="e" hint-placeholder-count="3">
+            <div style="border:1px solid var(--border-on-dark);padding:var(--space-6);display:flex;flex-direction:column;gap:12px">
+              <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:flex-start;justify-content:space-between">
+                <div style="display:flex;flex-direction:column;gap:5px;min-width:0">
+                  <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--gold-500)">{{ e.id }} — {{ e.ref }}</span>
+                  <span style="font-family:var(--font-serif);font-size:var(--text-body-lg);color:var(--text-on-dark)">{{ e.name }}</span>
+                  <span style="font-family:var(--font-serif);font-size:var(--text-body-sm);color:var(--text-on-dark-muted)">{{ e.contact }} — {{ e.at }}</span>
+                </div>
+                <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Badge" hint-size="90px,26px" tone="{{ e.tone }}">{{ e.status }}</x-import>
+              </div>
+              <p style="margin:0;font-family:var(--font-serif);font-size:var(--text-body-md);line-height:var(--leading-body);color:var(--text-on-dark-muted);border-top:1px solid var(--border-on-dark);padding-top:12px">{{ e.message }}</p>
+              <sc-if value="{{ e.isOpen }}">
+                <div style="display:flex;flex-wrap:wrap;gap:10px">
+                  <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="130px,40px" size="sm" onClick="{{ e.markReplied }}">Mark Replied</x-import>
+                  <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="110px,40px" variant="secondary" size="sm" onClick="{{ e.archive }}">Archive</x-import>
+                </div>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ isCmsSettings }}">
+  <section data-screen-label="Admin — Site Settings" style="display:flex;flex-direction:column;gap:var(--space-7);max-width:820px">
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-tagline);text-transform:uppercase;color:var(--gold-500)">Website Content</span>
+      <h1 style="margin:0;font-family:var(--font-display);font-size:var(--text-display-sm);font-weight:500;letter-spacing:0.02em;color:var(--text-on-dark)">Site Settings</h1>
+    </div>
+    <div style="border:1px solid var(--border-on-dark);padding:var(--space-6);display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--space-5)">
+      <sc-for list="{{ settingsFields }}" as="f" hint-placeholder-count="5">
+        <sc-if value="{{ f.isText }}"><x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Input" hint-size="100%,64px" label="{{ f.label }}" placeholder="{{ f.placeholder }}" value="{{ f.value }}" onChange="{{ f.onChange }}"></x-import></sc-if>
+        <sc-if value="{{ f.isSelect }}"><x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Select" hint-size="100%,64px" label="{{ f.label }}" value="{{ f.value }}" onChange="{{ f.onChange }}" options="{{ f.options }}"></x-import></sc-if>
+      </sc-for>
+    </div>
+    <span style="font-family:var(--font-serif);font-size:var(--text-body-sm);color:var(--text-on-dark-faint);line-height:var(--leading-body);margin-top:calc(var(--space-5) * -1)">All prices are stored in BDT — the fixed base currency. The storefront converts to USD on the fly using the exchange rate above; nothing is re-priced.</span>
+    <div style="border:1px solid var(--border-on-dark);padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-5)">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark)">Announcement Bar</span>
+          <span style="font-family:var(--font-serif);font-size:var(--text-body-sm);color:var(--text-on-dark-muted)">{{ bannerLabel }}</span>
+        </div>
+        <button onClick="{{ toggleBanner }}" style="{{ bannerSwitch }}"><span style="{{ bannerKnob }}"></span></button>
+      </div>
+      <sc-for list="{{ bannerFields }}" as="f" hint-placeholder-count="1">
+        <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Input" hint-size="100%,64px" label="{{ f.label }}" placeholder="{{ f.placeholder }}" value="{{ f.value }}" onChange="{{ f.onChange }}"></x-import>
+      </sc-for>
+    </div>
+    <div style="border:1px solid var(--border-on-dark);padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-5)">
+      <span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">Search Engine Listing</span>
+      <sc-for list="{{ seoFields }}" as="f" hint-placeholder-count="2">
+        <sc-if value="{{ f.isText }}"><x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Input" hint-size="100%,64px" label="{{ f.label }}" placeholder="{{ f.placeholder }}" value="{{ f.value }}" onChange="{{ f.onChange }}"></x-import></sc-if>
+        <sc-if value="{{ f.isArea }}"><label style="display:flex;flex-direction:column;gap:8px"><span style="font-size:var(--text-label-sm);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--text-on-dark-muted)">{{ f.label }}</span><textarea value="{{ f.value }}" onChange="{{ f.onChange }}" rows="{{ f.rows }}" placeholder="{{ f.placeholder }}" style="width:100%;box-sizing:border-box;resize:vertical;background:var(--surface-elevated);border:1px solid var(--border-on-dark);color:var(--text-on-dark);font-family:var(--font-serif);font-size:var(--text-body-md);line-height:var(--leading-body);padding:12px 14px;border-radius:var(--radius-sm)"></textarea></label></sc-if>
+      </sc-for>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;border-top:1px solid var(--border-on-dark);padding-top:var(--space-6)">
+      <x-import component-from-global-scope="PrimeWristBDDesignSystem_fd66a4.Button" hint-size="170px,44px" onClick="{{ saveSettings }}">Publish Changes</x-import>
+      <sc-if value="{{ settingsSaved }}"><span style="font-family:var(--font-serif);font-size:var(--text-body-md);color:var(--gold-300)">Saved. Storefront updated.</span></sc-if>
+    </div>
+  </section>
+  </sc-if>
+
+  </main>
+</div>
+</sc-if>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;orders&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;Order[]&quot;},&quot;products&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;Product[]&quot;},&quot;isMobile&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;codAdvanceThreshold&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:50000,&quot;min&quot;:0,&quot;max&quot;:300000,&quot;step&quot;:5000,&quot;unit&quot;:&quot;BDT&quot;,&quot;tsType&quot;:&quot;number&quot;},&quot;onOrderPatch&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;(id: string, patch: object) =&gt; void&quot;},&quot;onProductPatch&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;(id: string, patch: object) =&gt; void&quot;},&quot;onExit&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;() =&gt; void&quot;}}">
+class Component extends DCLogic {
+  state = {
+    session: null, role: 'Owner', email: '', pass: '', mfa: '', pendingRole: null, loginError: '',
+    view: 'reports', statusFilter: 'All', search: '', selectedId: null,
+    editingId: null, draftSaved: false, draft: null,
+    courierPick: {}, audit: [], codLog: {},
+    content: this.cmsSeed(), cmsPageId: null, cmsSaved: '', cmsDirty: false
+  };
+
+  fmt(n) { return 'BDT ' + new Intl.NumberFormat('en-US').format(Math.round(n)); }
+  now() { return new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }); }
+  orders() { return this.props.orders || []; }
+  products() { return this.props.products || []; }
+  patch(id, p) { if (this.props.onOrderPatch) this.props.onOrderPatch(id, p); }
+
+  toneFor(s) {
+    if (s === 'Delivered') return 'solid';
+    if (s === 'Cancelled' || s === 'Returned') return 'subtle';
+    return 'outline';
+  }
+
+  navFor(role) {
+    const all = [
+      { key: 'reports', label: 'Reports' },
+      { key: 'orders', label: 'Orders' },
+      { key: 'cod', label: 'COD Queue' },
+      { key: 'products', label: 'Products' },
+      { key: 'inventory', label: 'Inventory' }
+    ];
+    if (role === 'Fulfilment') return all.filter(n => n.key === 'orders' || n.key === 'cod');
+    if (role === 'Manager') return all.filter(n => n.key !== 'reports');
+    return all;
+  }
+
+  logAudit(text) {
+    const who = (this.state.session && this.state.session.name) || 'Admin';
+    this.setState(s => ({ audit: [{ at: this.now(), text, who }, ...s.audit].slice(0, 12) }));
+  }
+
+  advanceFor(o) {
+    const t = this.props.codAdvanceThreshold || 50000;
+    if (o.payment !== 'Cash on Delivery') return null;
+    if (o.total <= t) return 'No advance required';
+    return 'Advance ' + this.fmt(o.total * 0.2) + (o.advancePaid ? ' — received' : ' — outstanding');
+  }
+
+  cmsSeed() {
+    return {
+      home: {
+        heroEyebrow: 'A Journey Through Time, Perfected',
+        heroHeadline: 'Mechanical Timepieces, Examined And Judged Worthy',
+        heroSubhead: 'A considered collection of automatic, mechanical and quartz watches, held in Dhaka. Every piece is opened, wound and authenticated in-house before it is offered.',
+        heroPrimary: 'Explore The Collection',
+        heroSecondary: 'The Authenticity Guarantee',
+        heroImage: 'assets/hero-collection.jpg',
+        trust: [
+          { label: 'Authenticated In-House', note: 'Case opened, movement identified, timing measured over 24 hours.' },
+          { label: 'Papers Where They Exist', note: 'Box and certificate listed plainly; absent papers are stated, never implied.' },
+          { label: 'Insured Delivery', note: 'Hand-delivered in Dhaka, DHL Express and fully declared worldwide.' },
+          { label: '24 Months Of Cover', note: 'Mechanical warranty on every watch, serviced at our own bench.' }
+        ],
+        quote: 'Every mechanism we place on a wrist has been examined, wound, and judged worthy of a lifetime.',
+        houseBlurb: 'Prime Wrist BD trades in established watch houses from a single salon in Dhaka. Pieces are sourced, verified against manufacturer records, serviced where required, and offered with a written guarantee.',
+        salonHeading: 'Try It On Before You Decide',
+        salonBody: 'Any piece in the collection can be reserved for a private viewing. Bring your wrist; we will size the bracelet while you wait.'
+      },
+      brands: ['Patek Philippe', 'Audemars Piguet', 'Rolex', 'Omega', 'Cartier', 'Tissot'],
+      pages: [
+        { id: 'about', title: 'A Single Salon In Dhaka', eyebrow: 'The House', status: 'Published', lede: 'Prime Wrist BD began as a private collection and became a shop because friends kept asking to buy from it.', blocks: [
+          { heading: 'How We Buy', body: 'Every piece is bought outright, in person, from an owner or an established dealer. We do not broker watches we have not held.' },
+          { heading: 'What Happens Before A Listing', body: 'The case back comes off, the movement is identified, timing is measured over twenty-four hours, and water resistance is tested where the case allows.' },
+          { heading: 'Why The Collection Is Small', body: 'We hold what we would wear. A dozen pieces at a time, sometimes fewer.' }
+        ] },
+        { id: 'warranty', title: 'Warranty & Care', eyebrow: 'Aftercare', status: 'Published', lede: 'Twenty-four months of mechanical cover on every watch, and a workshop that answers the phone.', blocks: [
+          { heading: 'What Is Covered', body: 'Twenty-four months from the delivery date on the movement and its regulation.' },
+          { heading: 'What Is Not Covered', body: 'Water ingress after the gaskets have been disturbed by a third party, impact damage, and normal wear to straps, crystals and plating.' },
+          { heading: 'Daily Care', body: 'Wind a manual watch at the same time each day and stop at the first resistance.' }
+        ] },
+        { id: 'shipping', title: 'Shipping & Delivery', eyebrow: 'Delivery', status: 'Published', lede: 'Insured, tracked, and signed for. Inside Dhaka we deliver by hand.', blocks: [
+          { heading: 'Inside Dhaka', body: 'Free hand delivery within one to two working days.' },
+          { heading: 'Elsewhere In Bangladesh', body: 'BDT 250 by insured courier, three to five working days, signature required.' },
+          { heading: 'Customs Documents', body: 'Every international parcel carries a commercial invoice and the HS declaration 9101.21.00 for automatic wrist-watches.' }
+        ] },
+        { id: 'returns', title: 'Returns & Refunds', eyebrow: 'Policy', status: 'Published', lede: 'Fourteen days to change your mind, on the condition the watch comes back as it left.', blocks: [
+          { heading: 'The Window', body: 'Tell us within fourteen days of delivery. The watch must be unworn beyond trying it on, complete with box and papers.' },
+          { heading: 'How A Refund Is Paid', body: 'Card and SSLCommerz payments are refunded to the original transaction within seven working days.' },
+          { heading: 'What We Cannot Take Back', body: 'Watches that have been worn, engraved, sized by a third party, or opened outside our workshop.' }
+        ] },
+        { id: 'privacy', title: 'Privacy Policy', eyebrow: 'Legal', status: 'Published', lede: 'We hold the least we can, for as long as the sale and its warranty require.', blocks: [
+          { heading: 'What We Collect', body: 'Your name, phone number, delivery address and email, so that an order can be fulfilled and a warranty honoured.' },
+          { heading: 'Your Rights', body: 'Write to privacy@primewristbd.com to see, correct or erase what we hold. We answer within thirty days.' }
+        ] },
+        { id: 'terms', title: 'Terms Of Sale', eyebrow: 'Legal', status: 'Draft', lede: 'Plain terms, written to be read.', blocks: [
+          { heading: 'Prices And Currency', body: 'Prices are shown in Bangladeshi Taka and include VAT at 7.5%.' },
+          { heading: 'Stock And Allocation', body: 'The collection is single-unit in most cases. A piece is allocated when payment clears.' }
+        ] }
+      ],
+      salon: {
+        rows: [
+          { label: 'Salon', value: 'Level 4, Bashundhara City, Panthapath, Dhaka 1215' },
+          { label: 'Hours', value: 'Saturday — Thursday, 11:00 to 20:00. Friday by appointment.' },
+          { label: 'Telephone', value: '+880 1410-681682' },
+          { label: 'WhatsApp', value: '+880 1410-681682' },
+          { label: 'Email', value: 'salon@primewristbd.com' },
+          { label: 'Trade Licence', value: 'TRAD/DNCC/041729/2023' }
+        ]
+      },
+      footer: {
+        tagline: 'A Journey Through Time, Perfected',
+        address: 'Level 4, Bashundhara City, Panthapath, Dhaka 1215. Trade licence TRAD/DNCC/041729/2023.',
+        columns: [
+          { title: 'Collection', links: ['All Watches', 'Patek Philippe', 'Audemars Piguet', 'Tissot'] },
+          { title: 'Assurance', links: ['Contact Us', 'Warranty & Care', 'Shipping & Delivery', 'Returns & Refunds'] },
+          { title: 'The House', links: ['Heritage', 'Visit The Salon', 'Track An Order', 'Privacy Policy', 'Terms Of Sale'] }
+        ]
+      },
+      settings: {
+        wordmark: 'Prime Wrist BD',
+        tagline: 'A Journey Through Time, Perfected',
+        currency: 'BDT',
+        fxRate: 119.5,
+        bannerOn: true,
+        bannerText: 'Insured Delivery Across Bangladesh — Worldwide Despatch By DHL Express',
+        whatsapp: '+880 1410-681682',
+        messenger: '61591387296685',
+        email: 'salon@primewristbd.com',
+        seoTitle: 'Prime Wrist BD — Luxury Watches In Dhaka',
+        seoDesc: 'A considered collection of authenticated automatic, mechanical and quartz watches, held in Dhaka and delivered worldwide.'
+      },
+      enquiries: [
+        { id: 'ENQ-4821', name: 'Farhan Kabir', contact: '01711 204 556', ref: 'Ref. 5711/1A Olive Green', at: '23 Aug 10:12', status: 'New', message: 'Is the olive green Nautilus still available with full set? Could visit the salon this weekend.' },
+        { id: 'ENQ-4820', name: 'Ishita Rahman', contact: 'ishita.r@example.com', ref: 'Sourcing — Cartier Tank', at: '22 Aug 17:40', status: 'New', message: 'Looking to source a Cartier Tank Louis in yellow gold, small model. Budget is flexible.' },
+        { id: 'ENQ-4816', name: 'Adnan Chowdhury', contact: '+44 7700 900 812', ref: 'International shipping', at: '21 Aug 09:03', status: 'Replied', message: 'Do you ship the 5980 to the UK fully insured and declared? Need it before month end.' }
+      ]
+    };
+  }
+
+  navGroupsFor(role) {
+    const groups = [
+      { title: 'Operations', items: [{ key: 'reports', label: 'Reports' }, { key: 'orders', label: 'Orders' }, { key: 'cod', label: 'COD Queue' }] },
+      { title: 'Catalogue', items: [{ key: 'products', label: 'Products' }, { key: 'inventory', label: 'Inventory' }] },
+      { title: 'Website Content', items: [{ key: 'cmsHome', label: 'Homepage' }, { key: 'cmsPages', label: 'Pages' }, { key: 'cmsMenus', label: 'Menus & Footer' }, { key: 'cmsContact', label: 'Contact & Salon' }, { key: 'cmsSettings', label: 'Settings' }] }
+    ];
+    if (role === 'Fulfilment') return [{ title: 'Operations', items: [{ key: 'orders', label: 'Orders' }, { key: 'cod', label: 'COD Queue' }] }];
+    if (role === 'Manager') return groups.map(g => g.title === 'Operations' ? { title: g.title, items: g.items.filter(i => i.key !== 'reports') } : g);
+    return groups;
+  }
+
+  content() { return this.props.content || this.state.content; }
+  updateContent(fn) {
+    const c = JSON.parse(JSON.stringify(this.content()));
+    fn(c);
+    if (this.props.onContentPatch) { this.props.onContentPatch(c); this.setState({ cmsDirty: true, cmsSaved: '' }); }
+    else this.setState({ content: c, cmsDirty: true, cmsSaved: '' });
+  }
+  cmsSave(key) { this.setState({ cmsSaved: key, cmsDirty: false }); this.logAudit('Content published — ' + key); }
+  txt(label, value, onChange, ph) { return { isText: true, label, value, onChange, placeholder: ph || '' }; }
+  area(label, value, onChange, rows, ph) { return { isArea: true, label, value, onChange, rows: rows || 3, placeholder: ph || '' }; }
+  sel(label, value, onChange, options) { return { isSelect: true, label, value, onChange, options }; }
+
+  cmsVals(v) {
+    const st = this.state;
+    const c = this.content();
+    const uc = fn => this.updateContent(fn);
+    v.inp = { flex: '1', minWidth: '0', background: 'var(--surface-elevated)', border: '1px solid var(--border-on-dark)', color: 'var(--text-on-dark)', fontFamily: 'var(--font-serif)', fontSize: 'var(--text-body-md)', padding: '10px 12px', borderRadius: 'var(--radius-sm)', boxSizing: 'border-box' };
+    v.inpBare = { background: 'transparent', border: 'none', color: 'var(--text-on-dark)', fontFamily: 'var(--font-sans)', fontWeight: 300, fontSize: 'var(--text-label-md)', letterSpacing: 'var(--tracking-label)', textTransform: 'uppercase', width: '150px', outline: 'none' };
+    v.rm = { background: 'transparent', border: '1px solid var(--border-on-dark)', color: 'var(--text-on-dark-muted)', width: '36px', height: '36px', borderRadius: 'var(--radius-sm)', cursor: 'pointer', fontFamily: 'var(--font-serif)', fontSize: 'var(--text-body-lg)', flex: '0 0 auto' };
+    v.rmSmall = { width: '24px', height: '24px', borderRadius: '50%', border: 'none', background: 'var(--surface-elevated)', color: 'var(--text-on-dark-muted)', cursor: 'pointer', fontFamily: 'var(--font-serif)', flex: '0 0 auto' };
+    v.cmsSaved = st.cmsSaved;
+    v.cmsDirty = st.cmsDirty;
+    v.previewStore = () => this.props.onExit && this.props.onExit();
+    v.hasPreview = !!this.props.onExit;
+
+    if (v.isCmsHome) {
+      const h = c.home;
+      v.homeHero = [
+        this.txt('Hero Eyebrow', h.heroEyebrow, e => uc(x => { x.home.heroEyebrow = e.target.value; })),
+        this.txt('Hero Headline', h.heroHeadline, e => uc(x => { x.home.heroHeadline = e.target.value; })),
+        this.area('Hero Subhead', h.heroSubhead, e => uc(x => { x.home.heroSubhead = e.target.value; }), 3),
+        this.txt('Primary Button', h.heroPrimary, e => uc(x => { x.home.heroPrimary = e.target.value; })),
+        this.txt('Secondary Button', h.heroSecondary, e => uc(x => { x.home.heroSecondary = e.target.value; })),
+        this.txt('Hero Image Path', h.heroImage, e => uc(x => { x.home.heroImage = e.target.value; }), 'assets/hero-collection.jpg')
+      ];
+      v.homeStory = [
+        this.area('Pull Quote', h.quote, e => uc(x => { x.home.quote = e.target.value; }), 2),
+        this.area('House Paragraph', h.houseBlurb, e => uc(x => { x.home.houseBlurb = e.target.value; }), 3),
+        this.txt('Salon Block Heading', h.salonHeading, e => uc(x => { x.home.salonHeading = e.target.value; })),
+        this.area('Salon Block Body', h.salonBody, e => uc(x => { x.home.salonBody = e.target.value; }), 2)
+      ];
+      v.cmsTrust = h.trust.map((t, i) => ({
+        label: t.label, note: t.note,
+        onLabel: e => uc(x => { x.home.trust[i].label = e.target.value; }),
+        onNote: e => uc(x => { x.home.trust[i].note = e.target.value; }),
+        remove: () => uc(x => { x.home.trust.splice(i, 1); })
+      }));
+      v.addTrust = () => uc(x => { x.home.trust.push({ label: 'New Assurance', note: '' }); });
+      v.cmsBrands = c.brands.map((b, i) => ({
+        value: b, onChange: e => uc(x => { x.brands[i] = e.target.value; }),
+        remove: () => uc(x => { x.brands.splice(i, 1); })
+      }));
+      v.addBrand = () => uc(x => { x.brands.push('New House'); });
+      v.saveHome = () => this.cmsSave('cmsHome');
+      v.homeSaved = st.cmsSaved === 'cmsHome';
+    }
+
+    if (v.isCmsPages) {
+      v.pageList = c.pages.map((p, i) => ({
+        title: p.title, eyebrow: p.eyebrow, status: p.status,
+        tone: p.status === 'Published' ? 'solid' : 'outline',
+        blockCount: p.blocks.length + (p.blocks.length === 1 ? ' section' : ' sections'),
+        edit: () => this.setState({ view: 'cmsPageEdit', cmsPageId: p.id, cmsSaved: '' }),
+        toggle: () => uc(x => { x.pages[i].status = x.pages[i].status === 'Published' ? 'Draft' : 'Published'; }),
+        toggleLabel: p.status === 'Published' ? 'Unpublish' : 'Publish',
+        remove: () => uc(x => { x.pages.splice(i, 1); })
+      }));
+      v.addPage = () => {
+        const id = 'page-' + Date.now();
+        uc(x => { x.pages.push({ id, title: 'Untitled Page', eyebrow: 'New', status: 'Draft', lede: '', blocks: [{ heading: 'Section', body: '' }] }); });
+        this.setState({ view: 'cmsPageEdit', cmsPageId: id, cmsSaved: '' });
+      };
+    }
+
+    if (v.isCmsPageEdit) {
+      const idx = c.pages.findIndex(p => p.id === st.cmsPageId);
+      const p = c.pages[idx];
+      if (p) {
+        v.pageEdit = {
+          heading: p.title || 'Page',
+          eyebrowLabel: p.status === 'Published' ? 'Published Page' : 'Draft Page',
+          fields: [
+            this.txt('Eyebrow', p.eyebrow, e => uc(x => { x.pages[idx].eyebrow = e.target.value; })),
+            this.txt('Page Title', p.title, e => uc(x => { x.pages[idx].title = e.target.value; })),
+            this.sel('Status', p.status, e => uc(x => { x.pages[idx].status = e.target.value; }), ['Published', 'Draft']),
+            this.area('Lede', p.lede, e => uc(x => { x.pages[idx].lede = e.target.value; }), 2)
+          ],
+          blocks: p.blocks.map((b, bi) => ({
+            num: 'Section ' + (bi + 1), heading: b.heading, body: b.body,
+            onHeading: e => uc(x => { x.pages[idx].blocks[bi].heading = e.target.value; }),
+            onBody: e => uc(x => { x.pages[idx].blocks[bi].body = e.target.value; }),
+            up: () => uc(x => { const a = x.pages[idx].blocks; if (bi > 0) { const t = a[bi - 1]; a[bi - 1] = a[bi]; a[bi] = t; } }),
+            down: () => uc(x => { const a = x.pages[idx].blocks; if (bi < a.length - 1) { const t = a[bi + 1]; a[bi + 1] = a[bi]; a[bi] = t; } }),
+            remove: () => uc(x => { x.pages[idx].blocks.splice(bi, 1); })
+          })),
+          addBlock: () => uc(x => { x.pages[idx].blocks.push({ heading: 'New Section', body: '' }); }),
+          save: () => this.cmsSave('cmsPageEdit'),
+          saved: st.cmsSaved === 'cmsPageEdit'
+        };
+      }
+      v.backToPages = () => this.setState({ view: 'cmsPages', cmsPageId: null, cmsSaved: '' });
+    }
+
+    if (v.isCmsMenus) {
+      v.menuFields = [
+        this.txt('Footer Tagline', c.footer.tagline, e => uc(x => { x.footer.tagline = e.target.value; })),
+        this.area('Footer Address & Licence', c.footer.address, e => uc(x => { x.footer.address = e.target.value; }), 2)
+      ];
+      v.footerCols = c.footer.columns.map((col, ci) => ({
+        titleValue: col.title,
+        onTitle: e => uc(x => { x.footer.columns[ci].title = e.target.value; }),
+        removeCol: () => uc(x => { x.footer.columns.splice(ci, 1); }),
+        links: col.links.map((l, li) => ({
+          value: l, onChange: e => uc(x => { x.footer.columns[ci].links[li] = e.target.value; }),
+          remove: () => uc(x => { x.footer.columns[ci].links.splice(li, 1); })
+        })),
+        addLink: () => uc(x => { x.footer.columns[ci].links.push('New Link'); })
+      }));
+      v.addCol = () => uc(x => { x.footer.columns.push({ title: 'New Column', links: ['New Link'] }); });
+      v.saveMenus = () => this.cmsSave('cmsMenus');
+      v.menusSaved = st.cmsSaved === 'cmsMenus';
+    }
+
+    if (v.isCmsContact) {
+      v.salonRows = c.salon.rows.map((r, i) => ({
+        labelValue: r.label, valueValue: r.value,
+        onLabel: e => uc(x => { x.salon.rows[i].label = e.target.value; }),
+        onValue: e => uc(x => { x.salon.rows[i].value = e.target.value; }),
+        remove: () => uc(x => { x.salon.rows.splice(i, 1); })
+      }));
+      v.addSalonRow = () => uc(x => { x.salon.rows.push({ label: 'Label', value: '' }); });
+      v.saveContact = () => this.cmsSave('cmsContact');
+      v.contactSaved = st.cmsSaved === 'cmsContact';
+      v.enquiries = c.enquiries.map((en, i) => ({
+        id: en.id, name: en.name, contact: en.contact, ref: en.ref, at: en.at, message: en.message,
+        status: en.status, tone: en.status === 'New' ? 'solid' : (en.status === 'Replied' ? 'outline' : 'subtle'),
+        isOpen: en.status !== 'Archived',
+        markReplied: () => uc(x => { x.enquiries[i].status = 'Replied'; }),
+        archive: () => uc(x => { x.enquiries[i].status = 'Archived'; })
+      }));
+      v.hasEnquiries = c.enquiries.length > 0;
+    }
+
+    if (v.isCmsSettings) {
+      const s2 = c.settings;
+      v.settingsFields = [
+        this.txt('Wordmark', s2.wordmark, e => uc(x => { x.settings.wordmark = e.target.value; })),
+        this.txt('Tagline', s2.tagline, e => uc(x => { x.settings.tagline = e.target.value; })),
+        this.sel('Default Display Currency', s2.currency, e => uc(x => { x.settings.currency = e.target.value; }), ['BDT', 'USD']),
+        this.txt('Exchange Rate — 1 USD = ? BDT', String(s2.fxRate == null ? 119.5 : s2.fxRate), e => uc(x => { x.settings.fxRate = e.target.value.replace(/[^0-9.]/g, ''); }), '119.5'),
+        this.txt('WhatsApp Number', s2.whatsapp, e => uc(x => { x.settings.whatsapp = e.target.value; })),
+        this.txt('Messenger Username, Page ID, Or Profile Link', s2.messenger, e => uc(x => { x.settings.messenger = e.target.value; }), '61591387296685'),
+        this.txt('Contact Email', s2.email, e => uc(x => { x.settings.email = e.target.value; }))
+      ];
+      v.bannerOn = s2.bannerOn;
+      v.bannerLabel = s2.bannerOn ? 'Announcement bar is showing' : 'Announcement bar is hidden';
+      v.toggleBanner = () => uc(x => { x.settings.bannerOn = !x.settings.bannerOn; });
+      v.bannerSwitch = { width: '46px', height: '26px', borderRadius: '999px', border: '1px solid var(--border-on-dark-strong)', background: s2.bannerOn ? 'var(--gold-500)' : 'transparent', position: 'relative', cursor: 'pointer', flex: '0 0 auto', padding: 0 };
+      v.bannerKnob = { position: 'absolute', top: '2px', left: s2.bannerOn ? '22px' : '2px', width: '20px', height: '20px', borderRadius: '50%', background: s2.bannerOn ? 'var(--accent-on-primary)' : 'var(--text-on-dark-muted)' };
+      v.bannerFields = [this.txt('Announcement Bar Text', s2.bannerText, e => uc(x => { x.settings.bannerText = e.target.value; }))];
+      v.seoFields = [
+        this.txt('SEO Title', s2.seoTitle, e => uc(x => { x.settings.seoTitle = e.target.value; })),
+        this.area('SEO Description', s2.seoDesc, e => uc(x => { x.settings.seoDesc = e.target.value; }), 2)
+      ];
+      v.saveSettings = () => this.cmsSave('cmsSettings');
+      v.settingsSaved = st.cmsSaved === 'cmsSettings';
+    }
+  }
+
+  renderVals() {
+    const st = this.state;
+    const isMobile = !!this.props.isMobile;
+    const orders = this.orders();
+    const products = this.products();
+    const fullBtn = { width: '100%' };
+    const session = st.session || { name: '', role: '' };
+
+    const v = {
+      showLogin: !st.session,
+      showConsole: !!st.session,
+      credStage: !st.session && !st.pendingRole,
+      mfaStage: !st.session && !!st.pendingRole,
+      isDesktop: !!st.session && !isMobile,
+      isMobileNav: !!st.session && isMobile,
+      shellDir: isMobile ? 'column' : 'row',
+      fullBtn, session,
+      email: st.email, pass: st.pass, mfa: st.mfa, loginError: st.loginError,
+      setEmail: e => this.setState({ email: e.target.value, loginError: '' }),
+      setPass: e => this.setState({ pass: e.target.value, loginError: '' }),
+      setMfa: e => this.setState({ mfa: e.target.value, loginError: '' }),
+      exit: () => this.props.onExit && this.props.onExit(),
+      signOut: () => this.setState({ session: null, pendingRole: null, email: '', pass: '', mfa: '', view: 'reports' }),
+      roles: ['Owner', 'Manager', 'Fulfilment'].map(r => ({
+        label: r, active: st.role === r, onClick: () => this.setState({ role: r, loginError: '' })
+      })),
+      submitLogin: () => {
+        if (!st.email.trim() || !st.pass.trim()) { this.setState({ loginError: 'Enter both an email and a password to continue.' }); return; }
+        if (st.role === 'Owner') { this.setState({ pendingRole: 'Owner', loginError: '' }); return; }
+        const view = st.role === 'Fulfilment' ? 'orders' : 'orders';
+        this.setState({ session: { name: st.email.split('@')[0] || 'admin', role: st.role }, view, loginError: '' });
+      },
+      verifyMfa: () => {
+        if (!/^\d{6}$/.test(st.mfa.trim())) { this.setState({ loginError: 'The code is six digits.' }); return; }
+        this.setState({ session: { name: st.email.split('@')[0] || 'owner', role: 'Owner' }, pendingRole: null, view: 'reports', loginError: '' });
+      }
+    };
+
+    // navigation
+    const codCount = orders.filter(o => o.payment === 'Cash on Delivery' && !o.codCall).length;
+    const groups = this.navGroupsFor(session.role);
+    const mk = (n) => {
+      const active = st.view === n.key
+        || (n.key === 'orders' && st.view === 'orderDetail')
+        || (n.key === 'products' && st.view === 'productEdit')
+        || (n.key === 'cmsPages' && st.view === 'cmsPageEdit');
+      return {
+        label: n.label,
+        count: n.key === 'cod' && codCount ? String(codCount) : '',
+        countStyle: n.key === 'cod' && codCount
+          ? { fontFamily: 'var(--font-serif)', fontSize: '13px', color: 'var(--accent-on-primary)', background: 'var(--gold-500)', borderRadius: '999px', minWidth: '20px', height: '20px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }
+          : { display: 'none' },
+        onClick: () => this.setState({ view: n.key, selectedId: null, editingId: null, cmsPageId: null, cmsSaved: '' }),
+        style: {
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px',
+          background: 'transparent', border: 'none', cursor: 'pointer', textAlign: 'left',
+          padding: '11px var(--space-6)', fontFamily: 'var(--font-sans)', fontSize: 'var(--text-label-md)',
+          letterSpacing: 'var(--tracking-label)', textTransform: 'uppercase',
+          color: active ? 'var(--gold-500)' : 'var(--text-on-dark-muted)',
+          borderLeft: active ? '2px solid var(--gold-500)' : '2px solid transparent'
+        },
+        tabStyle: {
+          background: 'transparent', border: 'none', borderBottom: active ? '2px solid var(--gold-500)' : '2px solid transparent',
+          cursor: 'pointer', padding: '12px 14px', whiteSpace: 'nowrap',
+          fontFamily: 'var(--font-sans)', fontSize: 'var(--text-label-sm)', letterSpacing: 'var(--tracking-label)',
+          textTransform: 'uppercase', color: active ? 'var(--gold-500)' : 'var(--text-on-dark-muted)'
+        }
+      };
+    };
+    v.navGroups = groups.map(g => ({ title: g.title, items: g.items.map(mk) }));
+    v.navItems = groups.reduce((a, g) => a.concat(g.items), []).map(mk);
+
+    v.isReports = st.view === 'reports';
+    v.isOrders = st.view === 'orders';
+    v.isOrderDetail = st.view === 'orderDetail' && !!st.selectedId;
+    v.isCod = st.view === 'cod';
+    v.isProducts = st.view === 'products';
+    v.isProductEdit = st.view === 'productEdit';
+    v.isInventory = st.view === 'inventory';
+    v.isCmsHome = st.view === 'cmsHome';
+    v.isCmsPages = st.view === 'cmsPages';
+    v.isCmsPageEdit = st.view === 'cmsPageEdit';
+    v.isCmsMenus = st.view === 'cmsMenus';
+    v.isCmsContact = st.view === 'cmsContact';
+    v.isCmsSettings = st.view === 'cmsSettings';
+
+    // reports
+    if (v.isReports) {
+      const paid = orders.filter(o => o.status !== 'Cancelled');
+      const revenue = paid.reduce((a, o) => a + o.total, 0);
+      const cod = paid.filter(o => o.payment === 'Cash on Delivery');
+      const codRev = cod.reduce((a, o) => a + o.total, 0);
+      v.kpis = [
+        { label: 'Orders Today', value: String(orders.filter(o => o.today).length), note: 'Placed since 00:00 BST' },
+        { label: 'Revenue', value: this.fmt(revenue).replace('BDT ', '৳'), note: 'Net of cancellations' },
+        { label: 'Average Order', value: this.fmt(paid.length ? revenue / paid.length : 0).replace('BDT ', '৳'), note: 'Across ' + paid.length + ' orders' },
+        { label: 'Awaiting Call', value: String(codCount), note: 'COD orders not yet confirmed' }
+      ];
+      const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+      const series = [285000, 62000, 472000, 0, 610000, 927000, 385000];
+      const max = Math.max.apply(null, series);
+      v.chart = series.map((n, i) => ({
+        day: days[i], short: n ? Math.round(n / 1000) + 'k' : '—',
+        h: Math.max(2, Math.round((n / max) * 108)) + 'px',
+        fill: i === 5 ? 'var(--gold-500)' : 'var(--green-700)'
+      }));
+      const codPct = revenue ? Math.round((codRev / revenue) * 100) : 0;
+      v.split = { codPct: codPct + '%' };
+      v.splitRows = [
+        { label: 'Cash On Delivery', value: cod.length + ' orders — ' + codPct + '%' },
+        { label: 'Prepaid', value: (paid.length - cod.length) + ' orders — ' + (100 - codPct) + '%' }
+      ];
+      const tally = {};
+      orders.forEach(o => o.items.forEach(it => {
+        const k = it.name;
+        tally[k] = tally[k] || { units: 0, revenue: 0, name: it.name, brand: it.brand || '', image: it.image };
+        tally[k].units += it.qty; tally[k].revenue += it.price * it.qty;
+      }));
+      v.topProducts = Object.values(tally).sort((a, b) => b.revenue - a.revenue).slice(0, 4).map(t => ({
+        name: t.name, brand: t.brand, image: t.image,
+        units: t.units + (t.units === 1 ? ' unit' : ' units'), revenue: this.fmt(t.revenue)
+      }));
+    }
+
+    // orders list
+    if (v.isOrders) {
+      const q = st.search.trim().toLowerCase();
+      const rows = orders.filter(o => {
+        if (st.statusFilter !== 'All' && o.status !== st.statusFilter) return false;
+        if (!q) return true;
+        return (o.id + ' ' + o.customer + ' ' + o.phone).toLowerCase().includes(q);
+      });
+      v.statusFilters = ['All', 'Pending', 'Confirmed', 'Packed', 'Shipped', 'Delivered', 'Returned'].map(f => ({
+        label: f, active: st.statusFilter === f, onClick: () => this.setState({ statusFilter: f })
+      }));
+      v.search = st.search;
+      v.setSearch = e => this.setState({ search: e.target.value });
+      v.hasOrderRows = rows.length > 0;
+      v.noOrderRows = rows.length === 0;
+      v.orderRows = rows.map(o => ({
+        id: o.id, customer: o.customer, where: o.intl ? o.city + ', ' + o.country : o.city + ', Bangladesh',
+        payment: o.payment, total: this.fmt(o.total), status: o.status, tone: this.toneFor(o.status), date: o.date,
+        onClick: () => this.setState({ view: 'orderDetail', selectedId: o.id }),
+        rowStyle: {
+          display: 'flex', flexWrap: 'wrap', gap: 'var(--space-5)', alignItems: 'center',
+          justifyContent: 'space-between', padding: '18px 0', borderBottom: '1px solid var(--border-on-dark)', cursor: 'pointer'
+        }
+      }));
+    }
+
+    // order detail
+    if (v.isOrderDetail) {
+      const o = orders.find(x => x.id === st.selectedId);
+      if (o) {
+        const flow = ['Pending', 'Confirmed', 'Packed', 'Shipped', 'Delivered'];
+        const idx = flow.indexOf(o.status);
+        const actions = [];
+        if (idx >= 0 && idx < flow.length - 1) {
+          const next = flow[idx + 1];
+          const blocked = next === 'Shipped' && o.payment === 'Cash on Delivery' && o.codCall !== 'Confirmed';
+          actions.push({
+            label: blocked ? 'Call To Confirm First' : 'Mark ' + next, variant: 'primary',
+            onClick: blocked
+              ? () => this.setState({ view: 'cod' })
+              : () => { this.patch(o.id, { status: next, consignment: next === 'Shipped' ? (o.consignment || this.consign(o)) : o.consignment }); this.logAudit(o.id + ' moved to ' + next); }
+          });
+        }
+        if (o.status === 'Delivered' && !o.returnRequested) {
+          actions.push({ label: 'Log Return Request', variant: 'secondary', onClick: () => this.patch(o.id, { returnRequested: true, returnReason: 'Buyer reports the bracelet sits loose; requests exchange for a 39mm case.' }) });
+        }
+        if (idx >= 0 && idx < 3) actions.push({ label: 'Cancel Order', variant: 'secondary', onClick: () => { this.patch(o.id, { status: 'Cancelled' }); this.logAudit(o.id + ' cancelled'); } });
+
+        const ship = o.shipping || 0;
+        const vat = Math.round(o.total * 0.075 / 1.075);
+        v.detail = {
+          id: o.id, status: o.status, tone: this.toneFor(o.status), placedLabel: 'Placed ' + o.date + ' — ' + o.payment,
+          actions,
+          items: o.items.map(it => ({ name: it.name, meta: (it.brand || '') + ' — Qty ' + it.qty + (it.strap ? ' — ' + it.strap : ''), line: this.fmt(it.price * it.qty) })),
+          totals: [
+            { label: 'Shipping', value: ship ? this.fmt(ship) : 'Free', labelStyle: this.lbl(), valueStyle: this.val() },
+            { label: 'VAT 7.5% included', value: this.fmt(vat), labelStyle: this.lbl(), valueStyle: this.val() },
+            { label: 'Total', value: this.fmt(o.total), labelStyle: this.lbl(true), valueStyle: this.val(true) }
+          ],
+          customerRows: [
+            { label: 'Name', value: o.customer },
+            { label: 'Phone', value: o.phone },
+            { label: 'Email', value: o.email || 'Guest checkout' },
+            { label: 'Account', value: o.guest ? 'Guest' : 'Registered' },
+            { label: 'Address', value: o.address }
+          ],
+          notifications: o.notifications || [],
+          shipTitle: o.intl ? 'International Fulfilment' : 'Domestic Fulfilment',
+          shipRows: o.intl
+            ? [
+              { label: 'Carrier', value: o.courier || 'DHL Express' },
+              { label: 'Zone', value: o.zone || 'Zone C — Europe & North America' },
+              { label: 'HS Code', value: '9101.21.00 — wrist-watches, automatic' },
+              { label: 'Commercial Invoice', value: o.consignment ? 'Generated' : 'Pending booking' }
+            ]
+            : [
+              { label: 'Courier', value: o.courier || (st.courierPick[o.id] || 'Not booked') },
+              { label: 'Consignment', value: o.consignment || '—' },
+              { label: 'Zone', value: o.city === 'Dhaka' ? 'Inside Dhaka — 1–2 days' : 'Outside Dhaka — 3–5 days' }
+            ],
+          needsCourier: !o.consignment && (o.status === 'Packed' || o.status === 'Confirmed'),
+          courierHint: o.intl ? 'Book with DHL and generate the commercial invoice and HS-code declaration.' : 'Create a consignment with a domestic courier. Status syncs back from their API.',
+          couriers: (o.intl ? ['DHL Express', 'FedEx'] : ['Pathao', 'Steadfast', 'RedX']).map(c => ({
+            label: c, active: (st.courierPick[o.id] || o.courier) === c,
+            onClick: () => this.setState(s => ({ courierPick: Object.assign({}, s.courierPick, { [o.id]: c }) }))
+          })),
+          bookLabel: o.intl ? 'Book Shipment And Generate Invoice' : 'Create Consignment',
+          book: () => {
+            const c = st.courierPick[o.id] || (o.intl ? 'DHL Express' : 'Pathao');
+            const cn = this.consign(o);
+            this.patch(o.id, { courier: c, consignment: cn });
+            this.logAudit(o.id + ' booked with ' + c + ' — ' + cn);
+          },
+          hasConsignment: !!o.consignment,
+          printLabel: () => window.print(),
+          returnRequested: !!o.returnRequested,
+          returnReason: o.returnReason || '',
+          approveReturn: () => { this.patch(o.id, { status: 'Returned', returnRequested: false }); this.logAudit(o.id + ' return approved, refund issued'); },
+          declineReturn: () => this.patch(o.id, { returnRequested: false }),
+          refundRoute: o.payment === 'Cash on Delivery'
+            ? 'COD refunds are paid out by bKash send-money to the buyer\u2019s number, logged against this order.'
+            : 'Refund is issued to the original ' + o.payment + ' transaction and reconciled in the daily settlement report.'
+        };
+      }
+      v.backToOrders = () => this.setState({ view: 'orders', selectedId: null });
+    }
+
+    // COD queue
+    if (v.isCod) {
+      const queue = orders.filter(o => o.payment === 'Cash on Delivery' && !o.codCall);
+      v.hasCodQueue = queue.length > 0;
+      v.noCodQueue = queue.length === 0;
+      v.codQueue = queue.map(o => ({
+        id: o.id, customer: o.customer, phone: o.phone, where: o.city, total: this.fmt(o.total),
+        advance: this.advanceFor(o) || '',
+        history: o.refusals ? o.refusals + ' previous refusal(s) on this number — confirm carefully before release.' : 'No previous refusals on this number.',
+        outcomes: [
+          { label: 'Confirmed', variant: 'primary', onClick: () => { this.patch(o.id, { codCall: 'Confirmed', status: o.status === 'Pending' ? 'Confirmed' : o.status }); this.logAudit(o.id + ' COD call: confirmed'); } },
+          { label: 'No Answer', variant: 'secondary', onClick: () => { this.patch(o.id, { codCall: 'No answer' }); this.logAudit(o.id + ' COD call: no answer, retry scheduled'); } },
+          { label: 'Refused', variant: 'secondary', onClick: () => { this.patch(o.id, { codCall: 'Refused', status: 'Cancelled', refusals: (o.refusals || 0) + 1 }); this.logAudit(o.id + ' COD call: refused, order cancelled'); } }
+        ]
+      }));
+    }
+
+    // products
+    if (v.isProducts) {
+      v.newProduct = () => this.setState({ view: 'productEdit', editingId: 'new', draftSaved: false, draft: { name: '', brand: '', price: '', compare: '', stock: '', sku: '', diameter: '', warranty: '24 months', movement: 'Automatic' } });
+      v.productRows = products.map(p => ({
+        image: p.image, brand: p.brand, name: p.name, sku: p.sku, price: this.fmt(p.price),
+        stockLabel: p.archived ? 'Archived' : (p.stock > 0 ? p.stock + ' in stock' : 'Out of stock'),
+        stockStyle: {
+          fontFamily: 'var(--font-sans)', fontSize: 'var(--text-label-sm)', letterSpacing: 'var(--tracking-label)',
+          textTransform: 'uppercase', flex: '0 0 auto', minWidth: '104px',
+          color: p.archived ? 'var(--text-on-dark-faint)' : (p.stock > 0 ? 'var(--gold-300)' : 'var(--text-on-dark-faint)')
+        },
+        onEdit: () => this.setState({ view: 'productEdit', editingId: p.id, draftSaved: false, draft: { name: p.name, brand: p.brand, price: String(p.price), compare: p.originalPrice ? String(p.originalPrice) : '', stock: String(p.stock), sku: p.sku, diameter: p.specs.diameter, warranty: p.specs.warranty, movement: p.movement } }),
+        archiveLabel: p.archived ? 'Restore' : 'Archive',
+        onArchive: () => { if (this.props.onProductPatch) this.props.onProductPatch(p.id, { archived: !p.archived }); this.logAudit(p.name + (p.archived ? ' restored' : ' archived')); }
+      }));
+    }
+
+    if (v.isProductEdit) {
+      const d = st.draft || {};
+      const set = k => e => this.setState(s => ({ draft: Object.assign({}, s.draft, { [k]: e.target.value }), draftSaved: false, draftError: '' }));
+      const setNum = k => e => this.setState(s => ({ draft: Object.assign({}, s.draft, { [k]: e.target.value.replace(/[^0-9]/g, '') }), draftSaved: false, draftError: '' }));
+      const src = (products.find(p => p.id === st.editingId) || {}).image || 'assets/collection-case.jpg';
+      v.movementOptions = ['Automatic', 'Mechanical', 'Quartz', 'Solar'];
+      v.draft = {
+        eyebrow: st.editingId === 'new' ? 'New Listing' : 'Editing — ' + (d.brand || ''),
+        heading: st.editingId === 'new' ? 'Add Product' : (d.name || 'Product'),
+        movement: d.movement, setMovement: e => this.setState(s => ({ draft: Object.assign({}, s.draft, { movement: e.target.value }) })),
+        fields: [
+          { label: 'Product Name', placeholder: 'Nautilus Automatic', value: d.name || '', onChange: set('name') },
+          { label: 'Brand', placeholder: 'Patek Philippe', value: d.brand || '', onChange: set('brand') },
+          { label: 'Price BDT', placeholder: '385000', value: d.price || '', onChange: setNum('price') },
+          { label: 'Compare-At Price', placeholder: 'Optional', value: d.compare || '', onChange: setNum('compare') },
+          { label: 'Stock', placeholder: '2', value: d.stock || '', onChange: setNum('stock') },
+          { label: 'SKU', placeholder: 'PWBD-PP-5711', value: d.sku || '', onChange: set('sku') },
+          { label: 'Case Diameter', placeholder: '40 mm', value: d.diameter || '', onChange: set('diameter') },
+          { label: 'Warranty Term', placeholder: '24 months', value: d.warranty || '', onChange: set('warranty') }
+        ],
+        media: [
+          { src, label: 'Primary', opacity: 1 },
+          { src, label: 'Dial', opacity: 0.85 },
+          { src, label: 'Profile', opacity: 0.7 }
+        ],
+        saved: st.draftSaved,
+        error: st.draftError || '',
+        save: () => {
+          const bad = [];
+          if (!(d.name || '').trim()) bad.push('name');
+          if (!(d.brand || '').trim()) bad.push('brand');
+          if (!d.price || Number(d.price) <= 0) bad.push('price');
+          if (d.stock === '' || d.stock == null) bad.push('stock');
+          if (bad.length) { this.setState({ draftError: 'A product name and brand are required; price must be a number above zero and stock a whole number.' }); return; }
+          if (this.props.onProductPatch && st.editingId !== 'new') {
+            this.props.onProductPatch(st.editingId, {
+              name: d.name, brand: d.brand, price: Number(d.price) || 0,
+              originalPrice: d.compare ? Number(d.compare) : null, stock: Number(d.stock) || 0, movement: d.movement
+            });
+          }
+          this.setState({ draftSaved: true, draftError: '' });
+          this.logAudit((d.name || 'Product') + ' saved from the product editor');
+        }
+      };
+      v.backToProducts = () => this.setState({ view: 'products', editingId: null, draftSaved: false });
+    }
+
+    if (v.isInventory) {
+      v.stockRows = products.map(p => ({
+        name: p.name, sku: p.sku, stock: String(p.stock),
+        inc: () => { if (this.props.onProductPatch) this.props.onProductPatch(p.id, { stock: p.stock + 1 }); this.logAudit(p.name + ' stock ' + p.stock + ' → ' + (p.stock + 1)); },
+        dec: () => { if (p.stock > 0) { if (this.props.onProductPatch) this.props.onProductPatch(p.id, { stock: p.stock - 1 }); this.logAudit(p.name + ' stock ' + p.stock + ' → ' + (p.stock - 1)); } }
+      }));
+      v.audit = st.audit;
+      v.hasAudit = st.audit.length > 0;
+      v.noAudit = st.audit.length === 0;
+    }
+
+    this.cmsVals(v);
+    return v;
+  }
+
+  lbl(strong) {
+    return {
+      fontFamily: 'var(--font-sans)', fontSize: 'var(--text-label-sm)', letterSpacing: 'var(--tracking-label)',
+      textTransform: 'uppercase', color: strong ? 'var(--text-on-dark)' : 'var(--text-on-dark-faint)'
+    };
+  }
+  val(strong) {
+    return { fontFamily: 'var(--font-serif)', fontSize: strong ? 'var(--text-body-xl)' : 'var(--text-body-md)', color: strong ? 'var(--text-on-dark)' : 'var(--text-on-dark-muted)' };
+  }
+  consign(o) { return (o.intl ? 'DHL-' : 'CN-') + Math.floor(100000 + Math.random() * 899999); }
+}
+
+</script>
+</body>
+</html>
